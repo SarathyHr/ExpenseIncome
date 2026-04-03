@@ -56,7 +56,7 @@
             color: var(--text-primary);
             overflow: hidden; 
             transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
-            -webkit-tap-highlight-color: transparent; /* Better mobile touch feel */
+            -webkit-tap-highlight-color: transparent;
         }
 
         /* Glassmorphism Utilities */
@@ -128,19 +128,24 @@
         .gradient-text { background: linear-gradient(135deg, #0054A6, #38bdf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .dark .gradient-text { background: linear-gradient(135deg, #38bdf8, #7dd3fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* Professional Data Table for Transactions */
-        .data-table-container { background: var(--bg-secondary); border-radius: 1rem; border: 1px solid var(--border-color); overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.03); max-height: calc(100vh - 260px); overflow-y: auto; }
-        .data-table { width: 100%; border-collapse: collapse; min-width: 600px; /* Force scroll on very small screens */ }
+        /* Professional Data Table for Transactions - Mobile Optimized */
+        .data-table-container { background: var(--bg-secondary); border-radius: 1rem; border: 1px solid var(--border-color); overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.03); max-height: calc(100vh - 240px); overflow-y: auto; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        .data-table { width: 100%; border-collapse: collapse; min-width: 600px; }
         
-        .data-table th { background: #0f172a; color: #ffffff; font-size: 0.7rem; font-weight: 900; text-transform: uppercase; text-align: left; padding: 14px 12px; letter-spacing: 0.05em; border: 1px solid rgba(255, 255, 255, 0.1); position: sticky; top: 0; z-index: 10; cursor: pointer; transition: background 0.2s; }
-        .data-table th:hover { background: #1e293b; }
-        .dark .data-table th { background: #1e293b; color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.05); }
-        .dark .data-table th:hover { background: #334155; }
+        /* EXACT BLUE COLOR FROM IMAGE FOR TABLE HEADER */
+        .data-table th { background: #0B192C; color: #ffffff; font-size: 0.7rem; font-weight: 900; text-transform: uppercase; text-align: left; padding: 14px 12px; letter-spacing: 0.05em; border: 1px solid rgba(255, 255, 255, 0.1); position: sticky; top: 0; z-index: 10; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
+        .data-table th:hover { background: #132746; }
+        .dark .data-table th { background: #0B192C; color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.05); }
+        .dark .data-table th:hover { background: #132746; }
         
-        .data-table td { padding: 12px; font-size: 0.8rem; border: 1px solid var(--border-color); vertical-align: middle; transition: background-color 0.2s; }
+        .data-table td { padding: 10px 12px; font-size: 0.75rem; border: 1px solid var(--border-color); vertical-align: middle; transition: background-color 0.2s; white-space: nowrap; }
         .data-table tr:last-child td { border-bottom: none; }
         .data-table tr:hover td { background: rgba(0, 84, 166, 0.03); }
         .dark .data-table tr:hover td { background: rgba(56, 189, 248, 0.03); }
+        @media (min-width: 768px) {
+            .data-table td { padding: 16px; font-size: 0.85rem; }
+            .data-table th { padding: 18px 16px; font-size: 0.75rem; }
+        }
 
         .status-badge-md { padding: 4px 8px; border-radius: 6px; font-size: 0.65rem; font-weight: 900; display: inline-block; text-transform: uppercase; letter-spacing: 0.05em; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         .badge-income { background: #ecfdf5; color: #047857; border: 1px solid #10b98140; }
@@ -164,6 +169,21 @@
             transition: all 0.3s ease;
         }
 
+        /* Challenge Grid Styles */
+        .challenge-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+        @media (min-width: 768px) { .challenge-grid { grid-template-columns: repeat(10, 1fr); gap: 12px; } }
+        .day-cell { aspect-ratio: 1; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1rem; transition: all 0.3s ease; border: 2px solid transparent; position: relative; overflow: hidden; }
+        
+        .day-locked { background: var(--bg-primary); color: var(--text-secondary); opacity: 0.5; border-color: var(--border-color); }
+        .day-completed { background: #10b981; color: white; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3); transform: scale(1.05); }
+        .day-current { background: #4f46e5; color: white; box-shadow: 0 0 15px rgba(79, 70, 229, 0.5); border-color: #818cf8; animation: pulse-ring 2s infinite; }
+        
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(79, 70, 229, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
+        }
+
         /* Print Styles */
         @media print {
             body { background: white !important; color: black !important; overflow: auto !important; }
@@ -171,9 +191,9 @@
             #appLayout, main { display: block !important; height: auto !important; overflow: visible !important; }
             .modern-card, .glass-panel { box-shadow: none !important; border: 1px solid #ccc !important; break-inside: avoid; }
             .tab-content { display: block !important; opacity: 1 !important; padding: 0 !important; }
-            #tab-transactions, #tab-calendar, #tab-settings { display: none !important; }
+            #tab-transactions, #tab-calendar, #tab-settings, #tab-challenge { display: none !important; }
             canvas { max-width: 100% !important; height: auto !important; }
-            .privacy-mode .amount-text { filter: none !important; opacity: 1 !important; } /* Unblur for print */
+            .privacy-mode .amount-text { filter: none !important; opacity: 1 !important; } 
         }
     </style>
 </head>
@@ -189,11 +209,12 @@
         <div class="w-full max-w-[400px] animate-up relative z-10">
             <div class="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-2xl shadow-blue-900/10 dark:shadow-black/50 border border-slate-100 dark:border-slate-700">
                 <div class="mb-8 text-center">
-                    <img src="Sarathy2.png.png" alt="SR Logo" class="h-20 w-auto object-contain mx-auto mb-4 drop-shadow-md dark:invert transition-all duration-300 rounded-2xl bg-white/90 p-2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <!-- ENHANCED LOGO FOR MOBILE -->
+                    <img src="WhatsApp%20Image%202026-03-30%20at%207.10.19%20AM.jpeg" alt="SR Logo" class="h-20 md:h-24 w-auto object-contain mx-auto mb-4 drop-shadow-sm dark:invert transition-all duration-300 rounded-2xl mix-blend-multiply dark:mix-blend-normal bg-transparent dark:bg-white/90 p-1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                     <div class="hidden w-16 h-16 bg-gradient-to-tr from-sarathy-blue to-blue-400 rounded-2xl mx-auto flex items-center justify-center text-white text-2xl font-black mb-4 shadow-lg shadow-blue-500/30">SR</div>
                     
                     <h2 class="text-xl font-black text-slate-800 dark:text-white tracking-tight mt-2">Expense Tracker</h2>
-                    <p class="text-[10px] font-bold text-slate-500 dark:text-slate-400 mt-2 uppercase tracking-widest">Financial Management Pro</p>
+                    <p class="text-[10px] md:text-xs font-bold text-slate-500 dark:text-slate-400 mt-2 uppercase tracking-widest">Financial Management Pro</p>
                 </div>
                 
                 <div id="loginError" class="hidden bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 p-3 rounded-xl text-xs font-black mb-6 border border-red-100 dark:border-red-900/30 flex items-center animate-up">
@@ -202,28 +223,28 @@
 
                 <form id="loginForm" class="space-y-4">
                     <div class="group">
-                        <label class="text-[9px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1.5 block transition-colors group-focus-within:text-sarathy-blue">User ID</label>
+                        <label class="text-[9px] md:text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1.5 block transition-colors group-focus-within:text-sarathy-blue">User ID</label>
                         <div class="relative">
                             <i class="fas fa-user absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 transition-colors group-focus-within:text-sarathy-blue text-sm"></i>
-                            <input type="text" id="username" required value="ADMIN" class="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl font-bold text-slate-800 dark:text-white focus:border-sarathy-blue focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900/30 outline-none transition-all text-sm">
+                            <input type="text" id="username" required value="ADMIN" class="w-full pl-10 pr-4 py-3 md:py-3.5 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl font-bold text-slate-800 dark:text-white focus:border-sarathy-blue focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900/30 outline-none transition-all text-sm">
                         </div>
                     </div>
                     <div class="group">
-                        <label class="text-[9px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1.5 block transition-colors group-focus-within:text-sarathy-blue">Access PIN</label>
+                        <label class="text-[9px] md:text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1.5 block transition-colors group-focus-within:text-sarathy-blue">Access PIN</label>
                         <div class="relative">
                             <i class="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 transition-colors group-focus-within:text-sarathy-blue text-sm"></i>
-                            <input type="password" id="password" required value="SARATHY@26" class="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl font-bold text-slate-800 dark:text-white focus:border-sarathy-blue focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900/30 outline-none transition-all text-sm">
+                            <input type="password" id="password" required value="SARATHY@26" class="w-full pl-10 pr-4 py-3 md:py-3.5 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl font-bold text-slate-800 dark:text-white focus:border-sarathy-blue focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900/30 outline-none transition-all text-sm">
                         </div>
                     </div>
                     
-                    <button type="submit" class="w-full bg-[#0054A6] hover:bg-[#004080] text-white font-black py-3.5 rounded-xl shadow-xl shadow-blue-600/20 active:scale-[0.98] transition-all duration-300 text-[11px] tracking-widest mt-2 uppercase flex justify-center items-center gap-2">
+                    <button type="submit" class="w-full bg-[#0054A6] hover:bg-[#004080] text-white font-black py-3.5 md:py-4 rounded-xl shadow-xl shadow-blue-600/20 active:scale-[0.98] transition-all duration-300 text-[11px] tracking-widest mt-2 uppercase flex justify-center items-center gap-2">
                         <span>Access Dashboard</span> <i class="fas fa-arrow-right ml-1 transition-transform group-hover:translate-x-1"></i>
                     </button>
                 </form>
 
                 <div class="mt-5 pt-5 border-t border-slate-100 dark:border-slate-700">
-                    <button type="button" onclick="handleBiometricLogin()" id="biometricBtn" class="w-full flex items-center justify-center p-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-emerald-50 hover:border-emerald-200 dark:hover:bg-emerald-900/20 dark:hover:border-emerald-800 transition-all duration-300 text-[10px] font-black uppercase tracking-widest group shadow-sm active:scale-[0.98]">
-                        <i id="bioIcon" class="fas fa-fingerprint text-xl text-slate-400 group-hover:text-sarathy-blue mr-2 transition-colors"></i> 
+                    <button type="button" onclick="handleBiometricLogin()" id="biometricBtn" class="w-full flex items-center justify-center p-3 md:p-4 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-emerald-50 hover:border-emerald-200 dark:hover:bg-emerald-900/20 dark:hover:border-emerald-800 transition-all duration-300 text-[10px] md:text-xs font-black uppercase tracking-widest group shadow-sm active:scale-[0.98]">
+                        <i id="bioIcon" class="fas fa-fingerprint text-xl md:text-2xl text-slate-400 group-hover:text-emerald-500 mr-2 md:mr-3 transition-colors"></i> 
                         <span id="bioText">Biometric Login</span>
                     </button>
                 </div>
@@ -235,31 +256,38 @@
     <div id="appLayout" class="hidden h-screen w-full flex bg-[var(--bg-primary)] relative">
         
         <!-- SIDEBAR (DESKTOP ONLY) -->
-        <aside id="sidebar" class="hidden md:flex inset-y-0 left-0 w-[var(--sidebar-width)] md:w-[85px] hover:md:w-[var(--sidebar-width)] h-screen glass-panel flex-col shrink-0 z-[100] border-r border-[var(--border-color)] transition-all duration-300 ease-in-out bg-[var(--bg-secondary)] md:bg-transparent overflow-x-hidden group shadow-2xl md:shadow-none relative">
+        <aside id="sidebar" class="hidden md:flex inset-y-0 left-0 w-[var(--sidebar-width)] h-screen glass-panel flex-col shrink-0 z-[100] border-r border-[var(--border-color)] transition-all duration-300 ease-in-out bg-[var(--bg-secondary)] md:bg-transparent overflow-x-hidden shadow-none relative">
             <!-- Header / Logo area -->
             <div class="h-20 px-4 flex items-center gap-3 border-b border-[var(--border-color)] shrink-0 overflow-hidden">
-                <img src="Sarathy2.png.png" alt="SR Logo" class="h-10 w-auto object-contain shrink-0 dark:invert rounded-lg shadow-sm bg-white/90 p-1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="hidden w-10 h-10 bg-gradient-to-tr from-sarathy-blue to-sky-400 rounded-xl flex items-center justify-center text-white text-base font-black shrink-0 shadow-md">SR</div>
-                <div class="transition-opacity duration-300 opacity-0 group-hover:opacity-100 whitespace-nowrap overflow-hidden flex-1 ml-1">
-                    <h1 class="font-black text-sm tracking-tight gradient-text">EXPENSE PRO</h1>
+                <img src="WhatsApp%20Image%202026-03-30%20at%207.10.19%20AM.jpeg" alt="SR Logo" class="h-12 w-auto object-contain shrink-0 dark:invert rounded-lg mix-blend-multiply dark:mix-blend-normal bg-transparent dark:bg-white/90 p-1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="hidden w-12 h-12 bg-gradient-to-tr from-sarathy-blue to-sky-400 rounded-xl flex items-center justify-center text-white text-lg font-black shrink-0 shadow-md">SR</div>
+                
+                <div class="transition-opacity duration-300 whitespace-nowrap overflow-hidden flex-1 ml-1">
+                    <h1 class="font-black text-sm tracking-tight gradient-text uppercase">EXPENSE PRO</h1>
                 </div>
             </div>
             <!-- Nav Links -->
             <div class="flex flex-col px-3 py-6 flex-1 custom-scroll overflow-y-auto overflow-x-hidden">
-                <div class="text-[10px] font-black text-sarathy-blue dark:text-sky-400 uppercase tracking-widest mb-3 px-2 transition-opacity duration-300 opacity-0 group-hover:opacity-100 whitespace-nowrap overflow-hidden flex items-center gap-2">
+                <div class="text-[10px] font-black text-sarathy-blue dark:text-sky-400 uppercase tracking-widest mb-3 px-2 whitespace-nowrap overflow-hidden flex items-center gap-2">
                     <div class="w-1.5 h-1.5 bg-sarathy-red rounded-full"></div> MENU
                 </div>
-                <a onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-link active"><i class="fas fa-chart-pie w-6 text-center shrink-0 text-lg"></i> <span class="transition-opacity duration-300 opacity-0 group-hover:opacity-100 whitespace-nowrap font-bold tracking-wide">Dashboard</span></a>
-                <a onclick="switchTab('transactions')" id="nav-transactions" class="nav-link"><i class="fas fa-list-alt w-6 text-center shrink-0 text-lg"></i> <span class="transition-opacity duration-300 opacity-0 group-hover:opacity-100 whitespace-nowrap font-bold tracking-wide">Transactions</span></a>
-                <a onclick="switchTab('calendar')" id="nav-calendar" class="nav-link"><i class="fas fa-calendar-alt w-6 text-center shrink-0 text-lg"></i> <span class="transition-opacity duration-300 opacity-0 group-hover:opacity-100 whitespace-nowrap font-bold tracking-wide">Calendar</span></a>
-                <a onclick="switchTab('analytics')" id="nav-analytics" class="nav-link"><i class="fas fa-chart-bar w-6 text-center shrink-0 text-lg"></i> <span class="transition-opacity duration-300 opacity-0 group-hover:opacity-100 whitespace-nowrap font-bold tracking-wide">Reports</span></a>
+                <a onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-link active"><i class="fas fa-chart-pie w-6 text-center shrink-0 text-lg"></i> <span class="whitespace-nowrap font-bold tracking-wide">Dashboard</span></a>
+                <a onclick="switchTab('transactions')" id="nav-transactions" class="nav-link"><i class="fas fa-list-alt w-6 text-center shrink-0 text-lg"></i> <span class="whitespace-nowrap font-bold tracking-wide">Transactions</span></a>
+                <a onclick="switchTab('calendar')" id="nav-calendar" class="nav-link"><i class="fas fa-calendar-alt w-6 text-center shrink-0 text-lg"></i> <span class="whitespace-nowrap font-bold tracking-wide">Calendar</span></a>
+                <a onclick="switchTab('analytics')" id="nav-analytics" class="nav-link"><i class="fas fa-chart-bar w-6 text-center shrink-0 text-lg"></i> <span class="whitespace-nowrap font-bold tracking-wide">Reports</span></a>
                 
-                <div class="text-[10px] font-black text-sarathy-blue dark:text-sky-400 uppercase tracking-widest mb-3 mt-10 px-2 transition-opacity duration-300 opacity-0 group-hover:opacity-100 whitespace-nowrap overflow-hidden flex items-center gap-2">
+                <!-- NEW: Challenge Tab -->
+                <div class="text-[10px] font-black text-indigo-500 dark:text-indigo-400 uppercase tracking-widest mb-3 mt-6 px-2 whitespace-nowrap overflow-hidden flex items-center gap-2">
+                    <div class="w-1.5 h-1.5 bg-indigo-500 rounded-full shadow-sm"></div> DISCIPLINE
+                </div>
+                <a onclick="switchTab('challenge')" id="nav-challenge" class="nav-link"><i class="fas fa-shield-alt w-6 text-center shrink-0 text-lg"></i> <span class="whitespace-nowrap font-bold tracking-wide">90 Days Challenge</span></a>
+                
+                <div class="text-[10px] font-black text-sarathy-blue dark:text-sky-400 uppercase tracking-widest mb-3 mt-6 px-2 whitespace-nowrap overflow-hidden flex items-center gap-2">
                     <div class="w-1.5 h-1.5 bg-sarathy-red rounded-full shadow-sm"></div> MANAGEMENT
                 </div>
-                <a onclick="openBudgetModal()" class="nav-link"><i class="fas fa-bullseye w-6 text-center shrink-0 text-lg"></i> <span class="transition-opacity duration-300 opacity-0 group-hover:opacity-100 whitespace-nowrap font-bold tracking-wide">Budgets</span></a>
-                <a onclick="exportToExcel()" class="nav-link text-emerald-600 dark:text-emerald-400 hover:text-emerald-700"><i class="fas fa-file-excel w-6 text-center shrink-0 text-lg"></i> <span class="transition-opacity duration-300 opacity-0 group-hover:opacity-100 whitespace-nowrap font-bold tracking-wide">Export Excel</span></a>
-                <a onclick="switchTab('settings')" id="nav-settings" class="nav-link text-slate-600 dark:text-slate-400 hover:text-sarathy-blue mt-4"><i class="fas fa-cog w-6 text-center shrink-0 text-lg"></i> <span class="transition-opacity duration-300 opacity-0 group-hover:opacity-100 whitespace-nowrap font-bold tracking-wide">Settings</span></a>
+                <a onclick="openBudgetModal()" class="nav-link"><i class="fas fa-bullseye w-6 text-center shrink-0 text-lg"></i> <span class="whitespace-nowrap font-bold tracking-wide">Budgets</span></a>
+                <a onclick="exportToExcel()" class="nav-link text-emerald-600 dark:text-emerald-400 hover:text-emerald-700"><i class="fas fa-file-excel w-6 text-center shrink-0 text-lg"></i> <span class="whitespace-nowrap font-bold tracking-wide">Export Excel</span></a>
+                <a onclick="switchTab('settings')" id="nav-settings" class="nav-link text-slate-600 dark:text-slate-400 hover:text-sarathy-blue mt-2"><i class="fas fa-cog w-6 text-center shrink-0 text-lg"></i> <span class="whitespace-nowrap font-bold tracking-wide">Settings</span></a>
                 <input type="file" id="importFile" accept=".json" class="hidden" onchange="importBackup(event)">
             </div>
         </aside>
@@ -272,7 +300,7 @@
                 <div class="flex items-center gap-3">
                     <!-- Only show App Title/Logo on Mobile Top left -->
                     <div class="md:hidden flex items-center gap-2">
-                        <div class="w-8 h-8 bg-gradient-to-tr from-sarathy-blue to-sky-400 rounded-lg flex items-center justify-center text-white text-xs font-black shrink-0 shadow-md">SR</div>
+                        <img src="WhatsApp%20Image%202026-03-30%20at%207.10.19%20AM.jpeg" alt="SR Logo" class="h-8 w-auto object-contain shrink-0 dark:invert rounded-lg shadow-sm mix-blend-multiply dark:mix-blend-normal bg-transparent dark:bg-white/90 p-0.5" onerror="this.style.display='none';">
                         <h1 class="font-black text-sm tracking-tight gradient-text uppercase">Expense Pro</h1>
                     </div>
                     <div class="hidden md:block">
@@ -332,6 +360,21 @@
                             <i class="fas fa-calendar-day hidden sm:block"></i> <span id="dashboardDateRange" class="truncate"></span>
                         </div>
                     </div>
+                    
+                    <!-- NEW: MOBILE WIDGET FOR 90 DAYS CHALLENGE -->
+                    <div class="md:hidden modern-card p-4 rounded-xl bg-gradient-to-r from-indigo-900 to-slate-800 text-white relative overflow-hidden cursor-pointer shadow-lg animate-up border-none" onclick="switchTab('challenge')">
+                        <i class="fas fa-shield-alt absolute -right-2 -bottom-2 text-[5rem] opacity-20 transform -rotate-12"></i>
+                        <div class="relative z-10 flex justify-between items-center">
+                            <div>
+                                <h3 class="font-black text-[11px] text-indigo-300 tracking-widest uppercase mb-0.5"><i class="fas fa-fire mr-1"></i> 90 Days Challenge</h3>
+                                <p class="text-xs font-bold text-white" id="mobChallengeStatus">Stay Strong. Build Discipline.</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-2xl font-black text-white" id="mobChallengeDays">0</span>
+                                <span class="text-[8px] font-bold text-indigo-300 uppercase block -mt-1">/90 Days</span>
+                            </div>
+                        </div>
+                    </div>
 
                     <!-- Welcome & Smart Insights -->
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 md:gap-6 animate-up">
@@ -355,7 +398,7 @@
                             </div>
                         </div>
 
-                        <!-- NEW: Financial Score & Actions -->
+                        <!-- Financial Score & Actions -->
                         <div class="lg:col-span-1 flex flex-col gap-4 no-print hidden md:flex">
                             <!-- Score Card -->
                             <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-[var(--border-color)] shadow-md flex items-center justify-between">
@@ -500,7 +543,7 @@
                         
                         <!-- Mini Summary for Filtered View -->
                         <div class="flex flex-col sm:flex-row flex-wrap gap-2 md:gap-6 pt-3 md:pt-4 border-t border-[var(--border-color)] mt-3 md:mt-4 items-start sm:items-center justify-between">
-                            <div class="text-[9px] md:text-xs font-black tracking-widest uppercase text-slate-400 bg-slate-100 dark:bg-slate-800 px-3 py-1 md:py-1.5 rounded-lg border border-[var(--border-color)]"><i class="fas fa-chart-line mr-1"></i> Filtered Totals</div>
+                            <div class="text-[9px] md:text-xs font-black tracking-widest uppercase text-slate-400 bg-slate-100 dark:bg-slate-800 px-3 py-1 md:py-1.5 rounded-lg border border-[var(--border-color)]"><i class="fas fa-chart-line mr-1"></i> Filtered View Totals</div>
                             <div class="flex gap-4 md:gap-6 w-full sm:w-auto justify-between sm:justify-start bg-[var(--bg-secondary)] p-2 sm:p-0 rounded-lg border border-[var(--border-color)] sm:border-none">
                                 <div class="text-[11px] md:text-sm font-black tracking-widest uppercase text-emerald-600 flex items-center gap-1 md:gap-2"><div class="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-emerald-500 animate-pulse"></div> IN: <span id="filteredIncome" class="amount-text">₹0</span></div>
                                 <div class="text-[11px] md:text-sm font-black tracking-widest uppercase text-red-600 flex items-center gap-1 md:gap-2"><div class="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-red-500 animate-pulse"></div> OUT: <span id="filteredExpense" class="amount-text">₹0</span></div>
@@ -516,11 +559,11 @@
                                     <thead>
                                         <tr>
                                             <th class="w-10 md:w-12 text-center whitespace-nowrap" onclick="toggleSort('date')">DATE <i class="fas fa-sort ml-1 text-white/50 text-[10px]"></i></th>
-                                            <th>Transaction Details</th>
-                                            <th>Category</th>
-                                            <th class="hidden sm:table-cell">Method</th>
+                                            <th>TRANSACTION DETAILS</th>
+                                            <th>CATEGORY</th>
+                                            <th class="hidden sm:table-cell">METHOD</th>
                                             <th class="text-right whitespace-nowrap" onclick="toggleSort('amount')">AMOUNT <i class="fas fa-sort ml-1 text-white/50 text-[10px]"></i></th>
-                                            <th class="text-center w-16 md:w-24 no-print">Actions</th>
+                                            <th class="text-center w-16 md:w-24 no-print">ACTIONS</th>
                                         </tr>
                                     </thead>
                                     <tbody id="transactionsTableBody" class="divide-y divide-[var(--border-color)]">
@@ -599,6 +642,65 @@
                         <div class="modern-card p-4 md:p-8 flex flex-col items-center border-t-4 border-t-purple-500 shadow-sm md:shadow-lg hover:shadow-xl lg:col-span-2 animate-up rounded-xl md:rounded-2xl" style="animation-delay: 0.2s;">
                             <h3 class="font-black text-[11px] md:text-base uppercase tracking-widest text-[var(--text-primary)] mb-4 md:mb-6 w-full border-b border-[var(--border-color)] pb-3 md:pb-4 flex items-center gap-2"><i class="fas fa-credit-card text-purple-500"></i> Payment Methods Breakdown</h3>
                             <div class="w-full h-[200px] md:h-[320px] relative"><canvas id="methodChart"></canvas></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NEW: TAB 6: CHALLENGE -->
+                <div id="tab-challenge" class="tab-content custom-scroll p-4 md:p-8 max-w-5xl mx-auto">
+                    <div class="mb-4 md:mb-6 animate-up flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+                        <div>
+                            <h2 class="text-2xl md:text-3xl font-black uppercase text-[var(--text-primary)] tracking-tight text-indigo-600 dark:text-indigo-400"><i class="fas fa-shield-alt mr-2"></i> 90 Days Challenge</h2>
+                            <p class="text-[var(--text-secondary)] text-[10px] md:text-sm font-bold mt-1 md:mt-2 uppercase tracking-widest">Build Discipline. Track Your Streak.</p>
+                        </div>
+                        <button onclick="resetChallenge()" class="px-5 py-2.5 bg-white dark:bg-slate-800 border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white rounded-xl font-black text-[10px] md:text-xs uppercase tracking-widest shadow-md transition-all active:scale-95 flex items-center justify-center gap-2 shrink-0">
+                            <i class="fas fa-undo"></i> Relapse / Reset
+                        </button>
+                    </div>
+
+                    <!-- Challenge Stats -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 md:mb-8 animate-up" style="animation-delay: 0.1s;">
+                        <div class="modern-card p-4 md:p-6 text-center border-t-4 border-indigo-500">
+                            <span class="text-[9px] md:text-[10px] uppercase tracking-widest font-black text-slate-400 block mb-1">Current Streak</span>
+                            <h4 class="text-3xl md:text-4xl font-black text-indigo-500" id="chCurrentDays">0</h4>
+                            <span class="text-[8px] md:text-[9px] font-bold text-slate-500 uppercase mt-1 block">Days</span>
+                        </div>
+                        <div class="modern-card p-4 md:p-6 text-center border-t-4 border-amber-500">
+                            <span class="text-[9px] md:text-[10px] uppercase tracking-widest font-black text-slate-400 block mb-1">Best Streak</span>
+                            <h4 class="text-3xl md:text-4xl font-black text-amber-500" id="chBestDays">0</h4>
+                            <span class="text-[8px] md:text-[9px] font-bold text-slate-500 uppercase mt-1 block">Days Record</span>
+                        </div>
+                        <div class="modern-card p-4 md:p-6 text-center border-t-4 border-emerald-500">
+                            <span class="text-[9px] md:text-[10px] uppercase tracking-widest font-black text-slate-400 block mb-1">Target</span>
+                            <h4 class="text-3xl md:text-4xl font-black text-emerald-500">90</h4>
+                            <span class="text-[8px] md:text-[9px] font-bold text-slate-500 uppercase mt-1 block">Days</span>
+                        </div>
+                        <div class="modern-card p-4 md:p-6 text-center border-t-4 border-red-500">
+                            <span class="text-[9px] md:text-[10px] uppercase tracking-widest font-black text-slate-400 block mb-1">Relapses</span>
+                            <h4 class="text-3xl md:text-4xl font-black text-red-500" id="chRelapses">0</h4>
+                            <span class="text-[8px] md:text-[9px] font-bold text-slate-500 uppercase mt-1 block">Times Reset</span>
+                        </div>
+                    </div>
+
+                    <!-- Challenge Grid -->
+                    <div class="modern-card p-5 md:p-8 animate-up" style="animation-delay: 0.2s;">
+                        <div id="challengeStartPrompt" class="text-center py-10 hidden">
+                            <i class="fas fa-fire text-6xl text-amber-400 mb-4 animate-pulse"></i>
+                            <h3 class="text-xl font-black uppercase text-[var(--text-primary)] mb-2">Ready to start?</h3>
+                            <p class="text-xs text-slate-500 mb-6 font-bold uppercase tracking-widest">Commit to 90 days of discipline</p>
+                            <button onclick="startChallenge()" class="px-8 py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-black text-sm uppercase tracking-widest shadow-lg shadow-indigo-500/30 transition-all active:scale-95">
+                                Start Journey Now
+                            </button>
+                        </div>
+                        
+                        <div id="challengeGridContainer">
+                            <div class="flex justify-between items-center mb-6">
+                                <h3 class="font-black text-sm uppercase tracking-widest text-[var(--text-primary)]">Your Journey map</h3>
+                                <span class="text-[10px] md:text-xs font-bold text-indigo-500 bg-indigo-50 dark:bg-indigo-900/30 px-3 py-1 rounded-lg border border-indigo-100 dark:border-indigo-800" id="chStartDateDisplay">Started: --</span>
+                            </div>
+                            <div class="challenge-grid" id="challengeGrid">
+                                <!-- Populated by JS -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -700,9 +802,9 @@
                     </button>
                 </div>
 
-                <a onclick="switchTab('calendar')" id="bottom-nav-calendar" class="flex flex-col items-center p-2 text-[var(--text-secondary)] hover:text-sarathy-blue transition-colors w-16 bottom-nav-link">
-                    <i class="fas fa-calendar-alt text-lg mb-1"></i>
-                    <span class="text-[9px] font-bold tracking-widest">Cal</span>
+                <a onclick="switchTab('challenge')" id="bottom-nav-challenge" class="flex flex-col items-center p-2 text-[var(--text-secondary)] hover:text-sarathy-blue transition-colors w-16 bottom-nav-link">
+                    <i class="fas fa-shield-alt text-lg mb-1"></i>
+                    <span class="text-[9px] font-bold tracking-widest">90 Days</span>
                 </a>
                 <a onclick="switchTab('analytics')" id="bottom-nav-analytics" class="flex flex-col items-center p-2 text-[var(--text-secondary)] hover:text-sarathy-blue transition-colors w-16 bottom-nav-link">
                     <i class="fas fa-chart-pie text-lg mb-1"></i>
@@ -847,6 +949,7 @@
         // --- DATA & STATE INITIALIZATION ---
         const CURRENT_DB_VERSION = 'expense_db_v4'; // STRICTLY PRESERVING YOUR DATA KEY
         const CURRENT_BUDGET_VERSION = 'expense_budget_v4';
+        const CHALLENGE_DB_KEY = 'sarathy_nofap_v1'; // New key for challenge
 
         let localUsers = JSON.parse(localStorage.getItem('expense_users_v1'));
         if (!localUsers) {
@@ -867,6 +970,13 @@
             {dept: 'SAVINGS', target: 2000},
             {dept: 'EMI', target: 1738}
         ];
+
+        // Challenge Data
+        let challengeData = JSON.parse(localStorage.getItem(CHALLENGE_DB_KEY)) || {
+            startDate: null,
+            bestStreak: 0,
+            relapses: 0
+        };
         
         let currentTab = 'dashboard';
         let tabHistory = []; 
@@ -898,21 +1008,23 @@
         // --- UTILITIES ---
         const showToast = (msg, type='success') => {
             const t = document.getElementById('toast');
-            document.getElementById('toastMessage').innerText = msg;
-            document.getElementById('toastIcon').className = type==='success'?'fas fa-check-circle text-emerald-400 text-lg md:text-xl':'fas fa-exclamation-circle text-red-400 text-lg md:text-xl';
-            t.classList.remove('opacity-0', 'translate-y-40');
-            
-            try {
-                if (type === 'success' && msg.includes('Transaction Saved')) {
-                    successSound.currentTime = 0;
-                    successSound.play().catch(e => console.log('Audio error:', e));
-                } else {
-                    toastSound.currentTime = 0;
-                    toastSound.play().catch(e => console.log('Audio error:', e));
-                }
-            } catch(err) {}
+            if(t) {
+                document.getElementById('toastMessage').innerText = msg;
+                document.getElementById('toastIcon').className = type==='success'?'fas fa-check-circle text-emerald-400 text-lg md:text-xl':'fas fa-exclamation-circle text-red-400 text-lg md:text-xl';
+                t.classList.remove('opacity-0', 'translate-y-40');
+                
+                try {
+                    if (type === 'success' && (msg.includes('Saved') || msg.includes('Started'))) {
+                        successSound.currentTime = 0;
+                        successSound.play().catch(e => console.log('Audio error:', e));
+                    } else {
+                        toastSound.currentTime = 0;
+                        toastSound.play().catch(e => console.log('Audio error:', e));
+                    }
+                } catch(err) {}
 
-            setTimeout(()=>t.classList.add('opacity-0', 'translate-y-40'), 3000);
+                setTimeout(()=>t.classList.add('opacity-0', 'translate-y-40'), 3000);
+            }
         };
 
         const formatDateString = (d) => {
@@ -941,18 +1053,23 @@
             return "Good Evening";
         };
 
-        // NEW: PRIVACY MODE TOGGLE
+        // PRIVACY MODE TOGGLE
         let isPrivacyMode = false;
         const togglePrivacy = () => {
             isPrivacyMode = !isPrivacyMode;
+            const pIcon = document.getElementById('privacyIcon');
             if(isPrivacyMode) {
                 document.body.classList.add('privacy-mode');
-                document.getElementById('privacyIcon').classList.replace('fa-eye', 'fa-eye-slash');
-                document.getElementById('privacyIcon').classList.add('text-indigo-500');
+                if(pIcon) {
+                    pIcon.classList.replace('fa-eye', 'fa-eye-slash');
+                    pIcon.classList.add('text-indigo-500');
+                }
             } else {
                 document.body.classList.remove('privacy-mode');
-                document.getElementById('privacyIcon').classList.replace('fa-eye-slash', 'fa-eye');
-                document.getElementById('privacyIcon').classList.remove('text-indigo-500');
+                if(pIcon) {
+                    pIcon.classList.replace('fa-eye-slash', 'fa-eye');
+                    pIcon.classList.remove('text-indigo-500');
+                }
             }
         };
 
@@ -960,7 +1077,8 @@
         const toggleDarkMode = () => {
             document.documentElement.classList.toggle('dark');
             const isDark = document.documentElement.classList.contains('dark');
-            document.getElementById('darkModeIcon').className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+            const icon = document.getElementById('darkModeIcon');
+            if(icon) icon.className = isDark ? 'fas fa-sun text-sm md:text-base' : 'fas fa-moon text-sm md:text-base';
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
             
             const settingToggle = document.getElementById('settingDarkModeToggle');
@@ -978,62 +1096,73 @@
         };
 
         // --- AUTHENTICATION ---
-        document.getElementById('loginForm').onsubmit = (e) => {
+        document.getElementById('loginForm')?.addEventListener('submit', (e) => {
             e.preventDefault();
-            const u = document.getElementById('username').value.trim().toUpperCase();
-            const p = document.getElementById('password').value;
-            // Backup password fallback logic to prevent lockout
+            const u = document.getElementById('username')?.value.trim().toUpperCase();
+            const p = document.getElementById('password')?.value;
             if(USERS.find(x => x.user === u && x.pass === p) || (u === 'ADMIN' && p === 'SARATHY@26')) {
                 currentUser = USERS[0]; showApp();
             } else {
-                document.getElementById('loginError').classList.remove('hidden');
+                document.getElementById('loginError')?.classList.remove('hidden');
             }
-        };
+        });
         
         const handleBiometricLogin = () => { 
             const icon = document.getElementById('bioIcon');
             const text = document.getElementById('bioText');
             
-            icon.classList.remove('text-slate-400', 'group-hover:text-sarathy-blue');
-            icon.classList.add('text-sarathy-blue', 'animate-pulse');
-            text.innerText = "Scanning...";
+            if(icon) {
+                icon.classList.remove('text-slate-400', 'group-hover:text-sarathy-blue');
+                icon.classList.add('text-sarathy-blue', 'animate-pulse');
+            }
+            if(text) text.innerText = "Scanning...";
             
             setTimeout(() => { 
-                icon.classList.remove('fa-fingerprint', 'animate-pulse');
-                icon.classList.add('fa-check-circle');
-                text.innerText = "Verified";
+                if(icon) {
+                    icon.classList.remove('fa-fingerprint', 'animate-pulse');
+                    icon.classList.add('fa-check-circle');
+                }
+                if(text) text.innerText = "Verified";
                 showToast("Biometric Verified Successfully!"); 
                 
                 setTimeout(() => {
                     currentUser=USERS[0]; 
                     showApp(); 
                     
-                    // Reset
                     setTimeout(() => {
-                        icon.className = "fas fa-fingerprint text-2xl text-slate-400 group-hover:text-sarathy-blue mr-3 transition-colors";
-                        text.innerText = "Biometric Login";
+                        if(icon) icon.className = "fas fa-fingerprint text-xl md:text-2xl text-slate-400 group-hover:text-sarathy-blue mr-2 md:mr-3 transition-colors";
+                        if(text) text.innerText = "Biometric Login";
                     }, 1000);
                 }, 500);
             }, 1500); 
         };
         
         const showApp = () => {
-            document.getElementById('loginPage').classList.add('hidden');
-            document.getElementById('appLayout').classList.remove('hidden');
-            document.getElementById('userNameDisplay').innerText = currentUser.user;
+            document.getElementById('loginPage')?.classList.add('hidden');
+            document.getElementById('appLayout')?.classList.remove('hidden');
+            
+            const userNameDisplay = document.getElementById('userNameDisplay');
+            if(userNameDisplay) userNameDisplay.innerText = currentUser?.user || 'ADMIN';
             
             const greetingEl = document.getElementById('welcomeGreeting');
             let timeIcon = 'fa-sun text-amber-300';
             if(new Date().getHours() >= 17) timeIcon = 'fa-moon text-indigo-300';
-            if(greetingEl) greetingEl.innerHTML = `<i class="fas ${timeIcon}"></i> ${getGreeting()}, ${currentUser.user}`;
+            if(greetingEl) greetingEl.innerHTML = `<i class="fas ${timeIcon}"></i> ${getGreeting()}, ${currentUser?.user || 'ADMIN'}`;
             
-            // Default filter to current month
-            document.getElementById('monthFilter').value = new Date().toISOString().slice(0, 7);
-            document.getElementById('chartMonthFilter').value = new Date().toISOString().slice(0, 7);
+            const monthFilter = document.getElementById('monthFilter');
+            if(monthFilter) monthFilter.value = new Date().toISOString().slice(0, 7);
             
+            const chartMonthFilter = document.getElementById('chartMonthFilter');
+            if(chartMonthFilter) chartMonthFilter.value = new Date().toISOString().slice(0, 7);
+            
+            if(isAdmin()) {
+                document.getElementById('addBtn')?.classList.remove('hidden');
+            }
+
             renderDashboard();
             renderTable();
             renderCalendar();
+            renderChallenge();
             checkNotifications();
         };
         
@@ -1041,10 +1170,8 @@
 
         // --- NAVIGATION ---
         const toggleSidebar = () => {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('mobileOverlay');
-            sidebar.classList.toggle('-translate-x-full');
-            overlay.classList.toggle('hidden');
+            document.getElementById('sidebar')?.classList.toggle('-translate-x-full');
+            document.getElementById('mobileOverlay')?.classList.toggle('hidden');
         };
 
         const switchTab = (tab, isBack = false) => {
@@ -1071,32 +1198,37 @@
             });
 
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.getElementById(`tab-${tab}`).classList.add('active');
+            document.getElementById(`tab-${tab}`)?.classList.add('active');
             
             const titles = { 
                 dashboard: 'Financial Dashboard', 
                 transactions: 'All Transactions', 
                 calendar: 'Expense Calendar', 
                 analytics: 'Financial Reports',
+                challenge: '90 Days Challenge',
                 settings: 'Settings'
             };
-            document.getElementById('pageTitle').innerText = titles[tab];
-            if(tab === 'dashboard') {
-                document.getElementById('dashboardDateRangeHeader').style.display = 'block';
-            } else {
-                document.getElementById('dashboardDateRangeHeader').style.display = 'none';
+            
+            const pageTitle = document.getElementById('pageTitle');
+            if(pageTitle) pageTitle.innerText = titles[tab] || 'Financial Dashboard';
+            
+            const drHeader = document.getElementById('dashboardDateRangeHeader');
+            if(drHeader) {
+                drHeader.style.display = tab === 'dashboard' ? 'block' : 'none';
             }
 
             const backBtn = document.getElementById('backBtn');
-            if (tabHistory.length > 0) {
-                backBtn.classList.remove('hidden');
-            } else {
-                backBtn.classList.add('hidden');
+            if (backBtn) {
+                if (tabHistory.length > 0) {
+                    backBtn.classList.remove('hidden');
+                } else {
+                    backBtn.classList.add('hidden');
+                }
             }
 
             if (window.innerWidth < 768) {
-                document.getElementById('sidebar').classList.add('-translate-x-full');
-                document.getElementById('mobileOverlay').classList.add('hidden');
+                document.getElementById('sidebar')?.classList.add('-translate-x-full');
+                document.getElementById('mobileOverlay')?.classList.add('hidden');
             }
 
             if(tab === 'analytics') initCharts();
@@ -1109,38 +1241,130 @@
             }
         };
 
+        // --- 90 DAYS CHALLENGE LOGIC ---
+        const getChallengeDaysElapsed = () => {
+            if (!challengeData.startDate) return 0;
+            const start = new Date(challengeData.startDate);
+            start.setHours(0,0,0,0);
+            const today = new Date();
+            today.setHours(0,0,0,0);
+            const diffTime = Math.abs(today - start);
+            return Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1; // Day 1 is the start day
+        };
+
+        const renderChallenge = () => {
+            const daysElapsed = getChallengeDaysElapsed();
+            
+            // Update Dashboard Widget
+            const mobStatus = document.getElementById('mobChallengeStatus');
+            const mobDays = document.getElementById('mobChallengeDays');
+            
+            if (!challengeData.startDate) {
+                if(mobStatus) mobStatus.innerText = "Start Your Journey Today";
+                if(mobDays) mobDays.innerText = "0";
+            } else {
+                if(mobStatus) mobStatus.innerText = daysElapsed >= 90 ? "Challenge Completed! 🎉" : "Stay Strong. Build Discipline.";
+                if(mobDays) mobDays.innerText = Math.min(daysElapsed, 90);
+            }
+
+            // Update Tab Content
+            const curEl = document.getElementById('chCurrentDays');
+            const bestEl = document.getElementById('chBestDays');
+            const relEl = document.getElementById('chRelapses');
+            
+            if(curEl) curEl.innerText = Math.min(daysElapsed, 90);
+            if(bestEl) bestEl.innerText = Math.max(challengeData.bestStreak, daysElapsed);
+            if(relEl) relEl.innerText = challengeData.relapses;
+            
+            if (challengeData.startDate) {
+                const dateDisp = document.getElementById('chStartDateDisplay');
+                if(dateDisp) dateDisp.innerText = `Started: ${formatDateString(challengeData.startDate)}`;
+                document.getElementById('challengeStartPrompt')?.classList.add('hidden');
+                document.getElementById('challengeGridContainer')?.classList.remove('hidden');
+                
+                const grid = document.getElementById('challengeGrid');
+                if(grid) {
+                    grid.innerHTML = '';
+                    
+                    for (let i = 1; i <= 90; i++) {
+                        let classes = 'day-locked';
+                        let content = `<i class="fas fa-lock text-xs opacity-30"></i>`;
+                        
+                        if (i < daysElapsed) {
+                            classes = 'day-completed';
+                            content = `<i class="fas fa-check text-sm shadow-sm"></i>`;
+                        } else if (i === daysElapsed) {
+                            classes = 'day-current';
+                            content = `<i class="fas fa-fire text-lg"></i>`;
+                        }
+                        
+                        grid.innerHTML += `<div class="day-cell ${classes}" title="Day ${i}">${content}</div>`;
+                    }
+                }
+            } else {
+                const dateDisp = document.getElementById('chStartDateDisplay');
+                if(dateDisp) dateDisp.innerText = `Started: --`;
+                document.getElementById('challengeStartPrompt')?.classList.remove('hidden');
+                document.getElementById('challengeGridContainer')?.classList.add('hidden');
+            }
+        };
+
+        const startChallenge = () => {
+            challengeData.startDate = new Date().toISOString().slice(0, 10);
+            localStorage.setItem(CHALLENGE_DB_KEY, JSON.stringify(challengeData));
+            renderChallenge();
+            showToast("Challenge Started! You got this.", "success");
+            confetti({particleCount: 100, spread: 70, origin: { y: 0.6 }});
+        };
+
+        const resetChallenge = () => {
+            if (!challengeData.startDate) return;
+            if (confirm("Are you sure you want to reset your streak? Be honest with yourself.")) {
+                const daysElapsed = getChallengeDaysElapsed();
+                if (daysElapsed > challengeData.bestStreak) {
+                    challengeData.bestStreak = daysElapsed;
+                }
+                challengeData.relapses += 1;
+                challengeData.startDate = new Date().toISOString().slice(0, 10); // Restart today
+                localStorage.setItem(CHALLENGE_DB_KEY, JSON.stringify(challengeData));
+                renderChallenge();
+                showToast("Streak Reset. Don't give up, start again!", "error");
+            }
+        };
+
         // --- DASHBOARD LOGIC ---
         const setDashboardView = (view) => {
             dashboardFilter = view;
+            const btnMonth = document.getElementById('btnViewMonth');
+            const btnAll = document.getElementById('btnViewAll');
+            const dRange = document.getElementById('dashboardDateRange');
+            
             if(view === 'THIS_MONTH') {
-                document.getElementById('btnViewMonth').className = 'px-3 md:px-5 py-2 md:py-2.5 rounded-lg md:rounded-xl text-[10px] md:text-xs font-black uppercase tracking-widest bg-sarathy-blue text-white shadow-md transition-all active:scale-95';
-                document.getElementById('btnViewAll').className = 'px-3 md:px-5 py-2 md:py-2.5 rounded-lg md:rounded-xl text-[10px] md:text-xs font-bold uppercase tracking-widest text-[var(--text-secondary)] hover:bg-slate-100 dark:hover:bg-slate-800 transition-all active:scale-95';
-                document.getElementById('dashboardDateRange').innerText = new Date().toLocaleString('default', { month: 'long', year: 'numeric' });
+                if(btnMonth) btnMonth.className = 'px-3 md:px-5 py-2 md:py-2.5 rounded-lg md:rounded-xl text-[10px] md:text-xs font-black uppercase tracking-widest bg-sarathy-blue text-white shadow-md transition-all active:scale-95';
+                if(btnAll) btnAll.className = 'px-3 md:px-5 py-2 md:py-2.5 rounded-lg md:rounded-xl text-[10px] md:text-xs font-bold uppercase tracking-widest text-[var(--text-secondary)] hover:bg-slate-100 dark:hover:bg-slate-800 transition-all active:scale-95';
+                if(dRange) dRange.innerText = new Date().toLocaleString('default', { month: 'long', year: 'numeric' });
             } else {
-                document.getElementById('btnViewAll').className = 'px-3 md:px-5 py-2 md:py-2.5 rounded-lg md:rounded-xl text-[10px] md:text-xs font-black uppercase tracking-widest bg-sarathy-blue text-white shadow-md transition-all active:scale-95';
-                document.getElementById('btnViewMonth').className = 'px-3 md:px-5 py-2 md:py-2.5 rounded-lg md:rounded-xl text-[10px] md:text-xs font-bold uppercase tracking-widest text-[var(--text-secondary)] hover:bg-slate-100 dark:hover:bg-slate-800 transition-all active:scale-95';
-                document.getElementById('dashboardDateRange').innerText = "ALL TIME";
+                if(btnAll) btnAll.className = 'px-3 md:px-5 py-2 md:py-2.5 rounded-lg md:rounded-xl text-[10px] md:text-xs font-black uppercase tracking-widest bg-sarathy-blue text-white shadow-md transition-all active:scale-95';
+                if(btnMonth) btnMonth.className = 'px-3 md:px-5 py-2 md:py-2.5 rounded-lg md:rounded-xl text-[10px] md:text-xs font-bold uppercase tracking-widest text-[var(--text-secondary)] hover:bg-slate-100 dark:hover:bg-slate-800 transition-all active:scale-95';
+                if(dRange) dRange.innerText = "ALL TIME";
             }
             renderDashboard();
         };
 
-        // Calculate Smart Health Score
         const calculateHealthScore = (income, expense, budgets, currentMonthTxns) => {
             if(income === 0 && expense === 0) return { score: 100, color: 'text-blue-500', icon: 'fa-trophy', bg: 'bg-blue-50 dark:bg-blue-900/30' };
             
             let score = 50; // Base score
             
-            // Savings Rule (20% of income)
             const savings = income - expense;
             if(income > 0) {
                 const savingsRate = (savings / income) * 100;
                 if(savingsRate > 20) score += 30;
                 else if(savingsRate > 10) score += 15;
                 else if(savingsRate > 0) score += 5;
-                else score -= 20; // Overspending
+                else score -= 20; 
             }
 
-            // Budget Rule
             let budgetViolations = 0;
             budgets.forEach(b => {
                 const spent = currentMonthTxns.filter(t => t.type==='EXPENSE' && t.category === b.dept).reduce((s, t) => s + parseFloat(t.amount), 0);
@@ -1151,10 +1375,10 @@
                 if(budgetViolations === 0) score += 20;
                 else score -= (budgetViolations * 10);
             } else {
-                score += 10; // Neutral if no budgets
+                score += 10; 
             }
 
-            score = Math.max(0, Math.min(100, Math.round(score))); // Clamp between 0-100
+            score = Math.max(0, Math.min(100, Math.round(score))); 
             
             if(score >= 80) return { score, color: 'text-emerald-500', icon: 'fa-shield-check', bg: 'bg-emerald-50 dark:bg-emerald-900/30' };
             if(score >= 50) return { score, color: 'text-amber-500', icon: 'fa-exclamation-circle', bg: 'bg-amber-50 dark:bg-amber-900/30' };
@@ -1183,14 +1407,15 @@
 
             const balance = totalIncome - totalExpense;
 
-            document.getElementById('statBalance').innerText = formatCurrency(balance);
-            document.getElementById('statIncome').innerText = formatCurrency(totalIncome);
-            document.getElementById('statExpense').innerText = formatCurrency(totalExpense);
+            const statBal = document.getElementById('statBalance');
+            if(statBal) statBal.innerText = formatCurrency(balance);
+            const statInc = document.getElementById('statIncome');
+            if(statInc) statInc.innerText = formatCurrency(totalIncome);
+            const statExp = document.getElementById('statExpense');
+            if(statExp) statExp.innerText = formatCurrency(totalExpense);
             
-            // Health Score Logic
             const health = calculateHealthScore(totalIncome, totalExpense, reqList, transactions.filter(t=>isCurrentMonth(t.date)));
             
-            // Desktop Score
             const deskScoreNum = document.getElementById('healthScoreNum');
             if(deskScoreNum) {
                 deskScoreNum.innerText = health.score;
@@ -1199,7 +1424,6 @@
                 document.getElementById('healthScoreIcon').innerHTML = `<i class="fas ${health.icon}"></i>`;
             }
             
-            // Mobile Score
             const mobScoreNum = document.getElementById('healthScoreNumMobile');
             if(mobScoreNum) {
                 mobScoreNum.innerText = health.score;
@@ -1208,7 +1432,9 @@
                 document.getElementById('healthScoreIconMobile').innerHTML = `<i class="fas ${health.icon}"></i>`;
             }
 
-            // Daily Insights Logic
+            const dailyAvgEl = document.getElementById('statDailyAvg');
+            const safeSpendEl = document.getElementById('statSafeSpend');
+            
             if(dashboardFilter === 'THIS_MONTH') {
                 const today = new Date();
                 const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
@@ -1218,11 +1444,11 @@
                 const dailyAvg = currentDay > 0 ? (totalExpense / currentDay) : 0;
                 const safeSpend = remainingDays > 0 ? (Math.max(balance, 0) / remainingDays) : 0;
                 
-                document.getElementById('statDailyAvg').innerText = formatCurrency(dailyAvg);
-                document.getElementById('statSafeSpend').innerText = formatCurrency(safeSpend);
+                if(dailyAvgEl) dailyAvgEl.innerText = formatCurrency(dailyAvg);
+                if(safeSpendEl) safeSpendEl.innerText = formatCurrency(safeSpend);
             } else {
-                document.getElementById('statDailyAvg').innerText = 'N/A';
-                document.getElementById('statSafeSpend').innerText = 'N/A';
+                if(dailyAvgEl) dailyAvgEl.innerText = 'N/A';
+                if(safeSpendEl) safeSpendEl.innerText = 'N/A';
             }
             
             let topCategory = 'N/A';
@@ -1230,9 +1456,9 @@
             for (const [cat, amt] of Object.entries(categoryTotals)) {
                 if(amt > maxAmt) { maxAmt = amt; topCategory = cat; }
             }
-            document.getElementById('statTopCategory').innerHTML = `<span class="mr-1 opacity-70">${getCatEmoji(topCategory)}</span> ${topCategory}`;
+            const topCatEl = document.getElementById('statTopCategory');
+            if(topCatEl) topCatEl.innerHTML = `<span class="mr-1 opacity-70">${getCatEmoji(topCategory)}</span> ${topCategory}`;
 
-            // Render Budget Progress with Remaining Balance
             const currentMonthExpenses = transactions.filter(t => t.type === 'EXPENSE' && isCurrentMonth(t.date));
             const budgetContainer = document.getElementById('budgetProgressContainer');
             if(budgetContainer) {
@@ -1269,7 +1495,6 @@
                 }
             }
 
-            // Render Recent Transactions (Passbook style)
             const recentList = document.getElementById('recentTransactionsList');
             if(recentList) {
                 const recent = [...transactions].sort((a,b) => new Date(b.date) - new Date(a.date)).slice(0, 8);
@@ -1318,9 +1543,9 @@
         };
 
         const renderTable = () => {
-            const term = document.getElementById('searchTxnInput').value.toUpperCase();
-            const month = document.getElementById('monthFilter').value;
-            const typeF = document.getElementById('typeFilter').value;
+            const term = document.getElementById('searchTxnInput')?.value.toUpperCase() || '';
+            const month = document.getElementById('monthFilter')?.value || '';
+            const typeF = document.getElementById('typeFilter')?.value || 'ALL';
             
             let filtered = transactions.filter(x => {
                 const searchMatch = x.desc.toUpperCase().includes(term) || x.category.toUpperCase().includes(term);
@@ -1346,8 +1571,10 @@
 
             let fInc = 0, fExp = 0;
             filtered.forEach(t => { t.type === 'INCOME' ? fInc += parseFloat(t.amount) : fExp += parseFloat(t.amount); });
-            document.getElementById('filteredIncome').innerText = formatCurrency(fInc);
-            document.getElementById('filteredExpense').innerText = formatCurrency(fExp);
+            const filteredIncomeEl = document.getElementById('filteredIncome');
+            if(filteredIncomeEl) filteredIncomeEl.innerText = formatCurrency(fInc);
+            const filteredExpenseEl = document.getElementById('filteredExpense');
+            if(filteredExpenseEl) filteredExpenseEl.innerText = formatCurrency(fExp);
 
             const tableBody = document.getElementById('transactionsTableBody');
             if (tableBody) {
@@ -1402,15 +1629,15 @@
 
         // --- NOTIFICATIONS ---
         const toggleNotifications = () => {
-            const modal = document.getElementById('notificationModal');
-            modal.classList.toggle('hidden');
+            document.getElementById('notificationModal')?.classList.toggle('hidden');
         };
 
         const checkNotifications = () => {
             const today = new Date().toISOString().slice(0,10);
             const todayTxns = transactions.filter(x => x.date === today);
             
-            document.getElementById('notificationBadge').style.display = todayTxns.length > 0 ? 'block' : 'none';
+            const badge = document.getElementById('notificationBadge');
+            if(badge) badge.style.display = todayTxns.length > 0 ? 'block' : 'none';
             
             let html = '';
             if(todayTxns.length > 0) {
@@ -1434,49 +1661,60 @@
             } else {
                 html = '<div class="flex flex-col items-center justify-center py-10 opacity-50"><i class="fas fa-bell-slash text-4xl mb-4 text-slate-400"></i><p class="text-[10px] text-center text-slate-500 font-black uppercase tracking-widest">No transactions added today</p></div>';
             }
-            document.getElementById('dynamicNotifications').innerHTML = html;
+            
+            const dynNotif = document.getElementById('dynamicNotifications');
+            if(dynNotif) dynNotif.innerHTML = html;
         };
 
         // --- TRANSACTION MODAL FORM ---
         const updateCategoryOptions = () => {
-            const type = document.getElementById('txnType').value;
+            const typeEl = document.getElementById('txnType');
             const catSelect = document.getElementById('txnCategory');
-            catSelect.innerHTML = '';
+            if(!typeEl || !catSelect) return;
             
-            const options = type === 'INCOME' ? INCOME_CATEGORIES : EXPENSE_CATEGORIES;
+            catSelect.innerHTML = '';
+            const options = typeEl.value === 'INCOME' ? INCOME_CATEGORIES : EXPENSE_CATEGORIES;
             options.forEach(cat => {
                 catSelect.innerHTML += `<option value="${cat}">${getCatEmoji(cat)} ${cat}</option>`;
             });
         };
 
         const openModal = (type = 'EXPENSE') => {
-            document.getElementById('transactionForm').reset();
-            document.getElementById('editId').value = '';
-            document.getElementById('txnType').value = type;
-            document.getElementById('txnDate').value = new Date().toISOString().slice(0,10);
+            document.getElementById('transactionForm')?.reset();
+            const editId = document.getElementById('editId');
+            if(editId) editId.value = '';
+            const txnType = document.getElementById('txnType');
+            if(txnType) txnType.value = type;
+            const txnDate = document.getElementById('txnDate');
+            if(txnDate) txnDate.value = new Date().toISOString().slice(0,10);
             updateCategoryOptions(); 
             
-            document.getElementById('modalTitle').innerText = "Add " + (type === 'INCOME' ? "Income" : "Expense");
-            document.getElementById('addModal').classList.remove('hidden');
+            const modalTitle = document.getElementById('modalTitle');
+            if(modalTitle) modalTitle.innerText = "Add " + (type === 'INCOME' ? "Income" : "Expense");
+            document.getElementById('addModal')?.classList.remove('hidden');
             
             if (window.innerWidth < 768) {
-                setTimeout(()=>document.getElementById('modalContent').style.transform = 'translateY(0)', 10);
+                const modalContent = document.getElementById('modalContent');
+                if(modalContent) setTimeout(()=>modalContent.style.transform = 'translateY(0)', 10);
             } else {
-                setTimeout(()=>document.getElementById('modalContent').style.transform = 'translateX(0)', 10);
+                const modalContent = document.getElementById('modalContent');
+                if(modalContent) setTimeout(()=>modalContent.style.transform = 'translateX(0)', 10);
             }
-            setTimeout(() => document.getElementById('txnAmount').focus(), 300);
+            setTimeout(() => document.getElementById('txnAmount')?.focus(), 300);
         };
 
         const closeModal = () => {
             if (window.innerWidth < 768) {
-                document.getElementById('modalContent').style.transform = 'translateY(100%)';
+                const modalContent = document.getElementById('modalContent');
+                if(modalContent) modalContent.style.transform = 'translateY(100%)';
             } else {
-                document.getElementById('modalContent').style.transform = 'translateX(100%)';
+                const modalContent = document.getElementById('modalContent');
+                if(modalContent) modalContent.style.transform = 'translateX(100%)';
             }
-            setTimeout(()=>document.getElementById('addModal').classList.add('hidden'), 400);
+            setTimeout(()=>document.getElementById('addModal')?.classList.add('hidden'), 400);
         };
 
-        document.getElementById('transactionForm').onsubmit = (e) => {
+        document.getElementById('transactionForm')?.addEventListener('submit', (e) => {
             e.preventDefault();
             const data = {
                 id: document.getElementById('editId').value ? parseInt(document.getElementById('editId').value) : Date.now(),
@@ -1501,7 +1739,7 @@
             
             showToast("Transaction Saved!");
             if(data.type === 'INCOME') confetti({particleCount: 120, spread: 80, origin: { y: 0.6 }});
-        };
+        });
 
         const editTransaction = (id) => {
             const r = transactions.find(x=>x.id===id);
@@ -1543,21 +1781,26 @@
             
             document.getElementById('txnDesc').value = r.desc;
             
-            document.getElementById('modalTitle').innerText = "Edit Transaction";
-            document.getElementById('addModal').classList.remove('hidden');
+            const modalTitle = document.getElementById('modalTitle');
+            if(modalTitle) modalTitle.innerText = "Edit Transaction";
+            document.getElementById('addModal')?.classList.remove('hidden');
             if (window.innerWidth < 768) {
-                setTimeout(()=>document.getElementById('modalContent').style.transform = 'translateY(0)', 10);
+                const modalContent = document.getElementById('modalContent');
+                if(modalContent) setTimeout(()=>modalContent.style.transform = 'translateY(0)', 10);
             } else {
-                setTimeout(()=>document.getElementById('modalContent').style.transform = 'translateX(0)', 10);
+                const modalContent = document.getElementById('modalContent');
+                if(modalContent) setTimeout(()=>modalContent.style.transform = 'translateX(0)', 10);
             }
         };
 
         // --- CALENDAR LOGIC ---
         const renderCalendar = () => {
             const grid = document.getElementById('calendarGrid');
+            if(!grid) return;
             grid.innerHTML = '';
             const y = calendarDate.getFullYear(), m = calendarDate.getMonth();
-            document.getElementById('calendarMonthLabel').innerText = new Date(y, m).toLocaleString('default', { month: 'long', year: 'numeric' });
+            const calLabel = document.getElementById('calendarMonthLabel');
+            if(calLabel) calLabel.innerText = new Date(y, m).toLocaleString('default', { month: 'long', year: 'numeric' });
             
             const firstDay = new Date(y, m, 1).getDay();
             const daysInMonth = new Date(y, m+1, 0).getDate();
@@ -1596,15 +1839,14 @@
             const ctx1 = document.getElementById('statusChart').getContext('2d');
             const ctx2 = document.getElementById('categoryChart').getContext('2d');
             const ctx3 = document.getElementById('methodChart').getContext('2d');
-            const ctx4 = document.getElementById('trendChart')?.getContext('2d'); // NEW
+            const ctx4 = document.getElementById('trendChart')?.getContext('2d');
             
             const isDark = document.documentElement.classList.contains('dark');
             const textColor = isDark ? '#f8fafc' : '#0f172a';
             const gridColor = isDark ? '#334155' : '#e2e8f0';
 
-            const monthFilter = document.getElementById('chartMonthFilter').value;
+            const monthFilter = document.getElementById('chartMonthFilter')?.value || '';
             
-            // Set print date
             const printDateEl = document.getElementById('printDateRange');
             if(printDateEl) {
                 if(monthFilter) {
@@ -1648,7 +1890,7 @@
                 options: { 
                     responsive: true, maintainAspectRatio: false, 
                     plugins: { 
-                        legend: { position: 'bottom', labels: { color: textColor, font: { size: 11, weight: '900'}, padding: window.innerWidth < 768 ? 10 : 20 } },
+                        legend: { position: 'bottom', labels: { color: textColor, font: { size: 12, weight: '900'}, padding: window.innerWidth < 768 ? 10 : 20 } },
                         tooltip: { backgroundColor: isDark?'#1e293b':'#ffffff', titleColor: textColor, bodyColor: textColor, borderColor: gridColor, borderWidth: 1, padding: 12, cornerRadius: 8, callbacks: { label: function(context) { return '  ' + formatCurrency(context.raw); } } }
                     }, 
                     cutout: '75%',
@@ -1701,7 +1943,6 @@
                 }
             });
 
-            // NEW: TREND CHART
             if(ctx4) {
                 const days = Object.keys(dailyTrend).sort((a,b) => parseInt(a) - parseInt(b));
                 const trendData = days.map(d => dailyTrend[d]);
@@ -1745,12 +1986,13 @@
         const openBudgetModal = () => {
             if(!isAdmin()) return showToast("Admin Access Required", "error");
             renderReqEntries();
-            document.getElementById('reqModal').classList.remove('hidden');
+            document.getElementById('reqModal')?.classList.remove('hidden');
         };
-        const closeReqModal = () => document.getElementById('reqModal').classList.add('hidden');
+        const closeReqModal = () => document.getElementById('reqModal')?.classList.add('hidden');
 
         const renderReqEntries = () => {
             const container = document.getElementById('reqEntriesContainer');
+            if(!container) return;
             container.innerHTML = reqList.map((req, idx) => `
                 <div class="p-3 md:p-5 bg-[var(--bg-secondary)] rounded-xl md:rounded-2xl border md:border-2 border-[var(--border-color)] relative group transition-all hover:shadow-md hover:border-sarathy-blue">
                     <button onclick="removeReqRow(${idx})" class="absolute top-2 right-2 md:top-4 md:right-4 w-6 h-6 md:w-8 md:h-8 flex items-center justify-center rounded-lg md:rounded-xl text-slate-400 active:scale-90 hover:bg-red-50 hover:text-red-600 transition-colors"><i class="fas fa-trash-alt text-[10px] md:text-sm"></i></button>
@@ -1808,6 +2050,7 @@
                 if (confirmText === "DELETE") {
                     localStorage.removeItem(CURRENT_DB_VERSION);
                     localStorage.removeItem(CURRENT_BUDGET_VERSION);
+                    localStorage.removeItem(CHALLENGE_DB_KEY);
                     showToast("System Reset Successful. Reloading...", "error");
                     setTimeout(() => location.reload(), 1500);
                 } else {
@@ -1820,7 +2063,7 @@
             if (transactions.length === 0) {
                 return showToast("No database records to export", "error");
             }
-            const dataStr = JSON.stringify({ transactions: transactions, budgets: reqList });
+            const dataStr = JSON.stringify({ transactions: transactions, budgets: reqList, challenge: challengeData });
             const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
             const exportFileDefaultName = `Expense_Backup_${new Date().toISOString().slice(0,10)}.json`;
 
@@ -1847,13 +2090,17 @@
                         reqList = data.budgets;
                         localStorage.setItem(CURRENT_BUDGET_VERSION, JSON.stringify(reqList));
                     }
+                    if (data.challenge) {
+                        challengeData = data.challenge;
+                        localStorage.setItem(CHALLENGE_DB_KEY, JSON.stringify(challengeData));
+                    }
                     
                     showToast("Database Backup Restored Successfully!");
                     renderTable();
                     renderDashboard();
                     renderCalendar();
+                    renderChallenge();
                     if(currentTab === 'analytics') initCharts();
-                    checkNotifications();
                     document.getElementById('importFile').value = ''; 
                 } catch (error) {
                     showToast("Invalid Backup File Format", "error");
@@ -1916,11 +2163,11 @@
 
         window.addEventListener('resize', () => {
             if (window.innerWidth >= 768) {
-                document.getElementById('sidebar').classList.remove('-translate-x-full');
-                document.getElementById('mobileOverlay').classList.add('hidden');
+                document.getElementById('sidebar')?.classList.remove('-translate-x-full');
+                document.getElementById('mobileOverlay')?.classList.add('hidden');
                 if(currentTab === 'analytics') initCharts();
             } else {
-                document.getElementById('sidebar').classList.add('-translate-x-full');
+                document.getElementById('sidebar')?.classList.add('-translate-x-full');
             }
             renderTable(); 
         });
