@@ -56,7 +56,7 @@
             color: var(--text-primary);
             overflow: hidden; 
             transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
-            -webkit-tap-highlight-color: transparent;
+            -webkit-tap-highlight-color: transparent; /* Better mobile touch feel */
         }
 
         /* Glassmorphism Utilities */
@@ -128,24 +128,19 @@
         .gradient-text { background: linear-gradient(135deg, #0054A6, #38bdf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .dark .gradient-text { background: linear-gradient(135deg, #38bdf8, #7dd3fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* Professional Data Table for Transactions - Mobile Optimized */
-        .data-table-container { background: var(--bg-secondary); border-radius: 1rem; border: 1px solid var(--border-color); overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.03); max-height: calc(100vh - 240px); overflow-y: auto; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-        .data-table { width: 100%; border-collapse: collapse; min-width: 600px; }
+        /* Professional Data Table for Transactions */
+        .data-table-container { background: var(--bg-secondary); border-radius: 1rem; border: 1px solid var(--border-color); overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.03); max-height: calc(100vh - 260px); overflow-y: auto; }
+        .data-table { width: 100%; border-collapse: collapse; min-width: 600px; /* Force scroll on very small screens */ }
         
-        /* EXACT BLUE COLOR FROM IMAGE FOR TABLE HEADER */
-        .data-table th { background: #0B192C; color: #ffffff; font-size: 0.7rem; font-weight: 900; text-transform: uppercase; text-align: left; padding: 14px 12px; letter-spacing: 0.05em; border: 1px solid rgba(255, 255, 255, 0.1); position: sticky; top: 0; z-index: 10; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
-        .data-table th:hover { background: #132746; }
-        .dark .data-table th { background: #0B192C; color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.05); }
-        .dark .data-table th:hover { background: #132746; }
+        .data-table th { background: #0f172a; color: #ffffff; font-size: 0.7rem; font-weight: 900; text-transform: uppercase; text-align: left; padding: 14px 12px; letter-spacing: 0.05em; border: 1px solid rgba(255, 255, 255, 0.1); position: sticky; top: 0; z-index: 10; cursor: pointer; transition: background 0.2s; }
+        .data-table th:hover { background: #1e293b; }
+        .dark .data-table th { background: #1e293b; color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.05); }
+        .dark .data-table th:hover { background: #334155; }
         
-        .data-table td { padding: 10px 12px; font-size: 0.75rem; border: 1px solid var(--border-color); vertical-align: middle; transition: background-color 0.2s; white-space: nowrap; }
+        .data-table td { padding: 12px; font-size: 0.8rem; border: 1px solid var(--border-color); vertical-align: middle; transition: background-color 0.2s; }
         .data-table tr:last-child td { border-bottom: none; }
         .data-table tr:hover td { background: rgba(0, 84, 166, 0.03); }
         .dark .data-table tr:hover td { background: rgba(56, 189, 248, 0.03); }
-        @media (min-width: 768px) {
-            .data-table td { padding: 16px; font-size: 0.85rem; }
-            .data-table th { padding: 18px 16px; font-size: 0.75rem; }
-        }
 
         .status-badge-md { padding: 4px 8px; border-radius: 6px; font-size: 0.65rem; font-weight: 900; display: inline-block; text-transform: uppercase; letter-spacing: 0.05em; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         .badge-income { background: #ecfdf5; color: #047857; border: 1px solid #10b98140; }
@@ -178,7 +173,7 @@
             .tab-content { display: block !important; opacity: 1 !important; padding: 0 !important; }
             #tab-transactions, #tab-calendar, #tab-settings { display: none !important; }
             canvas { max-width: 100% !important; height: auto !important; }
-            .privacy-mode .amount-text { filter: none !important; opacity: 1 !important; } 
+            .privacy-mode .amount-text { filter: none !important; opacity: 1 !important; } /* Unblur for print */
         }
     </style>
 </head>
@@ -194,12 +189,11 @@
         <div class="w-full max-w-[400px] animate-up relative z-10">
             <div class="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-2xl shadow-blue-900/10 dark:shadow-black/50 border border-slate-100 dark:border-slate-700">
                 <div class="mb-8 text-center">
-                    <!-- ENHANCED LOGO FOR MOBILE: Using the requested cursive SR Logo -->
-                    <img src="WhatsApp%20Image%202026-03-30%20at%207.10.19%20AM.jpeg" alt="SR Logo" class="h-20 md:h-24 w-auto object-contain mx-auto mb-4 drop-shadow-sm dark:invert transition-all duration-300 rounded-2xl mix-blend-multiply dark:mix-blend-normal bg-transparent dark:bg-white/90 p-1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <img src="Sarathy2.png.png" alt="SR Logo" class="h-20 w-auto object-contain mx-auto mb-4 drop-shadow-md dark:invert transition-all duration-300 rounded-2xl bg-white/90 p-2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                     <div class="hidden w-16 h-16 bg-gradient-to-tr from-sarathy-blue to-blue-400 rounded-2xl mx-auto flex items-center justify-center text-white text-2xl font-black mb-4 shadow-lg shadow-blue-500/30">SR</div>
                     
-                    <h2 class="text-xl md:text-2xl font-black text-slate-800 dark:text-white tracking-tight mt-2">Expense Tracker</h2>
-                    <p class="text-[10px] md:text-xs font-bold text-slate-500 dark:text-slate-400 mt-2 uppercase tracking-widest">Financial Management Pro</p>
+                    <h2 class="text-xl font-black text-slate-800 dark:text-white tracking-tight mt-2">Expense Tracker</h2>
+                    <p class="text-[10px] font-bold text-slate-500 dark:text-slate-400 mt-2 uppercase tracking-widest">Financial Management Pro</p>
                 </div>
                 
                 <div id="loginError" class="hidden bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 p-3 rounded-xl text-xs font-black mb-6 border border-red-100 dark:border-red-900/30 flex items-center animate-up">
@@ -208,28 +202,28 @@
 
                 <form id="loginForm" class="space-y-4">
                     <div class="group">
-                        <label class="text-[9px] md:text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1.5 block transition-colors group-focus-within:text-sarathy-blue">User ID</label>
+                        <label class="text-[9px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1.5 block transition-colors group-focus-within:text-sarathy-blue">User ID</label>
                         <div class="relative">
                             <i class="fas fa-user absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 transition-colors group-focus-within:text-sarathy-blue text-sm"></i>
-                            <input type="text" id="username" required value="ADMIN" class="w-full pl-10 pr-4 py-3 md:py-3.5 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl font-bold text-slate-800 dark:text-white focus:border-sarathy-blue focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900/30 outline-none transition-all text-sm">
+                            <input type="text" id="username" required value="ADMIN" class="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl font-bold text-slate-800 dark:text-white focus:border-sarathy-blue focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900/30 outline-none transition-all text-sm">
                         </div>
                     </div>
                     <div class="group">
-                        <label class="text-[9px] md:text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1.5 block transition-colors group-focus-within:text-sarathy-blue">Access PIN</label>
+                        <label class="text-[9px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1.5 block transition-colors group-focus-within:text-sarathy-blue">Access PIN</label>
                         <div class="relative">
                             <i class="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 transition-colors group-focus-within:text-sarathy-blue text-sm"></i>
-                            <input type="password" id="password" required value="SARATHY@26" class="w-full pl-10 pr-4 py-3 md:py-3.5 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl font-bold text-slate-800 dark:text-white focus:border-sarathy-blue focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900/30 outline-none transition-all text-sm">
+                            <input type="password" id="password" required value="SARATHY@26" class="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl font-bold text-slate-800 dark:text-white focus:border-sarathy-blue focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900/30 outline-none transition-all text-sm">
                         </div>
                     </div>
                     
-                    <button type="submit" class="w-full bg-[#0054A6] hover:bg-[#004080] text-white font-black py-3.5 md:py-4 rounded-xl shadow-xl shadow-blue-600/20 active:scale-[0.98] transition-all duration-300 text-[11px] tracking-widest mt-2 uppercase flex justify-center items-center gap-2">
+                    <button type="submit" class="w-full bg-[#0054A6] hover:bg-[#004080] text-white font-black py-3.5 rounded-xl shadow-xl shadow-blue-600/20 active:scale-[0.98] transition-all duration-300 text-[11px] tracking-widest mt-2 uppercase flex justify-center items-center gap-2">
                         <span>Access Dashboard</span> <i class="fas fa-arrow-right ml-1 transition-transform group-hover:translate-x-1"></i>
                     </button>
                 </form>
 
                 <div class="mt-5 pt-5 border-t border-slate-100 dark:border-slate-700">
-                    <button type="button" onclick="handleBiometricLogin()" id="biometricBtn" class="w-full flex items-center justify-center p-3 md:p-4 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-emerald-50 hover:border-emerald-200 dark:hover:bg-emerald-900/20 dark:hover:border-emerald-800 transition-all duration-300 text-[10px] md:text-xs font-black uppercase tracking-widest group shadow-sm active:scale-[0.98]">
-                        <i id="bioIcon" class="fas fa-fingerprint text-xl md:text-2xl text-slate-400 group-hover:text-emerald-500 mr-2 md:mr-3 transition-colors"></i> 
+                    <button type="button" onclick="handleBiometricLogin()" id="biometricBtn" class="w-full flex items-center justify-center p-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-emerald-50 hover:border-emerald-200 dark:hover:bg-emerald-900/20 dark:hover:border-emerald-800 transition-all duration-300 text-[10px] font-black uppercase tracking-widest group shadow-sm active:scale-[0.98]">
+                        <i id="bioIcon" class="fas fa-fingerprint text-xl text-slate-400 group-hover:text-sarathy-blue mr-2 transition-colors"></i> 
                         <span id="bioText">Biometric Login</span>
                     </button>
                 </div>
@@ -241,32 +235,31 @@
     <div id="appLayout" class="hidden h-screen w-full flex bg-[var(--bg-primary)] relative">
         
         <!-- SIDEBAR (DESKTOP ONLY) -->
-        <aside id="sidebar" class="hidden md:flex inset-y-0 left-0 w-[var(--sidebar-width)] h-screen glass-panel flex-col shrink-0 z-[100] border-r border-[var(--border-color)] transition-all duration-300 ease-in-out bg-[var(--bg-secondary)] md:bg-transparent overflow-x-hidden shadow-none relative">
+        <aside id="sidebar" class="hidden md:flex inset-y-0 left-0 w-[var(--sidebar-width)] md:w-[85px] hover:md:w-[var(--sidebar-width)] h-screen glass-panel flex-col shrink-0 z-[100] border-r border-[var(--border-color)] transition-all duration-300 ease-in-out bg-[var(--bg-secondary)] md:bg-transparent overflow-x-hidden group shadow-2xl md:shadow-none relative">
             <!-- Header / Logo area -->
             <div class="h-20 px-4 flex items-center gap-3 border-b border-[var(--border-color)] shrink-0 overflow-hidden">
-                <img src="WhatsApp%20Image%202026-03-30%20at%207.10.19%20AM.jpeg" alt="SR Logo" class="h-12 w-auto object-contain shrink-0 dark:invert rounded-lg mix-blend-multiply dark:mix-blend-normal bg-transparent dark:bg-white/90 p-1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="hidden w-12 h-12 bg-gradient-to-tr from-sarathy-blue to-sky-400 rounded-xl flex items-center justify-center text-white text-lg font-black shrink-0 shadow-md">SR</div>
-                
-                <div class="transition-opacity duration-300 whitespace-nowrap overflow-hidden flex-1 ml-1">
-                    <h1 class="font-black text-sm tracking-tight gradient-text uppercase">EXPENSE PRO</h1>
+                <img src="Sarathy2.png.png" alt="SR Logo" class="h-10 w-auto object-contain shrink-0 dark:invert rounded-lg shadow-sm bg-white/90 p-1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="hidden w-10 h-10 bg-gradient-to-tr from-sarathy-blue to-sky-400 rounded-xl flex items-center justify-center text-white text-base font-black shrink-0 shadow-md">SR</div>
+                <div class="transition-opacity duration-300 opacity-0 group-hover:opacity-100 whitespace-nowrap overflow-hidden flex-1 ml-1">
+                    <h1 class="font-black text-sm tracking-tight gradient-text">EXPENSE PRO</h1>
                 </div>
             </div>
             <!-- Nav Links -->
             <div class="flex flex-col px-3 py-6 flex-1 custom-scroll overflow-y-auto overflow-x-hidden">
-                <div class="text-[10px] font-black text-sarathy-blue dark:text-sky-400 uppercase tracking-widest mb-3 px-2 whitespace-nowrap overflow-hidden flex items-center gap-2">
+                <div class="text-[10px] font-black text-sarathy-blue dark:text-sky-400 uppercase tracking-widest mb-3 px-2 transition-opacity duration-300 opacity-0 group-hover:opacity-100 whitespace-nowrap overflow-hidden flex items-center gap-2">
                     <div class="w-1.5 h-1.5 bg-sarathy-red rounded-full"></div> MENU
                 </div>
-                <a onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-link active"><i class="fas fa-chart-pie w-6 text-center shrink-0 text-lg"></i> <span class="whitespace-nowrap font-bold tracking-wide">Dashboard</span></a>
-                <a onclick="switchTab('transactions')" id="nav-transactions" class="nav-link"><i class="fas fa-list-alt w-6 text-center shrink-0 text-lg"></i> <span class="whitespace-nowrap font-bold tracking-wide">Transactions</span></a>
-                <a onclick="switchTab('calendar')" id="nav-calendar" class="nav-link"><i class="fas fa-calendar-alt w-6 text-center shrink-0 text-lg"></i> <span class="whitespace-nowrap font-bold tracking-wide">Calendar</span></a>
-                <a onclick="switchTab('analytics')" id="nav-analytics" class="nav-link"><i class="fas fa-chart-bar w-6 text-center shrink-0 text-lg"></i> <span class="whitespace-nowrap font-bold tracking-wide">Reports</span></a>
+                <a onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-link active"><i class="fas fa-chart-pie w-6 text-center shrink-0 text-lg"></i> <span class="transition-opacity duration-300 opacity-0 group-hover:opacity-100 whitespace-nowrap font-bold tracking-wide">Dashboard</span></a>
+                <a onclick="switchTab('transactions')" id="nav-transactions" class="nav-link"><i class="fas fa-list-alt w-6 text-center shrink-0 text-lg"></i> <span class="transition-opacity duration-300 opacity-0 group-hover:opacity-100 whitespace-nowrap font-bold tracking-wide">Transactions</span></a>
+                <a onclick="switchTab('calendar')" id="nav-calendar" class="nav-link"><i class="fas fa-calendar-alt w-6 text-center shrink-0 text-lg"></i> <span class="transition-opacity duration-300 opacity-0 group-hover:opacity-100 whitespace-nowrap font-bold tracking-wide">Calendar</span></a>
+                <a onclick="switchTab('analytics')" id="nav-analytics" class="nav-link"><i class="fas fa-chart-bar w-6 text-center shrink-0 text-lg"></i> <span class="transition-opacity duration-300 opacity-0 group-hover:opacity-100 whitespace-nowrap font-bold tracking-wide">Reports</span></a>
                 
-                <div class="text-[10px] font-black text-sarathy-blue dark:text-sky-400 uppercase tracking-widest mb-3 mt-10 px-2 whitespace-nowrap overflow-hidden flex items-center gap-2">
+                <div class="text-[10px] font-black text-sarathy-blue dark:text-sky-400 uppercase tracking-widest mb-3 mt-10 px-2 transition-opacity duration-300 opacity-0 group-hover:opacity-100 whitespace-nowrap overflow-hidden flex items-center gap-2">
                     <div class="w-1.5 h-1.5 bg-sarathy-red rounded-full shadow-sm"></div> MANAGEMENT
                 </div>
-                <a onclick="openBudgetModal()" class="nav-link"><i class="fas fa-bullseye w-6 text-center shrink-0 text-lg"></i> <span class="whitespace-nowrap font-bold tracking-wide">Budgets</span></a>
-                <a onclick="exportToExcel()" class="nav-link text-emerald-600 dark:text-emerald-400 hover:text-emerald-700"><i class="fas fa-file-excel w-6 text-center shrink-0 text-lg"></i> <span class="whitespace-nowrap font-bold tracking-wide">Export Excel</span></a>
-                <a onclick="switchTab('settings')" id="nav-settings" class="nav-link text-slate-600 dark:text-slate-400 hover:text-sarathy-blue mt-4"><i class="fas fa-cog w-6 text-center shrink-0 text-lg"></i> <span class="whitespace-nowrap font-bold tracking-wide">Settings</span></a>
+                <a onclick="openBudgetModal()" class="nav-link"><i class="fas fa-bullseye w-6 text-center shrink-0 text-lg"></i> <span class="transition-opacity duration-300 opacity-0 group-hover:opacity-100 whitespace-nowrap font-bold tracking-wide">Budgets</span></a>
+                <a onclick="exportToExcel()" class="nav-link text-emerald-600 dark:text-emerald-400 hover:text-emerald-700"><i class="fas fa-file-excel w-6 text-center shrink-0 text-lg"></i> <span class="transition-opacity duration-300 opacity-0 group-hover:opacity-100 whitespace-nowrap font-bold tracking-wide">Export Excel</span></a>
+                <a onclick="switchTab('settings')" id="nav-settings" class="nav-link text-slate-600 dark:text-slate-400 hover:text-sarathy-blue mt-4"><i class="fas fa-cog w-6 text-center shrink-0 text-lg"></i> <span class="transition-opacity duration-300 opacity-0 group-hover:opacity-100 whitespace-nowrap font-bold tracking-wide">Settings</span></a>
                 <input type="file" id="importFile" accept=".json" class="hidden" onchange="importBackup(event)">
             </div>
         </aside>
@@ -279,7 +272,7 @@
                 <div class="flex items-center gap-3">
                     <!-- Only show App Title/Logo on Mobile Top left -->
                     <div class="md:hidden flex items-center gap-2">
-                        <img src="WhatsApp%20Image%202026-03-30%20at%207.10.19%20AM.jpeg" alt="SR Logo" class="h-8 w-auto object-contain shrink-0 dark:invert rounded-lg shadow-sm mix-blend-multiply dark:mix-blend-normal bg-transparent dark:bg-white/90 p-0.5" onerror="this.style.display='none';">
+                        <div class="w-8 h-8 bg-gradient-to-tr from-sarathy-blue to-sky-400 rounded-lg flex items-center justify-center text-white text-xs font-black shrink-0 shadow-md">SR</div>
                         <h1 class="font-black text-sm tracking-tight gradient-text uppercase">Expense Pro</h1>
                     </div>
                     <div class="hidden md:block">
@@ -507,7 +500,7 @@
                         
                         <!-- Mini Summary for Filtered View -->
                         <div class="flex flex-col sm:flex-row flex-wrap gap-2 md:gap-6 pt-3 md:pt-4 border-t border-[var(--border-color)] mt-3 md:mt-4 items-start sm:items-center justify-between">
-                            <div class="text-[9px] md:text-xs font-black tracking-widest uppercase text-slate-400 bg-slate-100 dark:bg-slate-800 px-3 py-1 md:py-1.5 rounded-lg border border-[var(--border-color)]"><i class="fas fa-chart-line mr-1"></i> Filtered View Totals</div>
+                            <div class="text-[9px] md:text-xs font-black tracking-widest uppercase text-slate-400 bg-slate-100 dark:bg-slate-800 px-3 py-1 md:py-1.5 rounded-lg border border-[var(--border-color)]"><i class="fas fa-chart-line mr-1"></i> Filtered Totals</div>
                             <div class="flex gap-4 md:gap-6 w-full sm:w-auto justify-between sm:justify-start bg-[var(--bg-secondary)] p-2 sm:p-0 rounded-lg border border-[var(--border-color)] sm:border-none">
                                 <div class="text-[11px] md:text-sm font-black tracking-widest uppercase text-emerald-600 flex items-center gap-1 md:gap-2"><div class="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-emerald-500 animate-pulse"></div> IN: <span id="filteredIncome" class="amount-text">₹0</span></div>
                                 <div class="text-[11px] md:text-sm font-black tracking-widest uppercase text-red-600 flex items-center gap-1 md:gap-2"><div class="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-red-500 animate-pulse"></div> OUT: <span id="filteredExpense" class="amount-text">₹0</span></div>
@@ -523,11 +516,11 @@
                                     <thead>
                                         <tr>
                                             <th class="w-10 md:w-12 text-center whitespace-nowrap" onclick="toggleSort('date')">DATE <i class="fas fa-sort ml-1 text-white/50 text-[10px]"></i></th>
-                                            <th>TRANSACTION DETAILS</th>
-                                            <th>CATEGORY</th>
-                                            <th class="hidden sm:table-cell">METHOD</th>
+                                            <th>Transaction Details</th>
+                                            <th>Category</th>
+                                            <th class="hidden sm:table-cell">Method</th>
                                             <th class="text-right whitespace-nowrap" onclick="toggleSort('amount')">AMOUNT <i class="fas fa-sort ml-1 text-white/50 text-[10px]"></i></th>
-                                            <th class="text-center w-16 md:w-24 no-print">ACTIONS</th>
+                                            <th class="text-center w-16 md:w-24 no-print">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody id="transactionsTableBody" class="divide-y divide-[var(--border-color)]">
@@ -989,6 +982,7 @@
             e.preventDefault();
             const u = document.getElementById('username').value.trim().toUpperCase();
             const p = document.getElementById('password').value;
+            // Backup password fallback logic to prevent lockout
             if(USERS.find(x => x.user === u && x.pass === p) || (u === 'ADMIN' && p === 'SARATHY@26')) {
                 currentUser = USERS[0]; showApp();
             } else {
@@ -1014,6 +1008,7 @@
                     currentUser=USERS[0]; 
                     showApp(); 
                     
+                    // Reset
                     setTimeout(() => {
                         icon.className = "fas fa-fingerprint text-2xl text-slate-400 group-hover:text-sarathy-blue mr-3 transition-colors";
                         text.innerText = "Biometric Login";
@@ -1032,6 +1027,7 @@
             if(new Date().getHours() >= 17) timeIcon = 'fa-moon text-indigo-300';
             if(greetingEl) greetingEl.innerHTML = `<i class="fas ${timeIcon}"></i> ${getGreeting()}, ${currentUser.user}`;
             
+            // Default filter to current month
             document.getElementById('monthFilter').value = new Date().toISOString().slice(0, 7);
             document.getElementById('chartMonthFilter').value = new Date().toISOString().slice(0, 7);
             
@@ -1652,7 +1648,7 @@
                 options: { 
                     responsive: true, maintainAspectRatio: false, 
                     plugins: { 
-                        legend: { position: 'bottom', labels: { color: textColor, font: { size: 12, weight: '900'}, padding: window.innerWidth < 768 ? 10 : 20 } },
+                        legend: { position: 'bottom', labels: { color: textColor, font: { size: 11, weight: '900'}, padding: window.innerWidth < 768 ? 10 : 20 } },
                         tooltip: { backgroundColor: isDark?'#1e293b':'#ffffff', titleColor: textColor, bodyColor: textColor, borderColor: gridColor, borderWidth: 1, padding: 12, cornerRadius: 8, callbacks: { label: function(context) { return '  ' + formatCurrency(context.raw); } } }
                     }, 
                     cutout: '75%',
@@ -1857,6 +1853,7 @@
                     renderDashboard();
                     renderCalendar();
                     if(currentTab === 'analytics') initCharts();
+                    checkNotifications();
                     document.getElementById('importFile').value = ''; 
                 } catch (error) {
                     showToast("Invalid Backup File Format", "error");
