@@ -6,25 +6,28 @@
     <title>SARATHY EXPENSE TRACKER PRO</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <!-- Google Fonts for Modern Look -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <!-- Chart.js for Visual Analytics -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Confetti Animation Library -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <!-- SheetJS for Excel Export -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Outfit', 'sans-serif'] },
+                    fontFamily: { 
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        outfit: ['Outfit', 'sans-serif']
+                    },
                     colors: {
-                        sarathy: { blue: '#0054A6', red: '#E31E24', light: '#f0f7ff', dark: '#0a192f' },
-                        finance: { primary: '#059669', secondary: '#0f172a', accent: '#38bdf8' }
+                        sarathy: { blue: '#0054A6', red: '#E31E24', light: '#f0f7ff', dark: '#0B192C' }
+                    },
+                    boxShadow: {
+                        'premium': '0 10px 40px -10px rgba(0,0,0,0.08)',
+                        'floating': '0 20px 40px -10px rgba(0,0,0,0.15)',
                     }
                 }
             }
@@ -34,136 +37,76 @@
         :root {
             --bg-primary: #f8fafc;
             --bg-secondary: #ffffff;
-            --bg-glass: rgba(255, 255, 255, 0.85);
+            --bg-glass: rgba(255, 255, 255, 0.9);
             --text-primary: #0f172a;
             --text-secondary: #475569;
             --border-color: #e2e8f0;
-            --sidebar-width: 260px;
+            --sidebar-width: 280px;
         }
-
         .dark {
             --bg-primary: #0f172a;
             --bg-secondary: #1e293b;
-            --bg-glass: rgba(30, 41, 59, 0.85);
+            --bg-glass: rgba(30, 41, 59, 0.9);
             --text-primary: #f8fafc;
             --text-secondary: #94a3b8;
             --border-color: #334155;
         }
-
         body {
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg-primary);
             color: var(--text-primary);
             overflow: hidden; 
-            transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
+            transition: background-color 0.3s, color 0.3s;
             -webkit-tap-highlight-color: transparent;
         }
-
-        /* Glassmorphism Utilities */
-        .glass-panel {
-            background: var(--bg-glass);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--border-color);
-            transition: background-color 0.4s ease-in-out;
-        }
-
-        .modern-card {
-            background: var(--bg-secondary);
-            border-radius: 1.5rem;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .modern-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 15px 25px -5px rgba(0, 84, 166, 0.15);
-            border-color: rgba(0, 84, 166, 0.3);
-        }
-
-        /* Premium Wallet Card */
-        .wallet-card {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            box-shadow: 0 15px 30px -10px rgba(15, 23, 42, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-        .wallet-card::before {
-            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 60%);
-            transform: rotate(30deg); pointer-events: none;
-        }
-        .chip {
-            width: 40px; height: 28px; background: linear-gradient(135deg, #d4af37 0%, #aa8000 100%);
-            border-radius: 6px; position: relative; overflow: hidden;
-        }
+        .glass-panel { background: var(--bg-glass); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border-color); z-index: 40; }
+        .modern-card { background: var(--bg-secondary); border-radius: 1.5rem; border: 1px solid var(--border-color); box-shadow: var(--tw-shadow-premium); transition: all 0.4s ease; }
+        .modern-card:hover { transform: translateY(-4px); box-shadow: var(--tw-shadow-floating); }
+        .wallet-card { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); box-shadow: 0 15px 30px -10px rgba(15, 23, 42, 0.5); border: 1px solid rgba(255, 255, 255, 0.1); position: relative; overflow: hidden; }
+        .wallet-card::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 60%); transform: rotate(30deg); pointer-events: none; }
+        .chip { width: 40px; height: 28px; background: linear-gradient(135deg, #d4af37 0%, #aa8000 100%); border-radius: 6px; position: relative; overflow: hidden; }
         .chip::after { content: ''; position: absolute; inset: 2px; border: 1px solid rgba(0,0,0,0.2); border-radius: 4px; }
-
-        /* Custom Scrollbar */
-        .custom-scroll::-webkit-scrollbar { width: 4px; height: 4px; }
+        .custom-scroll::-webkit-scrollbar { width: 5px; height: 5px; }
         .custom-scroll::-webkit-scrollbar-track { background: transparent; }
         .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
         .dark .custom-scroll::-webkit-scrollbar-thumb { background: #475569; }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-
-        /* Animations */
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
-        .animate-up { animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        
+        .animate-up { animation: slideUp 0.5s ease forwards; }
         @keyframes modalPop { 0% { opacity: 0; transform: scale(0.95); } 100% { opacity: 1; transform: scale(1); } }
-        .modal-animate { animation: modalPop 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-
-        /* Sidebar Nav */
-        .nav-link {
-            display: flex; align-items: center; gap: 14px; padding: 14px 18px; border-radius: 14px;
-            color: var(--text-secondary); font-weight: 700; font-size: 0.95rem; transition: all 0.3s ease;
-            margin-bottom: 8px; cursor: pointer; white-space: nowrap; overflow: hidden;
-        }
+        .modal-animate { animation: modalPop 0.3s ease forwards; }
+        .nav-link { display: flex; align-items: center; gap: 14px; padding: 14px 18px; border-radius: 14px; color: var(--text-secondary); font-weight: 700; font-size: 0.95rem; transition: all 0.3s ease; margin-bottom: 6px; cursor: pointer; white-space: nowrap; overflow: hidden; }
         .nav-link:hover { background: rgba(0, 84, 166, 0.08); color: #0054A6; transform: translateX(6px); }
-        .nav-link.active { background: #0054A6; color: white; box-shadow: 0 4px 15px rgba(0, 84, 166, 0.4); transform: scale(1.02); }
+        .nav-link.active { background: #0054A6; color: white; box-shadow: 0 8px 20px rgba(0, 84, 166, 0.3); transform: scale(1.02); }
         .dark .nav-link:hover { background: rgba(56, 189, 248, 0.1); color: #38bdf8; }
-        .dark .nav-link.active { background: #0ea5e9; color: white; box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4); }
-
-        /* Mobile Adjustments */
+        .dark .nav-link.active { background: #2563eb; color: white; }
         .tab-content { display: none; opacity: 0; transition: opacity 0.4s ease; height: 100%; overflow-y: auto; padding-bottom: 100px; }
         @media (min-width: 768px) { .tab-content { padding-bottom: 40px; } }
         .tab-content.active { display: block; opacity: 1; }
-
-        .gradient-text { background: linear-gradient(135deg, #0054A6, #38bdf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .dark .gradient-text { background: linear-gradient(135deg, #38bdf8, #7dd3fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
-        /* Professional Data Table */
-        .data-table-container { background: var(--bg-secondary); border-radius: 1rem; border: 1px solid var(--border-color); overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.03); max-height: calc(100vh - 240px); overflow-y: auto; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-        .data-table { width: 100%; border-collapse: collapse; min-width: 600px; }
-        .data-table th { background: #0B192C; color: #ffffff; font-size: 0.7rem; font-weight: 900; text-transform: uppercase; text-align: left; padding: 14px 12px; letter-spacing: 0.05em; position: sticky; top: 0; z-index: 10; cursor: pointer; transition: background 0.2s; white-space: nowrap; border-bottom: 2px solid rgba(255,255,255,0.1); }
-        .data-table th:hover { background: #132746; }
-        .dark .data-table th { background: #0B192C; }
-        .dark .data-table th:hover { background: #132746; }
-        .data-table td { padding: 10px 12px; font-size: 0.75rem; border-bottom: 1px solid var(--border-color); vertical-align: middle; transition: background-color 0.2s; white-space: nowrap; }
-        .data-table tr:hover td { background: rgba(0, 84, 166, 0.03); }
-        .dark .data-table tr:hover td { background: rgba(56, 189, 248, 0.03); }
-        @media (min-width: 768px) { .data-table td { padding: 16px; font-size: 0.85rem; } .data-table th { padding: 18px 16px; font-size: 0.75rem; } }
-
-        /* Toggle Switches */
+        .data-table-container { background: var(--bg-secondary); border-radius: 1.5rem; border: 1px solid var(--border-color); overflow: hidden; box-shadow: var(--tw-shadow-premium); max-height: calc(100vh - 240px); overflow-y: auto; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        .data-table { width: 100%; border-collapse: collapse; min-width: 800px; }
+        .data-table th { background: #0B192C; color: #ffffff; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; text-align: left; padding: 16px 20px; letter-spacing: 0.05em; position: sticky; top: 0; z-index: 10; white-space: nowrap; cursor: pointer;}
+        .dark .data-table th { background: #0f172a; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .data-table td { padding: 16px 20px; font-size: 0.875rem; border-bottom: 1px solid var(--border-color); vertical-align: middle; transition: background-color 0.2s; }
+        .data-table tr:hover td { background: rgba(0, 84, 166, 0.04); }
+        .dark .data-table tr:hover td { background: rgba(255, 255, 255, 0.02); }
+        .status-badge-md { padding: 6px 14px; border-radius: 8px; font-size: 0.7rem; font-weight: 800; display: inline-block; text-transform: uppercase; letter-spacing: 0.05em; }
+        .badge-income { background: #ecfdf5; color: #047857; border: 1px solid #10b98140; }
+        .badge-expense { background: #fef2f2; color: #b91c1c; border: 1px solid #ef444440; }
         .toggle-switch { position: relative; display: inline-block; width: 48px; height: 26px; }
         .toggle-switch input { opacity: 0; width: 0; height: 0; }
-        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #cbd5e1; transition: .4s cubic-bezier(0.4, 0, 0.2, 1); border-radius: 26px; }
-        .slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px; background-color: white; transition: .4s cubic-bezier(0.4, 0, 0.2, 1); border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #cbd5e1; transition: .4s; border-radius: 26px; }
+        .slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
         input:checked + .slider { background-color: #0054A6; }
         input:checked + .slider:before { transform: translateX(22px); }
         .dark .slider { background-color: #475569; }
         .dark input:checked + .slider { background-color: #38bdf8; }
-
-        /* Privacy Blur */
         .privacy-mode .amount-text { filter: blur(6px); opacity: 0.6; user-select: none; transition: all 0.3s ease; }
-
-        /* Calendar Grid */
-        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; md:gap: 6px; }
-        .calendar-day { min-height: 70px; md:min-height: 85px; aspect-ratio: unset; border-radius: 8px; md:border-radius: 10px; border: 1px solid var(--border-color); padding: 4px; md:padding: 6px; display: flex; flex-direction: column; background: var(--bg-secondary); transition: all 0.2s ease-in-out; }
         
-        /* Challenge Grid */
+        /* Premium Form Inputs */
+        .premium-input { width: 100%; padding: 0.875rem 1.25rem; background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 1rem; font-weight: 600; font-size: 0.875rem; color: var(--text-primary); transition: all 0.3s ease; }
+        .premium-input:focus { border-color: #0054A6; box-shadow: 0 0 0 4px rgba(0, 84, 166, 0.1); outline: none; background-color: var(--bg-secondary); }
+        .premium-label { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary); margin-bottom: 0.5rem; display: block; }
+        
         .challenge-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
         @media (min-width: 768px) { .challenge-grid { grid-template-columns: repeat(10, 1fr); gap: 12px; } }
         .day-cell { aspect-ratio: 1; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1rem; transition: all 0.3s ease; border: 2px solid transparent; position: relative; overflow: hidden; }
@@ -172,24 +115,11 @@
         .day-current { background: #4f46e5; color: white; box-shadow: 0 0 15px rgba(79, 70, 229, 0.5); border-color: #818cf8; animation: pulse-ring 2s infinite; }
         @keyframes pulse-ring { 0% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(79, 70, 229, 0); } 100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); } }
 
-        /* Multi-FAB Menu for Mobile */
         .fab-menu { position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%) translateY(20px); opacity: 0; visibility: hidden; display: flex; flex-direction: column; gap: 12px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); pointer-events: none; z-index: 40; }
         .fab-menu.active { transform: translateX(-50%) translateY(-15px); opacity: 1; visibility: visible; pointer-events: auto; }
         .fab-item { width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.2); transform: scale(0.8); transition: transform 0.2s; position: relative; }
         .fab-menu.active .fab-item { transform: scale(1); }
         .fab-label { position: absolute; right: 55px; background: var(--bg-secondary); color: var(--text-primary); padding: 4px 10px; border-radius: 6px; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; box-shadow: 0 2px 8px rgba(0,0,0,0.1); white-space: nowrap; pointer-events: none; border: 1px solid var(--border-color); }
-
-        /* Print Styles */
-        @media print {
-            body { background: white !important; color: black !important; overflow: auto !important; }
-            #sidebar, #bottomNav, header, .no-print, .fab, .fab-menu-container { display: none !important; }
-            #appLayout, main { display: block !important; height: auto !important; overflow: visible !important; }
-            .modern-card, .glass-panel { box-shadow: none !important; border: 1px solid #ccc !important; break-inside: avoid; }
-            .tab-content { display: block !important; opacity: 1 !important; padding: 0 !important; }
-            #tab-transactions, #tab-calendar, #tab-settings, #tab-challenge, #tab-savings, #tab-loans { display: none !important; }
-            canvas { max-width: 100% !important; height: auto !important; }
-            .privacy-mode .amount-text { filter: none !important; opacity: 1 !important; } 
-        }
     </style>
 </head>
 <body class="antialiased pb-safe">
@@ -200,39 +130,38 @@
             <div class="absolute -top-[20%] -right-[10%] w-[60%] h-[60%] rounded-full bg-blue-300/30 dark:bg-blue-900/20 blur-3xl"></div>
             <div class="absolute -bottom-[20%] -left-[10%] w-[60%] h-[60%] rounded-full bg-sky-200/30 dark:bg-sky-900/20 blur-3xl"></div>
         </div>
-        <div class="w-full max-w-[400px] animate-up relative z-10">
-            <div class="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-2xl shadow-blue-900/10 dark:shadow-black/50 border border-slate-100 dark:border-slate-700">
+        <div class="w-full max-w-[420px] animate-up relative z-10">
+            <div class="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-2xl border border-slate-100 dark:border-slate-700">
                 <div class="mb-8 text-center">
-                    <img src="WhatsApp%20Image%202026-03-30%20at%207.10.19%20AM.jpeg" alt="SR Logo" class="h-20 md:h-24 w-auto object-contain mx-auto mb-4 drop-shadow-sm dark:invert transition-all duration-300 rounded-2xl mix-blend-multiply dark:mix-blend-normal bg-transparent dark:bg-white/90 p-1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="hidden w-16 h-16 bg-gradient-to-tr from-sarathy-blue to-blue-400 rounded-2xl mx-auto flex items-center justify-center text-white text-2xl font-black mb-4 shadow-lg shadow-blue-500/30">SR</div>
-                    <h2 class="text-xl font-black text-slate-800 dark:text-white tracking-tight mt-2">Expense Tracker</h2>
-                    <p class="text-[10px] md:text-xs font-bold text-slate-500 dark:text-slate-400 mt-2 uppercase tracking-widest">Financial Management Pro</p>
+                    <div class="w-20 h-20 bg-gradient-to-tr from-sarathy-blue to-blue-400 rounded-2xl mx-auto flex items-center justify-center text-white text-3xl font-black mb-4 shadow-lg shadow-blue-500/30">ET</div>
+                    <h2 class="text-2xl font-black text-slate-800 dark:text-white tracking-tight mt-2 font-outfit">Expense Tracker</h2>
+                    <p class="text-xs font-bold text-slate-500 dark:text-slate-400 mt-2 uppercase tracking-widest">Financial Management Pro</p>
                 </div>
                 <div id="loginError" class="hidden bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 p-3 rounded-xl text-xs font-black mb-6 border border-red-100 dark:border-red-900/30 flex items-center animate-up">
                     <i class="fas fa-exclamation-circle mr-2 text-base"></i> Authentication Failed.
                 </div>
                 <form id="loginForm" class="space-y-4">
-                    <div class="group">
-                        <label class="text-[9px] md:text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1.5 block transition-colors group-focus-within:text-sarathy-blue">User ID</label>
+                    <div>
+                        <label class="premium-label">User ID</label>
                         <div class="relative">
-                            <i class="fas fa-user absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 transition-colors group-focus-within:text-sarathy-blue text-sm"></i>
-                            <input type="text" id="username" required value="ADMIN" class="w-full pl-10 pr-4 py-3 md:py-3.5 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl font-bold text-slate-800 dark:text-white focus:border-sarathy-blue focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900/30 outline-none transition-all text-sm">
+                            <i class="fas fa-user absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                            <input type="text" id="username" required value="ADMIN" class="premium-input pl-11">
                         </div>
                     </div>
-                    <div class="group">
-                        <label class="text-[9px] md:text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1.5 block transition-colors group-focus-within:text-sarathy-blue">Access PIN</label>
+                    <div>
+                        <label class="premium-label">Access PIN</label>
                         <div class="relative">
-                            <i class="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 transition-colors group-focus-within:text-sarathy-blue text-sm"></i>
-                            <input type="password" id="password" required value="SARATHY@26" class="w-full pl-10 pr-4 py-3 md:py-3.5 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl font-bold text-slate-800 dark:text-white focus:border-sarathy-blue focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900/30 outline-none transition-all text-sm">
+                            <i class="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                            <input type="password" id="password" required value="SARATHY@26" class="premium-input pl-11">
                         </div>
                     </div>
-                    <button type="submit" class="w-full bg-[#0054A6] hover:bg-[#004080] text-white font-black py-3.5 md:py-4 rounded-xl shadow-xl shadow-blue-600/20 active:scale-[0.98] transition-all duration-300 text-[11px] tracking-widest mt-2 uppercase flex justify-center items-center gap-2">
+                    <button type="submit" class="w-full bg-[#0054A6] hover:bg-[#004080] text-white font-black py-4 rounded-xl shadow-lg shadow-blue-600/30 active:scale-[0.98] transition-all duration-300 text-xs tracking-widest mt-4 uppercase flex justify-center items-center gap-2">
                         <span>Secure Login</span> <i class="fas fa-arrow-right ml-1 transition-transform group-hover:translate-x-1"></i>
                     </button>
                 </form>
-                <div class="mt-5 pt-5 border-t border-slate-100 dark:border-slate-700">
-                    <button type="button" onclick="handleBiometricLogin()" id="biometricBtn" class="w-full flex items-center justify-center p-3 md:p-4 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-emerald-50 hover:border-emerald-200 dark:hover:bg-emerald-900/20 dark:hover:border-emerald-800 transition-all duration-300 text-[10px] md:text-xs font-black uppercase tracking-widest group shadow-sm active:scale-[0.98]">
-                        <i id="bioIcon" class="fas fa-fingerprint text-xl md:text-2xl text-slate-400 group-hover:text-emerald-500 mr-2 md:mr-3 transition-colors"></i> 
+                <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-700">
+                    <button type="button" onclick="handleBiometricLogin()" class="w-full flex items-center justify-center p-4 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-emerald-50 hover:border-emerald-200 dark:hover:bg-emerald-900/20 dark:hover:border-emerald-800 transition-all duration-300 text-xs font-black uppercase tracking-widest group shadow-sm active:scale-[0.98]">
+                        <i id="bioIcon" class="fas fa-fingerprint text-xl text-slate-400 group-hover:text-emerald-500 mr-2 transition-colors"></i> 
                         <span id="bioText">Biometric Login</span>
                     </button>
                 </div>
@@ -245,71 +174,58 @@
         
         <!-- SIDEBAR (DESKTOP ONLY) -->
         <aside id="sidebar" class="hidden md:flex inset-y-0 left-0 w-[var(--sidebar-width)] h-screen glass-panel flex-col shrink-0 z-[100] border-r border-[var(--border-color)] transition-all duration-300 ease-in-out bg-[var(--bg-secondary)] md:bg-transparent overflow-x-hidden shadow-none relative">
-            <div class="h-20 px-4 flex items-center gap-3 border-b border-[var(--border-color)] shrink-0 overflow-hidden">
-                <img src="WhatsApp%20Image%202026-03-30%20at%207.10.19%20AM.jpeg" alt="SR Logo" class="h-12 w-auto object-contain shrink-0 dark:invert rounded-lg mix-blend-multiply dark:mix-blend-normal bg-transparent dark:bg-white/90 p-1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="hidden w-12 h-12 bg-gradient-to-tr from-sarathy-blue to-sky-400 rounded-xl flex items-center justify-center text-white text-lg font-black shrink-0 shadow-md">SR</div>
+            <div class="h-20 px-6 flex items-center gap-4 border-b border-[var(--border-color)] shrink-0 overflow-hidden">
+                <div class="w-10 h-10 bg-gradient-to-tr from-sarathy-blue to-sky-400 rounded-xl flex items-center justify-center text-white text-lg font-black shrink-0 shadow-md">ET</div>
                 <div class="transition-opacity duration-300 whitespace-nowrap overflow-hidden flex-1 ml-1">
-                    <h1 class="font-black text-sm tracking-tight gradient-text uppercase">EXPENSE PRO</h1>
+                    <h1 class="font-black text-base tracking-tight gradient-text font-outfit uppercase">Expense Pro</h1>
                 </div>
             </div>
-            <div class="flex flex-col px-3 py-6 flex-1 custom-scroll overflow-y-auto overflow-x-hidden">
-                <div class="text-[10px] font-black text-sarathy-blue dark:text-sky-400 uppercase tracking-widest mb-3 px-2 whitespace-nowrap overflow-hidden flex items-center gap-2">
-                    <div class="w-1.5 h-1.5 bg-sarathy-red rounded-full"></div> MENU
+            <div class="flex flex-col px-4 py-6 flex-1 custom-scroll overflow-y-auto overflow-x-hidden">
+                <div class="text-[10px] font-black text-sarathy-blue dark:text-sky-400 uppercase tracking-widest mb-4 px-2 whitespace-nowrap overflow-hidden flex items-center gap-2">
+                    <div class="w-1.5 h-1.5 bg-sarathy-red rounded-full"></div> Main Menu
                 </div>
                 <a onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-link active"><i class="fas fa-wallet w-6 text-center shrink-0 text-lg"></i> <span class="whitespace-nowrap font-bold tracking-wide">Dashboard</span></a>
                 <a onclick="switchTab('transactions')" id="nav-transactions" class="nav-link"><i class="fas fa-list-alt w-6 text-center shrink-0 text-lg"></i> <span class="whitespace-nowrap font-bold tracking-wide">Transactions</span></a>
                 <a onclick="switchTab('savings')" id="nav-savings" class="nav-link"><i class="fas fa-piggy-bank w-6 text-center shrink-0 text-lg text-emerald-500"></i> <span class="whitespace-nowrap font-bold tracking-wide">Savings Goals</span></a>
                 <a onclick="switchTab('loans')" id="nav-loans" class="nav-link"><i class="fas fa-hand-holding-usd w-6 text-center shrink-0 text-lg text-purple-500"></i> <span class="whitespace-nowrap font-bold tracking-wide">Loans & Debts</span></a>
-                <a onclick="switchTab('calendar')" id="nav-calendar" class="nav-link"><i class="fas fa-calendar-alt w-6 text-center shrink-0 text-lg"></i> <span class="whitespace-nowrap font-bold tracking-wide">Calendar</span></a>
-                <a onclick="switchTab('analytics')" id="nav-analytics" class="nav-link"><i class="fas fa-chart-bar w-6 text-center shrink-0 text-lg"></i> <span class="whitespace-nowrap font-bold tracking-wide">Reports</span></a>
+                <a onclick="switchTab('analytics')" id="nav-analytics" class="nav-link"><i class="fas fa-chart-pie w-6 text-center shrink-0 text-lg"></i> <span class="whitespace-nowrap font-bold tracking-wide">Reports</span></a>
                 
-                <div class="text-[10px] font-black text-indigo-500 dark:text-indigo-400 uppercase tracking-widest mb-3 mt-6 px-2 whitespace-nowrap overflow-hidden flex items-center gap-2">
-                    <div class="w-1.5 h-1.5 bg-indigo-500 rounded-full shadow-sm"></div> DISCIPLINE
+                <div class="text-[10px] font-black text-indigo-500 dark:text-indigo-400 uppercase tracking-widest mb-4 mt-8 px-2 whitespace-nowrap overflow-hidden flex items-center gap-2">
+                    <div class="w-1.5 h-1.5 bg-indigo-500 rounded-full shadow-sm"></div> Discipline
                 </div>
                 <a onclick="switchTab('challenge')" id="nav-challenge" class="nav-link"><i class="fas fa-shield-alt w-6 text-center shrink-0 text-lg text-indigo-500"></i> <span class="whitespace-nowrap font-bold tracking-wide">90 Days Challenge</span></a>
                 
-                <div class="text-[10px] font-black text-sarathy-blue dark:text-sky-400 uppercase tracking-widest mb-3 mt-6 px-2 whitespace-nowrap overflow-hidden flex items-center gap-2">
-                    <div class="w-1.5 h-1.5 bg-sarathy-red rounded-full shadow-sm"></div> MANAGEMENT
+                <div class="text-[10px] font-black text-sarathy-blue dark:text-sky-400 uppercase tracking-widest mb-4 mt-8 px-2 whitespace-nowrap overflow-hidden flex items-center gap-2">
+                    <div class="w-1.5 h-1.5 bg-sarathy-red rounded-full shadow-sm"></div> Management
                 </div>
                 <a onclick="openBudgetModal()" class="nav-link"><i class="fas fa-bullseye w-6 text-center shrink-0 text-lg"></i> <span class="whitespace-nowrap font-bold tracking-wide">Set Budgets</span></a>
-                <a onclick="exportToExcel()" class="nav-link text-emerald-600 dark:text-emerald-400 hover:text-emerald-700"><i class="fas fa-file-excel w-6 text-center shrink-0 text-lg"></i> <span class="whitespace-nowrap font-bold tracking-wide">Export Excel</span></a>
+                <a onclick="exportToExcel()" class="nav-link text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/20"><i class="fas fa-file-excel w-6 text-center shrink-0 text-lg"></i> <span class="whitespace-nowrap font-bold tracking-wide">Export Data</span></a>
                 <a onclick="switchTab('settings')" id="nav-settings" class="nav-link text-slate-600 dark:text-slate-400 hover:text-sarathy-blue mt-2"><i class="fas fa-cog w-6 text-center shrink-0 text-lg"></i> <span class="whitespace-nowrap font-bold tracking-wide">Settings</span></a>
-                <input type="file" id="importFile" accept=".json" class="hidden" onchange="importBackup(event)">
             </div>
         </aside>
 
         <!-- MAIN CONTENT AREA -->
         <main class="flex-1 flex flex-col h-screen overflow-hidden relative min-w-0 bg-[var(--bg-primary)]">
             
-            <!-- Top Header Area (Mobile & Desktop) -->
             <header class="h-16 md:h-20 glass-panel flex justify-between items-center px-4 md:px-8 shrink-0 z-30 sticky top-0 no-print">
                 <div class="flex items-center gap-3">
-                    <!-- Mobile Hamburger -->
-                    <button onclick="toggleSidebarMobile()" class="md:hidden w-10 h-10 rounded-xl bg-[var(--bg-secondary)] text-[var(--text-secondary)] flex items-center justify-center shadow-sm border border-[var(--border-color)] hover:text-sarathy-blue transition-colors">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                    <!-- Mobile Logo -->
-                    <div class="md:hidden flex items-center gap-2 ml-1">
-                        <img src="WhatsApp%20Image%202026-03-30%20at%207.10.19%20AM.jpeg" alt="SR Logo" class="h-8 w-auto object-contain shrink-0 dark:invert rounded-lg shadow-sm mix-blend-multiply dark:mix-blend-normal bg-transparent dark:bg-white/90 p-0.5" onerror="this.style.display='none';">
-                        <h1 class="font-black text-sm tracking-tight gradient-text uppercase">Expense Pro</h1>
+                    <div class="md:hidden flex items-center gap-2">
+                        <div class="w-8 h-8 bg-gradient-to-tr from-sarathy-blue to-sky-400 rounded-lg flex items-center justify-center text-white text-xs font-black shrink-0 shadow-md">ET</div>
+                        <h1 class="font-black text-sm tracking-tight gradient-text uppercase font-outfit">Expense Pro</h1>
                     </div>
-                    <!-- Desktop Title -->
                     <div class="hidden md:block">
-                        <h2 id="pageTitle" class="text-xl font-black uppercase tracking-widest text-[var(--text-primary)] truncate">Financial Dashboard</h2>
+                        <h2 id="pageTitle" class="text-xl font-black uppercase tracking-widest text-[var(--text-primary)] font-outfit truncate">Financial Dashboard</h2>
                         <p class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest" id="dashboardDateRangeHeader">Welcome back, manage your finances</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-2 md:gap-4 shrink-0">
-                    <!-- PRIVACY MODE TOGGLE -->
                     <button onclick="togglePrivacy()" title="Hide/Show Balances" class="w-9 h-9 md:w-10 md:h-10 rounded-full bg-[var(--bg-secondary)] text-[var(--text-secondary)] flex items-center justify-center shadow-sm border border-[var(--border-color)] hover:text-indigo-500 transition-all hover:scale-105 active:scale-95">
                         <i id="privacyIcon" class="fas fa-eye text-sm md:text-base"></i>
                     </button>
                     <button onclick="toggleDarkMode()" title="Toggle Dark Mode" class="w-9 h-9 md:w-10 md:h-10 rounded-full bg-[var(--bg-secondary)] text-[var(--text-secondary)] flex items-center justify-center shadow-sm border border-[var(--border-color)] hover:text-sarathy-blue transition-all hover:scale-105 active:scale-95">
                         <i id="darkModeIcon" class="fas fa-moon text-sm md:text-base"></i>
                     </button>
-                    
                     <div class="h-6 md:h-8 w-px bg-[var(--border-color)] mx-0.5 md:mx-1 hidden sm:block"></div>
-                    
                     <div class="hidden md:flex items-center gap-3 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 p-1.5 pr-4 rounded-full transition-all border border-transparent hover:border-[var(--border-color)]" onclick="switchTab('settings')">
                         <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-sarathy-blue to-sky-400 text-white flex items-center justify-center font-bold shrink-0 shadow-md">
                             <i class="fas fa-user-shield text-sm"></i>
@@ -322,19 +238,9 @@
                 </div>
             </header>
 
-            <!-- CONTENT TABS -->
             <div class="flex-1 relative overflow-y-auto overflow-x-hidden custom-scroll scroll-smooth">
-                
-                <div class="hidden print:block text-center pt-8 pb-4 border-b-2 border-black mb-8 w-full">
-                    <h1 class="text-4xl font-black uppercase tracking-widest text-black">SARATHY GROUP</h1>
-                    <p class="text-lg font-bold uppercase tracking-widest mt-2 text-black">Financial Summary Report</p>
-                    <p class="text-sm font-medium mt-1 text-black" id="printDateRange"></p>
-                </div>
-
                 <!-- TAB 1: DASHBOARD -->
                 <div id="tab-dashboard" class="tab-content active p-4 md:p-8 space-y-5 md:space-y-8 max-w-7xl mx-auto">
-                    
-                    <!-- Dashboard Filter -->
                     <div class="flex justify-between items-center bg-[var(--bg-secondary)] p-2 md:p-3 rounded-xl md:rounded-2xl border border-[var(--border-color)] shadow-sm animate-up no-print">
                         <div class="flex gap-1 md:gap-2">
                             <button onclick="setDashboardView('THIS_MONTH')" id="btnViewMonth" class="px-3 md:px-5 py-2 md:py-2.5 rounded-lg md:rounded-xl text-[10px] md:text-xs font-black uppercase tracking-widest bg-sarathy-blue text-white shadow-md transition-all active:scale-95">This Month</button>
@@ -345,13 +251,25 @@
                         </div>
                     </div>
                     
-                    <!-- Top Section: Virtual Card & Quick Insights -->
+                    <div class="md:hidden modern-card p-4 rounded-xl bg-gradient-to-r from-indigo-900 to-slate-800 text-white relative overflow-hidden cursor-pointer shadow-lg animate-up border-none" onclick="switchTab('challenge')">
+                        <i class="fas fa-shield-alt absolute -right-2 -bottom-2 text-[5rem] opacity-20 transform -rotate-12"></i>
+                        <div class="relative z-10 flex justify-between items-center">
+                            <div>
+                                <h3 class="font-black text-[11px] text-indigo-300 tracking-widest uppercase mb-0.5"><i class="fas fa-fire mr-1"></i> 90 Days Challenge</h3>
+                                <p class="text-xs font-bold text-white" id="mobChallengeStatus">Stay Strong. Build Discipline.</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-2xl font-black text-white" id="mobChallengeDays">0</span>
+                                <span class="text-[8px] font-bold text-indigo-300 uppercase block -mt-1">/90 Days</span>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 md:gap-6 animate-up">
-                        <!-- Premium Wallet Card -->
                         <div class="lg:col-span-2 wallet-card p-6 md:p-8 rounded-2xl md:rounded-3xl text-white flex flex-col justify-between min-h-[200px] md:min-h-[240px]">
                             <div class="flex justify-between items-start z-10 relative">
                                 <div>
-                                    <h2 id="welcomeGreeting" class="text-xl md:text-2xl font-black mb-1 flex items-center gap-2 tracking-tight"><i class="fas fa-sun text-amber-300"></i> Good Morning</h2>
+                                    <h2 id="welcomeGreeting" class="text-xl md:text-2xl font-black mb-1 flex items-center gap-2 tracking-tight font-outfit"><i class="fas fa-sun text-amber-300"></i> Good Morning</h2>
                                     <p class="text-slate-400 text-[10px] md:text-xs font-bold uppercase tracking-widest">Total Available Balance</p>
                                 </div>
                                 <div class="chip shadow-sm"></div>
@@ -372,10 +290,8 @@
                             </div>
                         </div>
 
-                        <!-- Right Column: Health Score & Smart Info -->
                         <div class="lg:col-span-1 flex flex-col gap-4 md:gap-5">
-                            <!-- Health Score -->
-                            <div class="bg-white dark:bg-slate-800 p-5 md:p-6 rounded-2xl md:rounded-3xl border border-[var(--border-color)] shadow-sm flex items-center justify-between">
+                            <div class="bg-white dark:bg-slate-800 p-5 md:p-6 rounded-2xl md:rounded-3xl border border-[var(--border-color)] shadow-sm flex items-center justify-between hidden md:flex">
                                 <div>
                                     <span class="text-[10px] md:text-[11px] uppercase tracking-widest font-black text-slate-400 block mb-1">Health Score</span>
                                     <div class="flex items-baseline gap-1">
@@ -388,7 +304,6 @@
                                 </div>
                             </div>
                             
-                            <!-- Smart Daily Insights -->
                             <div class="grid grid-cols-2 gap-4 md:gap-5 h-full">
                                 <div class="bg-blue-50 dark:bg-blue-900/20 p-4 md:p-5 rounded-2xl md:rounded-3xl border border-blue-100 dark:border-blue-800/50 flex flex-col justify-center">
                                     <span class="text-[9px] md:text-[10px] uppercase tracking-widest font-black text-sarathy-blue dark:text-sky-400 block mb-1.5"><i class="fas fa-chart-pie mr-1"></i> Daily Avg</span>
@@ -402,9 +317,7 @@
                         </div>
                     </div>
 
-                    <!-- Layout for Progress & Recent Updates -->
                     <div class="grid grid-cols-1 xl:grid-cols-3 gap-5 md:gap-6 animate-up" style="animation-delay: 0.2s;">
-                        <!-- Budget Progress -->
                         <div class="xl:col-span-2">
                             <div class="flex justify-between items-center mb-4 md:mb-5">
                                 <h3 class="font-black text-sm md:text-base uppercase tracking-widest text-[var(--text-primary)] flex items-center gap-2">
@@ -417,7 +330,6 @@
                             </div>
                         </div>
 
-                        <!-- Recent Additions -->
                         <div class="xl:col-span-1">
                             <div class="flex justify-between items-center mb-4 md:mb-5">
                                 <h3 class="font-black text-sm md:text-base uppercase tracking-widest text-[var(--text-primary)] flex items-center gap-2">
@@ -436,7 +348,6 @@
 
                 <!-- TAB 2: TRANSACTIONS -->
                 <div id="tab-transactions" class="tab-content p-4 md:p-8 max-w-7xl mx-auto">
-                    <!-- Filters & Search -->
                     <div class="glass-panel p-3 md:p-6 rounded-2xl md:rounded-3xl mb-4 md:mb-6 shadow-sm md:shadow-md sticky top-0 z-20 no-print">
                         <div class="flex flex-col md:flex-row gap-3 md:gap-4 mb-2">
                             <div class="relative flex-1 group">
@@ -459,8 +370,6 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        <!-- Mini Summary for Filtered View -->
                         <div class="flex flex-col sm:flex-row flex-wrap gap-2 md:gap-6 pt-3 md:pt-4 border-t border-[var(--border-color)] mt-3 md:mt-4 items-start sm:items-center justify-between">
                             <div class="text-[9px] md:text-xs font-black tracking-widest uppercase text-slate-400 bg-slate-100 dark:bg-slate-800 px-3 py-1 md:py-1.5 rounded-lg border border-[var(--border-color)]"><i class="fas fa-chart-line mr-1"></i> Filtered View Totals</div>
                             <div class="flex gap-4 md:gap-6 w-full sm:w-auto justify-between sm:justify-start bg-[var(--bg-secondary)] p-2 sm:p-0 rounded-lg border border-[var(--border-color)] sm:border-none">
@@ -470,7 +379,6 @@
                         </div>
                     </div>
 
-                    <!-- VIEW CONTAINER TO SUPPORT PROFESSIONAL TABLE -->
                     <div class="animate-up">
                         <div class="data-table-container custom-scroll">
                             <div class="overflow-x-auto min-w-full inline-block align-middle">
@@ -494,7 +402,7 @@
                     </div>
                 </div>
 
-                <!-- NEW: TAB 3: LOANS & DEBTS -->
+                <!-- TAB 3: LOANS & DEBTS -->
                 <div id="tab-loans" class="tab-content custom-scroll p-4 md:p-8 max-w-7xl mx-auto">
                     <div class="mb-4 md:mb-6 animate-up flex flex-col sm:flex-row sm:items-end justify-between gap-4 no-print">
                         <div>
@@ -506,7 +414,6 @@
                         </button>
                     </div>
 
-                    <!-- Overall Loans Stats -->
                     <div class="grid grid-cols-2 gap-3 md:gap-5 mb-5 md:mb-8 animate-up" style="animation-delay: 0.1s;">
                         <div class="modern-card p-4 md:p-6 flex flex-col items-center justify-center border-t-4 border-t-emerald-500 shadow-sm rounded-xl md:rounded-2xl">
                             <span class="text-[9px] md:text-[10px] uppercase tracking-widest font-black text-slate-400 mb-1.5 md:mb-2">Total To Receive</span>
@@ -518,7 +425,6 @@
                         </div>
                     </div>
 
-                    <!-- Loans Grid -->
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 animate-up" style="animation-delay: 0.2s;" id="loansGrid">
                         <!-- Populated by JS -->
                     </div>
@@ -536,7 +442,6 @@
                         </button>
                     </div>
 
-                    <!-- Overall Savings Stats -->
                     <div class="grid grid-cols-2 gap-3 md:gap-5 mb-5 md:mb-8 animate-up" style="animation-delay: 0.1s;">
                         <div class="modern-card p-4 md:p-6 flex flex-col items-center justify-center border-t-4 border-t-emerald-500 shadow-sm rounded-xl md:rounded-2xl">
                             <span class="text-[9px] md:text-[10px] uppercase tracking-widest font-black text-slate-400 mb-1.5 md:mb-2">Total Saved</span>
@@ -548,7 +453,6 @@
                         </div>
                     </div>
 
-                    <!-- Goals Grid -->
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 animate-up" style="animation-delay: 0.2s;" id="savingsGoalsGrid">
                         <!-- Populated by JS -->
                     </div>
@@ -559,7 +463,7 @@
                     <div class="modern-card p-3 md:p-8 h-full flex flex-col min-h-[500px] md:min-h-[600px] shadow-sm md:shadow-lg rounded-xl md:rounded-2xl">
                         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 md:mb-8 pb-3 md:pb-4 border-b border-[var(--border-color)] gap-3">
                             <div>
-                                <h3 class="font-black text-xl md:text-3xl uppercase text-sarathy-blue dark:text-sky-400 tracking-tight flex items-center gap-2 md:gap-3"><i class="fas fa-calendar-day opacity-50 text-lg md:text-xl"></i> <span id="calendarMonthLabel">Month Year</span></h3>
+                                <h3 class="font-black text-xl md:text-3xl uppercase text-sarathy-blue dark:text-sky-400 tracking-tight flex items-center gap-2 md:gap-3 font-outfit"><i class="fas fa-calendar-day opacity-50 text-lg md:text-xl"></i> <span id="calendarMonthLabel">Month Year</span></h3>
                                 <p class="text-[9px] md:text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1 ml-7 md:ml-9">Daily Expense & Income Schedule</p>
                             </div>
                             <div class="flex gap-2 no-print self-end sm:self-auto w-full sm:w-auto justify-end">
@@ -582,12 +486,11 @@
 
                 <!-- TAB 6: ANALYTICS -->
                 <div id="tab-analytics" class="tab-content custom-scroll p-4 md:p-8 max-w-7xl mx-auto">
-                    
                     <div class="mb-6 md:mb-8 flex flex-col md:flex-row justify-between items-start md:items-center bg-[var(--bg-secondary)] p-4 md:p-6 rounded-2xl md:rounded-3xl border border-[var(--border-color)] shadow-sm md:shadow-md gap-4 animate-up no-print">
                         <div class="flex items-center gap-3 md:gap-4">
                             <div class="w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-blue-50 dark:bg-blue-900/30 text-sarathy-blue flex items-center justify-center text-lg md:text-2xl shadow-inner shrink-0"><i class="fas fa-chart-line"></i></div>
                             <div>
-                                <h2 class="text-lg md:text-2xl font-black uppercase text-[var(--text-primary)] tracking-wide leading-tight">Financial Reports</h2>
+                                <h2 class="text-lg md:text-2xl font-black uppercase text-[var(--text-primary)] tracking-wide leading-tight font-outfit">Financial Reports</h2>
                                 <p class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-slate-400 mt-0.5">Detailed Analytics & Insights</p>
                             </div>
                         </div>
@@ -611,13 +514,10 @@
                             <h3 class="font-black text-[11px] md:text-base uppercase tracking-widest text-[var(--text-primary)] mb-4 md:mb-6 w-full border-b border-[var(--border-color)] pb-3 md:pb-4 flex items-center gap-2"><i class="fas fa-tags text-sarathy-blue"></i> Expenses by Category</h3>
                             <div class="w-full h-[200px] md:h-[320px] relative"><canvas id="categoryChart"></canvas></div>
                         </div>
-                        
-                        <!-- NEW CHART: Expense Trend (Line Chart) -->
                         <div class="modern-card p-4 md:p-8 flex flex-col items-center border-t-4 border-t-rose-500 shadow-sm md:shadow-lg hover:shadow-xl lg:col-span-2 rounded-xl md:rounded-2xl">
                             <h3 class="font-black text-[11px] md:text-base uppercase tracking-widest text-[var(--text-primary)] mb-4 md:mb-6 w-full border-b border-[var(--border-color)] pb-3 md:pb-4 flex items-center gap-2"><i class="fas fa-wave-square text-rose-500"></i> Daily Expense Trend (Current Month)</h3>
                             <div class="w-full h-[200px] md:h-[350px] relative"><canvas id="trendChart"></canvas></div>
                         </div>
-                        
                         <div class="modern-card p-4 md:p-8 flex flex-col items-center border-t-4 border-t-purple-500 shadow-sm md:shadow-lg hover:shadow-xl lg:col-span-2 animate-up rounded-xl md:rounded-2xl" style="animation-delay: 0.2s;">
                             <h3 class="font-black text-[11px] md:text-base uppercase tracking-widest text-[var(--text-primary)] mb-4 md:mb-6 w-full border-b border-[var(--border-color)] pb-3 md:pb-4 flex items-center gap-2"><i class="fas fa-credit-card text-purple-500"></i> Payment Methods Breakdown</h3>
                             <div class="w-full h-[200px] md:h-[320px] relative"><canvas id="methodChart"></canvas></div>
@@ -629,7 +529,7 @@
                 <div id="tab-challenge" class="tab-content custom-scroll p-4 md:p-8 max-w-5xl mx-auto">
                     <div class="mb-4 md:mb-6 animate-up flex flex-col sm:flex-row sm:items-end justify-between gap-4">
                         <div>
-                            <h2 class="text-2xl md:text-3xl font-black uppercase text-[var(--text-primary)] tracking-tight text-indigo-600 dark:text-indigo-400"><i class="fas fa-shield-alt mr-2"></i> 90 Days Challenge</h2>
+                            <h2 class="text-2xl md:text-3xl font-black uppercase text-[var(--text-primary)] tracking-tight text-indigo-600 dark:text-indigo-400 font-outfit"><i class="fas fa-shield-alt mr-2"></i> 90 Days Challenge</h2>
                             <p class="text-[var(--text-secondary)] text-[10px] md:text-sm font-bold mt-1 md:mt-2 uppercase tracking-widest">Build Discipline. Track Your Streak.</p>
                         </div>
                         <button onclick="resetChallenge()" class="px-5 py-2.5 bg-white dark:bg-slate-800 border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white rounded-xl font-black text-[10px] md:text-xs uppercase tracking-widest shadow-md transition-all active:scale-95 flex items-center justify-center gap-2 shrink-0">
@@ -637,35 +537,33 @@
                         </button>
                     </div>
 
-                    <!-- Challenge Stats -->
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 md:mb-8 animate-up" style="animation-delay: 0.1s;">
                         <div class="modern-card p-4 md:p-6 text-center border-t-4 border-indigo-500">
                             <span class="text-[9px] md:text-[10px] uppercase tracking-widest font-black text-slate-400 block mb-1">Current Streak</span>
-                            <h4 class="text-3xl md:text-4xl font-black text-indigo-500" id="chCurrentDays">0</h4>
+                            <h4 class="text-3xl md:text-4xl font-black text-indigo-500 font-outfit" id="chCurrentDays">0</h4>
                             <span class="text-[8px] md:text-[9px] font-bold text-slate-500 uppercase mt-1 block">Days</span>
                         </div>
                         <div class="modern-card p-4 md:p-6 text-center border-t-4 border-amber-500">
                             <span class="text-[9px] md:text-[10px] uppercase tracking-widest font-black text-slate-400 block mb-1">Best Streak</span>
-                            <h4 class="text-3xl md:text-4xl font-black text-amber-500" id="chBestDays">0</h4>
+                            <h4 class="text-3xl md:text-4xl font-black text-amber-500 font-outfit" id="chBestDays">0</h4>
                             <span class="text-[8px] md:text-[9px] font-bold text-slate-500 uppercase mt-1 block">Days Record</span>
                         </div>
                         <div class="modern-card p-4 md:p-6 text-center border-t-4 border-emerald-500">
                             <span class="text-[9px] md:text-[10px] uppercase tracking-widest font-black text-slate-400 block mb-1">Target</span>
-                            <h4 class="text-3xl md:text-4xl font-black text-emerald-500">90</h4>
+                            <h4 class="text-3xl md:text-4xl font-black text-emerald-500 font-outfit">90</h4>
                             <span class="text-[8px] md:text-[9px] font-bold text-slate-500 uppercase mt-1 block">Days</span>
                         </div>
                         <div class="modern-card p-4 md:p-6 text-center border-t-4 border-red-500">
                             <span class="text-[9px] md:text-[10px] uppercase tracking-widest font-black text-slate-400 block mb-1">Relapses</span>
-                            <h4 class="text-3xl md:text-4xl font-black text-red-500" id="chRelapses">0</h4>
+                            <h4 class="text-3xl md:text-4xl font-black text-red-500 font-outfit" id="chRelapses">0</h4>
                             <span class="text-[8px] md:text-[9px] font-bold text-slate-500 uppercase mt-1 block">Times Reset</span>
                         </div>
                     </div>
 
-                    <!-- Challenge Grid -->
                     <div class="modern-card p-5 md:p-8 animate-up" style="animation-delay: 0.2s;">
                         <div id="challengeStartPrompt" class="text-center py-10 hidden">
                             <i class="fas fa-fire text-6xl text-amber-400 mb-4 animate-pulse"></i>
-                            <h3 class="text-xl font-black uppercase text-[var(--text-primary)] mb-2">Ready to start?</h3>
+                            <h3 class="text-xl font-black uppercase text-[var(--text-primary)] mb-2 font-outfit">Ready to start?</h3>
                             <p class="text-xs text-slate-500 mb-6 font-bold uppercase tracking-widest">Commit to 90 days of discipline</p>
                             <button onclick="startChallenge()" class="px-8 py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-black text-sm uppercase tracking-widest shadow-lg shadow-indigo-500/30 transition-all active:scale-95">
                                 Start Journey Now
@@ -687,23 +585,22 @@
                 <!-- TAB 8: SETTINGS -->
                 <div id="tab-settings" class="tab-content custom-scroll p-4 md:p-8 space-y-6 md:space-y-8 max-w-5xl mx-auto">
                     <div class="mb-4 md:mb-6 animate-up">
-                        <h2 class="text-xl md:text-3xl font-black uppercase text-[var(--text-primary)] tracking-tight">System Configuration</h2>
+                        <h2 class="text-xl md:text-3xl font-black uppercase text-[var(--text-primary)] tracking-tight font-outfit">System Configuration</h2>
                         <p class="text-[var(--text-secondary)] text-[10px] md:text-sm font-bold mt-1.5 md:mt-2 uppercase tracking-widest">Full Control Admin Access Panel</p>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6 animate-up" style="animation-delay: 0.1s;">
-                        
                         <!-- Security Configuration -->
                         <div class="modern-card p-5 md:p-8 border-t-4 border-t-sarathy-blue shadow-sm md:shadow-lg hover:shadow-xl rounded-xl md:rounded-2xl">
                             <h3 class="font-black text-xs md:text-base uppercase tracking-widest mb-4 md:mb-6 flex items-center gap-2 md:gap-3 text-[var(--text-primary)] border-b border-[var(--border-color)] pb-3 md:pb-4"><div class="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-sarathy-blue flex items-center justify-center"><i class="fas fa-shield-alt text-sm md:text-lg"></i></div> Security Settings</h3>
                             <div class="space-y-4 md:space-y-5">
                                 <div>
-                                    <label class="text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-widest mb-1.5 md:mb-2 block">Current Admin PIN</label>
-                                    <input type="password" id="currentPin" placeholder="••••" class="w-full p-3 md:p-4 bg-[var(--bg-primary)] border border-[var(--border-color)] md:border-2 rounded-xl font-black text-base md:text-lg outline-none focus:border-sarathy-blue dark:text-white tracking-[0.5em] text-center transition-colors shadow-inner">
+                                    <label class="premium-label">Current Admin PIN</label>
+                                    <input type="password" id="currentPin" placeholder="••••" class="premium-input text-center tracking-[0.5em]">
                                 </div>
                                 <div>
-                                    <label class="text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-widest mb-1.5 md:mb-2 block">New Admin PIN</label>
-                                    <input type="password" id="newPin" placeholder="••••" class="w-full p-3 md:p-4 bg-[var(--bg-primary)] border border-[var(--border-color)] md:border-2 rounded-xl font-black text-base md:text-lg outline-none focus:border-sarathy-blue dark:text-white tracking-[0.5em] text-center transition-colors shadow-inner">
+                                    <label class="premium-label">New Admin PIN</label>
+                                    <input type="password" id="newPin" placeholder="••••" class="premium-input text-center tracking-[0.5em]">
                                 </div>
                                 <button onclick="changeAdminPin()" class="w-full bg-sarathy-blue hover:bg-[#004080] text-white font-black py-3 md:py-4 rounded-xl shadow-lg shadow-blue-600/30 transition-all active:scale-95 text-[10px] md:text-sm uppercase tracking-widest mt-2 md:mt-4">
                                     Update Security PIN <i class="fas fa-check ml-1 md:ml-2"></i>
@@ -806,44 +703,41 @@
                 </a>
             </nav>
 
-            <!-- Desktop Floating Action Button (Hidden on Mobile) -->
-            <button id="addBtn" onclick="openModal('EXPENSE')" class="fab hidden md:flex no-print" title="Add Transaction"><i class="fas fa-plus text-lg md:text-xl"></i></button>
-            
         </main>
     </div>
 
-    <!-- LOANS MODAL (NEW) -->
+    <!-- LOANS MODAL -->
     <div id="loanModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[110] hidden flex justify-center items-end md:items-center p-0 md:p-4 transition-opacity duration-300 no-print">
         <div class="bg-[var(--bg-secondary)] w-full max-w-md rounded-t-3xl md:rounded-3xl shadow-2xl flex flex-col modal-animate border border-[var(--border-color)] pb-6 md:pb-0">
-            <div class="p-4 md:p-6 border-b border-[var(--border-color)] flex justify-between items-center bg-[var(--bg-secondary)] z-10 rounded-t-3xl shrink-0">
+            <div class="p-4 md:p-6 border-b border-[var(--border-color)] flex justify-between items-center bg-[var(--bg-primary)] z-10 rounded-t-3xl shrink-0">
                 <div class="flex items-center gap-3">
                     <div class="w-8 h-8 rounded-xl bg-purple-50 dark:bg-purple-900/30 text-purple-500 flex items-center justify-center"><i class="fas fa-hand-holding-usd"></i></div>
                     <h2 class="text-base md:text-lg font-black uppercase text-[var(--text-primary)] tracking-tight" id="loanModalTitle">Add Loan / Debt</h2>
                 </div>
-                <button onclick="closeLoanModal()" class="w-8 h-8 rounded-full bg-[var(--bg-primary)] flex items-center justify-center hover:bg-red-50 hover:text-red-500 transition-colors shrink-0"><i class="fas fa-times"></i></button>
+                <button onclick="closeLoanModal()" class="w-8 h-8 rounded-full bg-[var(--bg-primary)] border border-[var(--border-color)] flex items-center justify-center hover:bg-red-50 hover:text-red-500 transition-colors shrink-0"><i class="fas fa-times"></i></button>
             </div>
-            <form id="loanForm" class="p-4 md:p-6 space-y-4">
+            <form id="loanForm" class="p-4 md:p-6 space-y-4 bg-[var(--bg-secondary)]">
                 <input type="hidden" id="loanEditId">
-                <div class="flex gap-2 p-1 bg-slate-100 dark:bg-slate-800 rounded-xl">
-                    <button type="button" id="btnLoanGiven" onclick="setLoanType('GIVEN')" class="flex-1 py-2 rounded-lg text-xs font-black uppercase tracking-widest bg-white dark:bg-slate-600 shadow-sm text-emerald-600 transition-all">I Gave (To Receive)</button>
-                    <button type="button" id="btnLoanTaken" onclick="setLoanType('TAKEN')" class="flex-1 py-2 rounded-lg text-xs font-black uppercase tracking-widest text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-all">I Took (To Pay)</button>
+                <div class="flex gap-2 p-1 bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-xl">
+                    <button type="button" id="btnLoanGiven" onclick="setLoanType('GIVEN')" class="flex-1 py-2.5 rounded-lg text-xs font-black uppercase tracking-widest bg-[var(--bg-secondary)] shadow-sm border border-[var(--border-color)] text-emerald-600 transition-all">I Gave (To Receive)</button>
+                    <button type="button" id="btnLoanTaken" onclick="setLoanType('TAKEN')" class="flex-1 py-2.5 rounded-lg text-xs font-black uppercase tracking-widest text-[var(--text-secondary)] hover:text-slate-700 dark:hover:text-slate-300 transition-all border border-transparent">I Took (To Pay)</button>
                 </div>
                 <input type="hidden" id="loanType" value="GIVEN">
                 
                 <div>
-                    <label class="text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-widest mb-1.5 ml-1">Person Name</label>
-                    <input type="text" id="loanPerson" required class="w-full p-3.5 bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-xl font-bold text-xs uppercase outline-none focus:border-purple-500 dark:text-white transition-colors" placeholder="Who?">
+                    <label class="premium-label ml-1">Person Name</label>
+                    <input type="text" id="loanPerson" required class="premium-input uppercase" placeholder="Who?">
                 </div>
                 <div>
-                    <label class="text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-widest mb-1.5 ml-1">Amount (₹)</label>
+                    <label class="premium-label ml-1">Amount (₹)</label>
                     <div class="relative">
                         <span class="absolute left-4 top-1/2 -translate-y-1/2 font-black text-slate-400">₹</span>
-                        <input type="number" id="loanAmount" required min="1" class="w-full pl-8 pr-4 py-3.5 bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-xl font-black text-xs outline-none focus:border-purple-500 dark:text-white transition-colors" placeholder="0">
+                        <input type="number" id="loanAmount" required min="1" class="premium-input pl-8" placeholder="0">
                     </div>
                 </div>
                 <div>
-                    <label class="text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-widest mb-1.5 ml-1">Date</label>
-                    <input type="date" id="loanDate" required class="w-full p-3.5 bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-xl font-bold text-xs outline-none focus:border-purple-500 dark:text-white transition-colors dark:[color-scheme:dark]">
+                    <label class="premium-label ml-1">Date</label>
+                    <input type="date" id="loanDate" required class="premium-input cursor-pointer dark:[color-scheme:dark]">
                 </div>
                 
                 <button type="submit" class="w-full mt-4 py-3.5 bg-purple-600 text-white rounded-xl font-black text-[10px] md:text-xs uppercase tracking-widest hover:bg-purple-700 transition-all shadow-lg shadow-purple-500/30 active:scale-95">Save Record</button>
@@ -853,21 +747,21 @@
 
     <!-- TRANSACTION MODAL -->
     <div id="addModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[110] hidden flex justify-end items-end md:items-stretch transition-opacity duration-300 no-print">
-        <div id="modalContent" class="bg-[var(--bg-secondary)] w-full md:w-3/4 lg:w-[55%] xl:w-[45%] h-[92vh] md:h-full rounded-t-3xl md:rounded-none shadow-2xl flex flex-col transform translate-y-full md:translate-y-0 md:translate-x-full transition-transform duration-400 ease-out border-l border-[var(--border-color)]">
-            <div class="p-4 md:p-8 border-b border-[var(--border-color)] flex justify-between items-center bg-[var(--bg-secondary)] z-10 rounded-t-3xl md:rounded-none shrink-0">
-                <div class="flex items-center gap-3 md:gap-5">
-                    <button type="button" onclick="closeModal()" class="w-8 h-8 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-[var(--bg-primary)] border border-[var(--border-color)] text-[var(--text-secondary)] flex items-center justify-center shadow-sm hover:text-sarathy-blue hover:-translate-x-1 transition-all active:scale-95 shrink-0">
-                        <i class="fas fa-arrow-left text-sm md:text-lg"></i>
+        <div id="modalContent" class="bg-[var(--bg-secondary)] w-full md:w-3/4 lg:w-[55%] xl:w-[45%] h-[92vh] md:h-full rounded-t-3xl md:rounded-none shadow-2xl flex flex-col transform translate-y-full md:translate-y-0 md:translate-x-full transition-transform duration-400 ease-out border-l border-[var(--border-color)] overflow-hidden">
+            <div class="p-4 md:p-6 border-b border-[var(--border-color)] flex justify-between items-center bg-[var(--bg-primary)] z-10 shrink-0">
+                <div class="flex items-center gap-3 md:gap-4">
+                    <button type="button" onclick="closeModal()" class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white dark:bg-slate-800 border border-[var(--border-color)] text-[var(--text-secondary)] flex items-center justify-center shadow-sm hover:text-sarathy-blue transition-all active:scale-95 shrink-0">
+                        <i class="fas fa-arrow-left text-sm"></i>
                     </button>
                     <div>
-                        <h2 class="text-lg md:text-2xl font-black uppercase text-[var(--text-primary)] tracking-tight" id="modalTitle">Add Transaction</h2>
+                        <h2 class="text-lg md:text-xl font-black uppercase text-[var(--text-primary)] tracking-tight font-outfit" id="modalTitle">Add Transaction</h2>
                         <p class="text-[8px] md:text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-0.5 md:mt-1">Fill out financial details</p>
                     </div>
                 </div>
-                <button type="button" onclick="closeModal()" class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[var(--bg-primary)] flex items-center justify-center hover:bg-red-50 hover:text-red-500 transition-colors shrink-0 active:scale-95"><i class="fas fa-times text-sm md:text-lg"></i></button>
+                <button type="button" onclick="closeModal()" class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white dark:bg-slate-800 flex items-center justify-center hover:bg-red-50 hover:text-red-500 transition-colors shrink-0 active:scale-95 border border-[var(--border-color)]"><i class="fas fa-times text-sm"></i></button>
             </div>
             
-            <div class="overflow-y-auto p-4 md:p-8 custom-scroll flex-1 bg-[var(--bg-primary)] relative pb-24 md:pb-8">
+            <div class="overflow-y-auto p-4 md:p-8 custom-scroll flex-1 bg-[var(--bg-secondary)] relative pb-24 md:pb-8">
                 <!-- Decorative background elements -->
                 <div class="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl pointer-events-none hidden md:block"></div>
                 <div class="absolute bottom-0 left-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none hidden md:block"></div>
@@ -878,60 +772,63 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 flex-1">
                         
                         <!-- AMOUNT -->
-                        <div class="col-span-1 md:col-span-2 p-5 md:p-8 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 md:border-2 rounded-2xl md:rounded-3xl shadow-sm md:shadow-lg text-center transition-all focus-within:border-sarathy-blue focus-within:shadow-blue-500/20">
-                            <label class="text-[9px] md:text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 md:mb-3 block">Total Amount (₹)</label>
+                        <div class="col-span-1 md:col-span-2 p-5 md:p-8 bg-white dark:bg-slate-800 border border-[var(--border-color)] rounded-2xl md:rounded-3xl shadow-sm text-center transition-all focus-within:border-sarathy-blue focus-within:shadow-premium">
+                            <label class="text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-widest mb-2 md:mb-3 block">Total Amount (₹)</label>
                             <div class="flex items-center justify-center">
-                                <span class="text-3xl md:text-5xl font-black text-slate-300 mr-1 md:mr-2 select-none">₹</span>
-                                <input type="number" id="txnAmount" required min="1" step="0.01" class="w-full bg-transparent font-black text-4xl md:text-6xl text-center outline-none text-sarathy-blue dark:text-sky-400 placeholder-slate-200 dark:placeholder-slate-700 transition-colors" placeholder="0.00">
+                                <span class="text-3xl md:text-5xl font-black text-[var(--text-secondary)] opacity-50 mr-1 md:mr-2 select-none">₹</span>
+                                <input type="number" id="txnAmount" required min="1" step="0.01" class="w-2/3 bg-transparent font-black text-4xl md:text-6xl text-center outline-none text-sarathy-blue dark:text-sky-400 placeholder-slate-300 dark:placeholder-slate-600 transition-colors" placeholder="0.00">
                             </div>
                         </div>
 
                         <!-- TYPE -->
                         <div class="flex flex-col justify-end relative">
-                            <label class="text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-widest mb-1.5 md:mb-2 ml-1">Type</label>
-                            <select id="txnType" required onchange="updateCategoryOptions()" class="w-full p-3.5 md:p-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 md:border-2 rounded-xl md:rounded-2xl font-black text-xs md:text-sm uppercase outline-none focus:border-sarathy-blue transition-colors appearance-none dark:text-white dark:[color-scheme:dark] shadow-sm cursor-pointer">
+                            <label class="premium-label ml-1">Type</label>
+                            <select id="txnType" required onchange="updateCategoryOptions()" class="premium-input appearance-none cursor-pointer">
                                 <option value="EXPENSE">🔴 EXPENSE (MONEY OUT)</option>
                                 <option value="INCOME">🟢 INCOME (MONEY IN)</option>
                             </select>
-                            <i class="fas fa-chevron-down absolute right-4 md:right-5 bottom-4 md:bottom-5 text-slate-400 pointer-events-none text-[10px] md:text-xs z-0"></i>
+                            <i class="fas fa-chevron-down absolute right-4 md:right-5 bottom-4 text-slate-400 pointer-events-none text-[10px] md:text-xs z-0"></i>
                         </div>
 
                         <!-- DATE -->
                         <div class="flex flex-col justify-end relative">
-                            <label class="text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-widest mb-1.5 md:mb-2 ml-1">Date</label>
-                            <input type="date" id="txnDate" required class="w-full p-3.5 md:p-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 md:border-2 rounded-xl md:rounded-2xl font-black text-xs md:text-sm outline-none focus:border-sarathy-blue transition-colors dark:text-white dark:[color-scheme:dark] shadow-sm uppercase tracking-widest cursor-pointer">
+                            <label class="premium-label ml-1">Date</label>
+                            <input type="date" id="txnDate" required class="premium-input cursor-pointer dark:[color-scheme:dark]">
                         </div>
 
                         <!-- CATEGORY (DROPDOWN) -->
                         <div class="flex flex-col justify-end relative">
-                            <label class="text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-widest mb-1.5 md:mb-2 ml-1">Category</label>
-                            <select id="txnCategory" required class="w-full p-3.5 md:p-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 md:border-2 rounded-xl md:rounded-2xl font-black text-xs md:text-sm uppercase outline-none focus:border-sarathy-blue transition-colors appearance-none dark:text-white dark:[color-scheme:dark] shadow-sm cursor-pointer">
+                            <label class="premium-label ml-1">Category</label>
+                            <select id="txnCategory" required class="premium-input appearance-none cursor-pointer">
                                 <!-- Options will be dynamically populated -->
                             </select>
-                            <i class="fas fa-chevron-down absolute right-4 md:right-5 bottom-4 md:bottom-5 text-slate-400 pointer-events-none text-[10px] md:text-xs"></i>
+                            <i class="fas fa-chevron-down absolute right-4 md:right-5 bottom-4 text-slate-400 pointer-events-none text-[10px] md:text-xs"></i>
                         </div>
 
                         <!-- PAYMENT METHOD -->
                         <div class="flex flex-col justify-end relative">
-                            <label class="text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-widest mb-1.5 md:mb-2 ml-1">Payment Method</label>
-                            <select id="txnMethod" required class="w-full p-3.5 md:p-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 md:border-2 rounded-xl md:rounded-2xl font-black text-xs md:text-sm uppercase outline-none focus:border-sarathy-blue transition-colors appearance-none dark:text-white dark:[color-scheme:dark] shadow-sm cursor-pointer">
+                            <label class="premium-label ml-1">Payment Method</label>
+                            <select id="txnMethod" required class="premium-input appearance-none cursor-pointer">
                                 <option value="CASH">CASH</option>
                                 <option value="UPI / WALLET">UPI / WALLET</option>
                                 <option value="CREDIT CARD">CREDIT CARD</option>
                                 <option value="DEBIT CARD">DEBIT CARD</option>
                                 <option value="BANK TRANSFER">BANK TRANSFER</option>
                             </select>
-                            <i class="fas fa-chevron-down absolute right-4 md:right-5 bottom-4 md:bottom-5 text-slate-400 pointer-events-none text-[10px] md:text-xs"></i>
+                            <i class="fas fa-chevron-down absolute right-4 md:right-5 bottom-4 text-slate-400 pointer-events-none text-[10px] md:text-xs"></i>
                         </div>
 
                         <!-- DESCRIPTION -->
                         <div class="col-span-1 md:col-span-2 flex flex-col justify-end">
-                            <label class="text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-widest mb-1.5 md:mb-2 ml-1">Description / Notes</label>
-                            <input type="text" id="txnDesc" required class="w-full p-3.5 md:p-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 md:border-2 rounded-xl md:rounded-2xl font-black text-xs md:text-sm uppercase outline-none focus:border-sarathy-blue transition-colors dark:text-white shadow-sm" placeholder="WHAT WAS THIS FOR?">
+                            <label class="premium-label ml-1">Description / Notes</label>
+                            <div class="relative">
+                                <i class="fas fa-align-left absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                                <input type="text" id="txnDesc" required class="premium-input pl-10" placeholder="WHAT WAS THIS FOR?">
+                            </div>
                         </div>
                     </div>
 
-                    <div class="pt-6 md:pt-8 mt-auto md:mt-4 sticky bottom-0 bg-[var(--bg-primary)] pb-2 md:pb-4 z-20">
+                    <div class="pt-6 md:pt-8 mt-auto md:mt-4 sticky bottom-0 bg-[var(--bg-secondary)] border-t border-[var(--border-color)] pb-2 md:pb-4 z-20">
                         <button type="submit" id="saveTxnBtn" class="w-full bg-sarathy-blue hover:bg-[#004080] text-white font-black py-3.5 md:py-4 rounded-xl md:rounded-2xl shadow-lg md:shadow-xl shadow-blue-600/30 active:scale-[0.98] transition-all duration-300 uppercase tracking-widest text-xs md:text-sm flex items-center justify-center gap-2 md:gap-3">
                             <i class="fas fa-save text-base md:text-lg"></i> Save Transaction
                         </button>
@@ -941,49 +838,31 @@
         </div>
     </div>
 
-    <!-- BUDGET MODAL -->
-    <div id="reqModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[115] hidden flex justify-center items-end md:items-center p-0 md:p-4 transition-opacity duration-300 no-print">
-        <div class="bg-[var(--bg-secondary)] w-full max-w-3xl rounded-t-3xl md:rounded-3xl shadow-2xl flex flex-col max-h-[90vh] md:max-h-[85vh] modal-animate border border-[var(--border-color)] pb-6 md:pb-0">
-            <div class="p-4 md:p-8 border-b border-[var(--border-color)] flex justify-between items-center bg-[var(--bg-secondary)] z-10 rounded-t-3xl shrink-0">
-                <div class="flex items-center gap-2 md:gap-4">
-                    <div class="w-8 h-8 md:w-10 md:h-10 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-sarathy-blue flex items-center justify-center"><i class="fas fa-bullseye text-sm md:text-lg"></i></div>
-                    <h2 class="text-base md:text-2xl font-black uppercase text-[var(--text-primary)] tracking-tight">Monthly Budgets</h2>
-                </div>
-                <button onclick="addReqRow()" class="h-8 md:h-10 px-3 md:px-4 rounded-lg md:rounded-xl bg-sarathy-blue text-white flex items-center justify-center hover:bg-[#004080] transition-colors shadow-md active:scale-95 text-[9px] md:text-[10px] font-black uppercase tracking-widest gap-1.5 md:gap-2"><i class="fas fa-plus"></i> Add Limit</button>
-            </div>
-            <div id="reqEntriesContainer" class="p-4 md:p-8 overflow-y-auto space-y-3 md:space-y-5 custom-scroll flex-1 bg-[var(--bg-primary)] pb-24 md:pb-8"></div>
-            <div class="p-4 md:p-6 border-t border-[var(--border-color)] flex gap-2 md:gap-4 bg-[var(--bg-secondary)] md:rounded-b-3xl shrink-0">
-                <button onclick="closeReqModal()" class="flex-1 py-3 md:py-4 bg-[var(--bg-primary)] text-[var(--text-secondary)] rounded-xl md:rounded-2xl font-black text-[9px] md:text-[10px] uppercase tracking-widest hover:bg-slate-100 dark:hover:bg-slate-800 transition-all border border-[var(--border-color)] md:border-2 active:scale-95">Close</button>
-                <button onclick="saveRequirements()" class="flex-1 py-3 md:py-4 bg-sarathy-blue text-white rounded-xl md:rounded-2xl font-black text-[9px] md:text-[10px] uppercase tracking-widest hover:bg-[#004080] transition-all shadow-lg shadow-blue-500/30 active:scale-95 flex items-center justify-center gap-1.5 md:gap-2"><i class="fas fa-check"></i> Save Budgets</button>
-            </div>
-        </div>
-    </div>
-    
     <!-- SAVINGS GOAL MODAL -->
     <div id="goalModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[115] hidden flex justify-center items-end md:items-center p-0 md:p-4 transition-opacity duration-300 no-print">
         <div class="bg-[var(--bg-secondary)] w-full max-w-md rounded-t-3xl md:rounded-3xl shadow-2xl flex flex-col modal-animate border border-[var(--border-color)] pb-6 md:pb-0">
-            <div class="p-4 md:p-6 border-b border-[var(--border-color)] flex justify-between items-center bg-[var(--bg-secondary)] z-10 rounded-t-3xl shrink-0">
+            <div class="p-4 md:p-6 border-b border-[var(--border-color)] flex justify-between items-center bg-[var(--bg-primary)] z-10 rounded-t-3xl shrink-0">
                 <div class="flex items-center gap-3">
                     <div class="w-8 h-8 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 text-emerald-500 flex items-center justify-center"><i class="fas fa-piggy-bank"></i></div>
                     <h2 class="text-base md:text-lg font-black uppercase text-[var(--text-primary)] tracking-tight">New Savings Goal</h2>
                 </div>
-                <button onclick="closeGoalModal()" class="w-8 h-8 rounded-full bg-[var(--bg-primary)] flex items-center justify-center hover:bg-red-50 hover:text-red-500 transition-colors shrink-0"><i class="fas fa-times"></i></button>
+                <button onclick="closeGoalModal()" class="w-8 h-8 rounded-full bg-white dark:bg-slate-800 border border-[var(--border-color)] flex items-center justify-center hover:bg-red-50 hover:text-red-500 transition-colors shrink-0"><i class="fas fa-times"></i></button>
             </div>
-            <form id="goalForm" class="p-4 md:p-6 space-y-4">
+            <form id="goalForm" class="p-4 md:p-6 space-y-4 bg-[var(--bg-secondary)]">
                 <div>
-                    <label class="text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-widest mb-1.5 ml-1">Goal Name</label>
-                    <input type="text" id="goalName" required class="w-full p-3.5 bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-xl font-bold text-xs uppercase outline-none focus:border-emerald-500 dark:text-white transition-colors" placeholder="e.g. New Car, Vacation">
+                    <label class="premium-label ml-1">Goal Name</label>
+                    <input type="text" id="goalName" required class="premium-input uppercase" placeholder="e.g. New Car, Vacation">
                 </div>
                 <div>
-                    <label class="text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-widest mb-1.5 ml-1">Target Amount (₹)</label>
+                    <label class="premium-label ml-1">Target Amount (₹)</label>
                     <div class="relative">
                         <span class="absolute left-4 top-1/2 -translate-y-1/2 font-black text-slate-400">₹</span>
-                        <input type="number" id="goalTarget" required min="1" class="w-full pl-8 pr-4 py-3.5 bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-xl font-black text-xs outline-none focus:border-emerald-500 dark:text-white transition-colors" placeholder="50000">
+                        <input type="number" id="goalTarget" required min="1" class="premium-input pl-8" placeholder="50000">
                     </div>
                 </div>
-                <div>
-                    <label class="text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-widest mb-1.5 ml-1">Choose Icon</label>
-                    <select id="goalIcon" class="w-full p-3.5 bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-xl font-bold text-xs md:text-base outline-none focus:border-emerald-500 dark:text-white transition-colors cursor-pointer">
+                <div class="relative">
+                    <label class="premium-label ml-1">Choose Icon</label>
+                    <select id="goalIcon" class="premium-input appearance-none cursor-pointer text-base">
                         <option value="🎯">🎯 Target</option>
                         <option value="🚗">🚗 Car</option>
                         <option value="✈️">✈️ Vacation</option>
@@ -994,6 +873,7 @@
                         <option value="💍">💍 Wedding</option>
                         <option value="👶">👶 Kids</option>
                     </select>
+                    <i class="fas fa-chevron-down absolute right-4 bottom-4 text-slate-400 pointer-events-none text-xs"></i>
                 </div>
                 <button type="submit" class="w-full mt-4 py-3.5 bg-emerald-600 text-white rounded-xl font-black text-[10px] md:text-xs uppercase tracking-widest hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-500/30 active:scale-95">Save Goal</button>
             </form>
@@ -1003,24 +883,24 @@
     <!-- ADD FUNDS MODAL -->
     <div id="addFundsModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[120] hidden flex justify-center items-center p-4 transition-opacity no-print">
         <div class="bg-[var(--bg-secondary)] w-full max-w-sm rounded-3xl shadow-2xl flex flex-col modal-animate border border-[var(--border-color)]">
-            <div class="p-4 border-b border-[var(--border-color)] flex justify-between items-center bg-[var(--bg-secondary)] rounded-t-3xl shrink-0">
+            <div class="p-4 border-b border-[var(--border-color)] flex justify-between items-center bg-[var(--bg-primary)] rounded-t-3xl shrink-0">
                 <div class="flex items-center gap-2">
-                    <div class="w-8 h-8 rounded-xl bg-sarathy-blue/10 text-sarathy-blue flex items-center justify-center"><i class="fas fa-plus"></i></div>
+                    <div class="w-8 h-8 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-sarathy-blue flex items-center justify-center"><i class="fas fa-plus"></i></div>
                     <h2 class="text-sm font-black uppercase text-[var(--text-primary)] tracking-tight">Add Funds</h2>
                 </div>
-                <button onclick="closeAddFundsModal()" class="w-8 h-8 rounded-full bg-[var(--bg-primary)] flex items-center justify-center hover:bg-red-50 hover:text-red-500 transition-colors shrink-0"><i class="fas fa-times"></i></button>
+                <button onclick="closeAddFundsModal()" class="w-8 h-8 rounded-full bg-white dark:bg-slate-800 border border-[var(--border-color)] flex items-center justify-center hover:bg-red-50 hover:text-red-500 transition-colors shrink-0"><i class="fas fa-times"></i></button>
             </div>
-            <form id="addFundsForm" class="p-5 space-y-4">
+            <form id="addFundsForm" class="p-5 space-y-4 bg-[var(--bg-secondary)] rounded-b-3xl">
                 <input type="hidden" id="fundGoalId">
                 <div class="text-center mb-4">
-                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Adding to</p>
-                    <h3 class="text-lg font-black text-[var(--text-primary)] uppercase" id="fundGoalName">Goal Name</h3>
+                    <p class="text-[10px] font-bold text-[var(--text-secondary)] uppercase tracking-widest mb-1">Adding to</p>
+                    <h3 class="text-lg font-black text-[var(--text-primary)] uppercase font-outfit" id="fundGoalName">Goal Name</h3>
                 </div>
                 <div>
-                    <label class="text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-widest mb-1.5 block text-center">Amount to Deposit (₹)</label>
+                    <label class="premium-label text-center">Amount to Deposit (₹)</label>
                     <div class="flex items-center justify-center">
-                        <span class="text-2xl font-black text-slate-300 mr-2">₹</span>
-                        <input type="number" id="fundAmount" required min="1" class="w-2/3 bg-transparent font-black text-4xl text-center outline-none text-emerald-500 placeholder-slate-200 dark:placeholder-slate-700 transition-colors border-b-2 border-slate-200 focus:border-emerald-500" placeholder="0">
+                        <span class="text-2xl font-black text-[var(--text-secondary)] opacity-50 mr-2">₹</span>
+                        <input type="number" id="fundAmount" required min="1" class="w-2/3 bg-transparent font-black text-4xl text-center outline-none text-emerald-500 placeholder-slate-300 dark:placeholder-slate-600 transition-colors border-b-2 border-slate-200 dark:border-slate-700 focus:border-emerald-500 pb-1" placeholder="0">
                     </div>
                 </div>
                 <button type="submit" class="w-full mt-6 py-3.5 bg-sarathy-blue text-white rounded-xl font-black text-[10px] md:text-xs uppercase tracking-widest hover:bg-[#004080] transition-all shadow-lg active:scale-95">Confirm Deposit</button>
@@ -1033,9 +913,9 @@
         <div class="bg-[var(--bg-secondary)] w-full max-w-sm rounded-2xl md:rounded-3xl shadow-2xl mt-14 md:mt-20 overflow-hidden animate-up border border-[var(--border-color)]">
             <div class="p-4 md:p-5 border-b border-[var(--border-color)] flex justify-between items-center bg-[var(--bg-primary)]">
                 <h3 class="font-black text-xs md:text-sm uppercase tracking-widest flex items-center gap-2 text-sarathy-blue"><i class="fas fa-bell"></i> Notifications</h3>
-                <button onclick="toggleNotifications()" class="w-7 h-7 md:w-8 md:h-8 rounded-full bg-[var(--bg-secondary)] text-[var(--text-secondary)] flex items-center justify-center hover:bg-red-50 hover:text-red-500 transition-colors shadow-sm"><i class="fas fa-times text-xs md:text-sm"></i></button>
+                <button onclick="toggleNotifications()" class="w-7 h-7 md:w-8 md:h-8 rounded-full bg-white dark:bg-slate-800 border border-[var(--border-color)] text-[var(--text-secondary)] flex items-center justify-center hover:bg-red-50 hover:text-red-500 transition-colors shadow-sm"><i class="fas fa-times text-xs md:text-sm"></i></button>
             </div>
-            <div class="p-4 md:p-5 custom-scroll max-h-[60vh] overflow-y-auto" id="dynamicNotifications">
+            <div class="p-4 md:p-5 custom-scroll max-h-[60vh] overflow-y-auto bg-[var(--bg-secondary)]" id="dynamicNotifications">
                 <!-- Notifications populated here -->
             </div>
         </div>
@@ -1049,11 +929,11 @@
 
     <script>
         // --- DATA & STATE INITIALIZATION ---
-        const CURRENT_DB_VERSION = 'expense_db_v4'; // STRICTLY PRESERVING YOUR DATA KEY
+        const CURRENT_DB_VERSION = 'expense_db_v4'; 
         const CURRENT_BUDGET_VERSION = 'expense_budget_v4';
         const CHALLENGE_DB_KEY = 'sarathy_nofap_v1'; 
         const SAVINGS_DB_KEY = 'expense_savings_v1';
-        const LOANS_DB_KEY = 'expense_loans_v1'; // NEW key for Loans
+        const LOANS_DB_KEY = 'expense_loans_v1'; 
 
         let localUsers = JSON.parse(localStorage.getItem('expense_users_v1'));
         if (!localUsers) {
@@ -1064,7 +944,6 @@
         let currentUser = null;
         
         let transactions = JSON.parse(localStorage.getItem(CURRENT_DB_VERSION)) || [];
-        
         let reqList = JSON.parse(localStorage.getItem(CURRENT_BUDGET_VERSION)) || [
             {dept: 'HOME', target: 5000},
             {dept: 'OUTSIDE EXPENSE', target: 1000},
@@ -1086,11 +965,9 @@
         let calendarDate = new Date();
         let currentSort = { column: 'date', order: 'desc' };
 
-        // Constants for Categories
         const EXPENSE_CATEGORIES = ['HOME', 'OUTSIDE EXPENSE', 'PERSONAL EXPENSE', 'PETROL EXPENSE', 'OFFICE EXPENSE', 'SAVINGS', 'EMI', 'FOOD & DINING', 'TRANSPORTATION', 'HOUSING & RENT', 'UTILITIES & BILLS', 'SHOPPING', 'HEALTHCARE', 'ENTERTAINMENT', 'OTHERS'];
         const INCOME_CATEGORIES = ['SALARY', 'BUSINESS', 'INVESTMENTS', 'BONUS', 'OTHERS'];
 
-        // Category Emojis for Smart Display
         const CAT_EMOJIS = {
             'HOME': '🏠', 'OUTSIDE EXPENSE': '🍻', 'PERSONAL EXPENSE': '🛍️',
             'PETROL EXPENSE': '⛽', 'OFFICE EXPENSE': '🏢', 'SAVINGS': '💰',
@@ -1102,28 +979,22 @@
 
         const getCatEmoji = (cat) => CAT_EMOJIS[cat] || '✨';
 
-        // --- AUDIO SOUNDS ---
         const toastSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
         const successSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3'); 
 
-        // --- UTILITIES ---
         const showToast = (msg, type='success') => {
             const t = document.getElementById('toast');
             if(t) {
                 document.getElementById('toastMessage').innerText = msg;
                 document.getElementById('toastIcon').className = type==='success'?'fas fa-check-circle text-emerald-400 text-lg md:text-xl':'fas fa-exclamation-circle text-red-400 text-lg md:text-xl';
                 t.classList.remove('opacity-0', 'translate-y-40');
-                
                 try {
-                    if (type === 'success' && (msg.includes('Saved') || msg.includes('Started') || msg.includes('Deposited') || msg.includes('Settled'))) {
-                        successSound.currentTime = 0;
-                        successSound.play().catch(e => console.log('Audio error:', e));
+                    if (type === 'success') {
+                        successSound.currentTime = 0; successSound.play().catch(e => {});
                     } else {
-                        toastSound.currentTime = 0;
-                        toastSound.play().catch(e => console.log('Audio error:', e));
+                        toastSound.currentTime = 0; toastSound.play().catch(e => {});
                     }
                 } catch(err) {}
-
                 setTimeout(()=>t.classList.add('opacity-0', 'translate-y-40'), 3000);
             }
         };
@@ -1154,7 +1025,6 @@
             return "Good Evening";
         };
 
-        // PRIVACY MODE TOGGLE
         let isPrivacyMode = false;
         const togglePrivacy = () => {
             isPrivacyMode = !isPrivacyMode;
@@ -1174,7 +1044,6 @@
             }
         };
 
-        // MULTI-FAB MENU TOGGLE
         let isFabOpen = false;
         const toggleFabMenu = () => {
             isFabOpen = !isFabOpen;
@@ -1189,17 +1058,14 @@
             }
         };
 
-        // --- THEME ---
         const toggleDarkMode = () => {
             document.documentElement.classList.toggle('dark');
             const isDark = document.documentElement.classList.contains('dark');
             const icon = document.getElementById('darkModeIcon');
             if(icon) icon.className = isDark ? 'fas fa-sun text-sm md:text-base' : 'fas fa-moon text-sm md:text-base';
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            
             const settingToggle = document.getElementById('settingDarkModeToggle');
             if(settingToggle) settingToggle.checked = isDark;
-
             if(chartStatus) { chartStatus.update(); chartCategory.update(); chartMethod.update(); if(chartTrend) chartTrend.update(); }
         };
         
@@ -1211,7 +1077,6 @@
             }
         };
 
-        // --- AUTHENTICATION ---
         document.getElementById('loginForm')?.addEventListener('submit', (e) => {
             e.preventDefault();
             const u = document.getElementById('username')?.value.trim().toUpperCase();
@@ -1226,25 +1091,14 @@
         const handleBiometricLogin = () => { 
             const icon = document.getElementById('bioIcon');
             const text = document.getElementById('bioText');
-            
-            if(icon) {
-                icon.classList.remove('text-slate-400', 'group-hover:text-sarathy-blue');
-                icon.classList.add('text-sarathy-blue', 'animate-pulse');
-            }
+            if(icon) { icon.classList.remove('text-slate-400', 'group-hover:text-sarathy-blue'); icon.classList.add('text-sarathy-blue', 'animate-pulse'); }
             if(text) text.innerText = "Scanning...";
-            
             setTimeout(() => { 
-                if(icon) {
-                    icon.classList.remove('fa-fingerprint', 'animate-pulse');
-                    icon.classList.add('fa-check-circle');
-                }
+                if(icon) { icon.classList.remove('fa-fingerprint', 'animate-pulse'); icon.classList.add('fa-check-circle'); }
                 if(text) text.innerText = "Verified";
                 showToast("Biometric Verified Successfully!"); 
-                
                 setTimeout(() => {
-                    currentUser=USERS[0]; 
-                    showApp(); 
-                    
+                    currentUser=USERS[0]; showApp(); 
                     setTimeout(() => {
                         if(icon) icon.className = "fas fa-fingerprint text-xl md:text-2xl text-slate-400 group-hover:text-sarathy-blue mr-2 md:mr-3 transition-colors";
                         if(text) text.innerText = "Biometric Login";
@@ -1253,12 +1107,9 @@
             }, 1500); 
         };
 
-        // Added missing calculateHealthScore function here
         const calculateHealthScore = (income, expense, budgets, currentMonthTxns) => {
             if(income === 0 && expense === 0) return { score: 100, color: 'text-blue-500', icon: 'fa-trophy', bg: 'bg-blue-50 dark:bg-blue-900/30' };
-            
             let score = 50; 
-            
             const savings = income - expense;
             if(income > 0) {
                 const savingsRate = (savings / income) * 100;
@@ -1267,22 +1118,16 @@
                 else if(savingsRate > 0) score += 5;
                 else score -= 20; 
             }
-
             let budgetViolations = 0;
             budgets.forEach(b => {
                 const spent = currentMonthTxns.filter(t => t.type==='EXPENSE' && t.category === b.dept).reduce((s, t) => s + parseFloat(t.amount), 0);
                 if(spent > b.target) budgetViolations++;
             });
-            
             if(budgets.length > 0) {
                 if(budgetViolations === 0) score += 20;
                 else score -= (budgetViolations * 10);
-            } else {
-                score += 10; 
-            }
-
+            } else { score += 10; }
             score = Math.max(0, Math.min(100, Math.round(score))); 
-            
             if(score >= 80) return { score, color: 'text-emerald-500', icon: 'fa-shield-check', bg: 'bg-emerald-50 dark:bg-emerald-900/30' };
             if(score >= 50) return { score, color: 'text-amber-500', icon: 'fa-exclamation-circle', bg: 'bg-amber-50 dark:bg-amber-900/30' };
             return { score, color: 'text-red-500', icon: 'fa-skull-crossbones', bg: 'bg-red-50 dark:bg-red-900/30' };
@@ -1291,56 +1136,35 @@
         const showApp = () => {
             document.getElementById('loginPage')?.classList.add('hidden');
             document.getElementById('appLayout')?.classList.remove('hidden');
-            
             const userNameDisplay = document.getElementById('userNameDisplay');
             if(userNameDisplay) userNameDisplay.innerText = currentUser?.user || 'ADMIN';
-            
             const greetingEl = document.getElementById('welcomeGreeting');
             let timeIcon = 'fa-sun text-amber-300';
             if(new Date().getHours() >= 17) timeIcon = 'fa-moon text-indigo-300';
             if(greetingEl) greetingEl.innerHTML = `<i class="fas ${timeIcon}"></i> ${getGreeting()}, ${currentUser?.user || 'ADMIN'}`;
-            
             const monthFilter = document.getElementById('monthFilter');
             if(monthFilter) monthFilter.value = new Date().toISOString().slice(0, 7);
-            
             const chartMonthFilter = document.getElementById('chartMonthFilter');
             if(chartMonthFilter) chartMonthFilter.value = new Date().toISOString().slice(0, 7);
-            
-            if(isAdmin()) {
-                document.getElementById('addBtn')?.classList.remove('hidden');
-            }
+            if(isAdmin()) document.getElementById('addBtn')?.classList.remove('hidden');
 
-            renderDashboard();
-            renderTable();
-            renderCalendar();
-            renderChallenge();
-            renderSavings();
-            renderLoans();
-            checkNotifications();
+            renderDashboard(); renderTable(); renderCalendar(); renderChallenge(); renderSavings(); renderLoans(); checkNotifications();
         };
         
         const logout = () => location.reload();
 
-        // --- NAVIGATION ---
         const toggleSidebarMobile = () => {
             document.getElementById('sidebar')?.classList.toggle('-translate-x-full');
             document.getElementById('mobileOverlay')?.classList.toggle('hidden');
         };
 
         const switchTab = (tab, isBack = false) => {
-            if (!isBack && currentTab !== tab) {
-                tabHistory.push(currentTab);
-            }
-
+            if (!isBack && currentTab !== tab) tabHistory.push(currentTab);
             currentTab = tab;
-            
-            // Desktop Nav
             document.querySelectorAll('.nav-link').forEach(el => {
                 el.classList.remove('active');
                 if(el.id === `nav-${tab}`) el.classList.add('active');
             });
-            
-            // Mobile Bottom Nav Highlights
             document.querySelectorAll('.bottom-nav-link').forEach(el => {
                 el.classList.remove('text-sarathy-blue', 'dark:text-sky-400', 'active');
                 el.classList.add('text-[var(--text-secondary)]');
@@ -1349,70 +1173,53 @@
                     el.classList.add('text-sarathy-blue', 'dark:text-sky-400', 'active');
                 }
             });
-
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.getElementById(`tab-${tab}`)?.classList.add('active');
             
-            const titles = { 
-                dashboard: 'Financial Dashboard', 
-                transactions: 'All Transactions', 
-                savings: 'Savings Goals',
-                loans: 'Loans & Debts Tracker',
-                calendar: 'Expense Calendar', 
-                analytics: 'Financial Reports',
-                challenge: '90 Days Challenge',
-                settings: 'Settings'
-            };
-            
+            const titles = { dashboard: 'Financial Dashboard', transactions: 'All Transactions', savings: 'Savings Goals', loans: 'Loans & Debts Tracker', calendar: 'Expense Calendar', analytics: 'Financial Reports', challenge: '90 Days Challenge', settings: 'Settings' };
             const pageTitle = document.getElementById('pageTitle');
             if(pageTitle) pageTitle.innerText = titles[tab] || 'Financial Dashboard';
-            
             const drHeader = document.getElementById('dashboardDateRangeHeader');
-            if(drHeader) {
-                drHeader.style.display = tab === 'dashboard' ? 'block' : 'none';
-            }
-
+            if(drHeader) drHeader.style.display = tab === 'dashboard' ? 'block' : 'none';
+            const backBtn = document.getElementById('backBtn');
+            if (backBtn) { if (tabHistory.length > 0) backBtn.classList.remove('hidden'); else backBtn.classList.add('hidden'); }
             if (window.innerWidth < 768) {
                 document.getElementById('sidebar')?.classList.add('-translate-x-full');
                 document.getElementById('mobileOverlay')?.classList.add('hidden');
             }
-
             if(tab === 'analytics') initCharts();
             if(tab === 'savings') renderSavings();
             if(tab === 'loans') renderLoans();
         };
 
         const goBack = () => {
-            if (tabHistory.length > 0) {
-                const prevTab = tabHistory.pop();
-                switchTab(prevTab, true);
-            }
+            if (tabHistory.length > 0) { const prevTab = tabHistory.pop(); switchTab(prevTab, true); }
         };
 
-        // --- LOANS & DEBTS LOGIC ---
         const setLoanType = (type) => {
             document.getElementById('loanType').value = type;
             if(type === 'GIVEN') {
-                document.getElementById('btnLoanGiven').className = 'flex-1 py-2 rounded-lg text-xs font-black uppercase tracking-widest bg-white dark:bg-slate-600 shadow-sm text-emerald-600 transition-all';
-                document.getElementById('btnLoanTaken').className = 'flex-1 py-2 rounded-lg text-xs font-black uppercase tracking-widest text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-all';
+                document.getElementById('btnLoanGiven').className = 'flex-1 py-2.5 rounded-lg text-xs font-black uppercase tracking-widest bg-[var(--bg-secondary)] shadow-sm border border-[var(--border-color)] text-emerald-600 transition-all';
+                document.getElementById('btnLoanTaken').className = 'flex-1 py-2.5 rounded-lg text-xs font-black uppercase tracking-widest text-[var(--text-secondary)] hover:text-slate-700 dark:hover:text-slate-300 transition-all border border-transparent';
             } else {
-                document.getElementById('btnLoanTaken').className = 'flex-1 py-2 rounded-lg text-xs font-black uppercase tracking-widest bg-white dark:bg-slate-600 shadow-sm text-red-600 transition-all';
-                document.getElementById('btnLoanGiven').className = 'flex-1 py-2 rounded-lg text-xs font-black uppercase tracking-widest text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-all';
+                document.getElementById('btnLoanTaken').className = 'flex-1 py-2.5 rounded-lg text-xs font-black uppercase tracking-widest bg-[var(--bg-secondary)] shadow-sm border border-[var(--border-color)] text-red-600 transition-all';
+                document.getElementById('btnLoanGiven').className = 'flex-1 py-2.5 rounded-lg text-xs font-black uppercase tracking-widest text-[var(--text-secondary)] hover:text-slate-700 dark:hover:text-slate-300 transition-all border border-transparent';
             }
         };
 
         const openLoanModal = () => {
             document.getElementById('loanForm')?.reset();
-            document.getElementById('loanEditId').value = '';
+            const loanEditId = document.getElementById('loanEditId');
+            if(loanEditId) loanEditId.value = '';
             setLoanType('GIVEN');
-            document.getElementById('loanDate').value = new Date().toISOString().slice(0,10);
-            document.getElementById('loanModalTitle').innerText = "Add Loan / Debt";
+            const loanDate = document.getElementById('loanDate');
+            if(loanDate) loanDate.value = new Date().toISOString().slice(0,10);
+            const loanModalTitle = document.getElementById('loanModalTitle');
+            if(loanModalTitle) loanModalTitle.innerText = "Add Loan / Debt";
             document.getElementById('loanModal')?.classList.remove('hidden');
         };
 
-        const closeLoanModal = () => {
-            document.getElementById('loanModal')?.classList.add('hidden');
-        };
+        const closeLoanModal = () => document.getElementById('loanModal')?.classList.add('hidden');
 
         document.getElementById('loanForm')?.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -1424,40 +1231,26 @@
                 date: document.getElementById('loanDate').value,
                 status: 'PENDING'
             };
-            
             const idx = loansData.findIndex(x=>x.id===data.id);
             if(idx>-1) loansData[idx] = data; else loansData.push(data);
-            
             localStorage.setItem(LOANS_DB_KEY, JSON.stringify(loansData));
-            closeLoanModal(); 
-            renderLoans();
-            showToast("Record Saved!", "success");
+            closeLoanModal(); renderLoans(); showToast("Record Saved!", "success");
         });
 
         const renderLoans = () => {
-            let toReceive = 0;
-            let toPay = 0;
+            let toReceive = 0; let toPay = 0;
             const grid = document.getElementById('loansGrid');
             if(!grid) return;
             grid.innerHTML = '';
-
             loansData.sort((a,b) => new Date(b.date) - new Date(a.date)).forEach(l => {
-                if(l.status === 'PENDING') {
-                    if(l.type === 'GIVEN') toReceive += l.amount;
-                    else toPay += l.amount;
-                }
-
-                const isGiven = l.type === 'GIVEN';
-                const color = isGiven ? 'emerald' : 'red';
-                const icon = isGiven ? 'fa-arrow-right' : 'fa-arrow-left';
-                const labelText = isGiven ? 'Owes You' : 'You Owe';
-                const isSettled = l.status === 'SETTLED';
-
+                if(l.status === 'PENDING') { if(l.type === 'GIVEN') toReceive += l.amount; else toPay += l.amount; }
+                const isGiven = l.type === 'GIVEN'; const color = isGiven ? 'emerald' : 'red'; const icon = isGiven ? 'fa-arrow-right' : 'fa-arrow-left';
+                const labelText = isGiven ? 'Owes You' : 'You Owe'; const isSettled = l.status === 'SETTLED';
                 grid.innerHTML += `
                     <div class="modern-card p-5 relative border-l-4 border-l-${isSettled ? 'slate-400' : color+'-500'} ${isSettled ? 'opacity-60' : ''}">
                         <div class="flex justify-between items-start mb-3">
                             <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-${isSettled ? 'slate-100' : color+'-50'} flex items-center justify-center text-${isSettled ? 'slate-400' : color+'-500'} text-lg">
+                                <div class="w-10 h-10 rounded-full bg-${isSettled ? 'slate-100 dark:bg-slate-800' : color+'-50 dark:bg-'+color+'-900/20'} flex items-center justify-center text-${isSettled ? 'slate-400' : color+'-500'} text-lg">
                                     <i class="fas ${isSettled ? 'fa-check-circle' : icon}"></i>
                                 </div>
                                 <div>
@@ -1472,69 +1265,45 @@
                         </div>
                         ${!isSettled ? `
                         <div class="flex gap-2 mt-4 pt-4 border-t border-[var(--border-color)]">
-                            <button onclick="settleLoan(${l.id})" class="flex-1 py-2 bg-${color}-50 hover:bg-${color}-500 text-${color}-600 hover:text-white rounded-lg font-black text-[10px] uppercase tracking-widest transition-colors"><i class="fas fa-check-circle mr-1"></i> Mark Settled</button>
-                            <button onclick="deleteLoan(${l.id})" class="w-10 bg-slate-50 hover:bg-red-500 text-slate-400 hover:text-white rounded-lg transition-colors"><i class="fas fa-trash text-xs"></i></button>
+                            <button onclick="settleLoan(${l.id})" class="flex-1 py-2.5 bg-${color}-50 hover:bg-${color}-500 text-${color}-600 hover:text-white dark:bg-${color}-900/30 dark:hover:bg-${color}-600 rounded-xl font-black text-[10px] uppercase tracking-widest transition-colors shadow-sm"><i class="fas fa-check-circle mr-1"></i> Mark Settled</button>
+                            <button onclick="deleteLoan(${l.id})" class="w-11 bg-slate-50 hover:bg-red-500 text-slate-400 hover:text-white dark:bg-slate-800 dark:hover:bg-red-600 rounded-xl transition-colors shadow-sm"><i class="fas fa-trash text-xs"></i></button>
                         </div>
                         ` : `
                         <div class="flex gap-2 mt-4 pt-4 border-t border-[var(--border-color)]">
-                            <button onclick="deleteLoan(${l.id})" class="w-full py-2 bg-slate-50 hover:bg-red-500 text-slate-400 hover:text-white rounded-lg transition-colors font-black text-[10px] uppercase tracking-widest"><i class="fas fa-trash text-xs mr-1"></i> Remove Record</button>
+                            <button onclick="deleteLoan(${l.id})" class="w-full py-2.5 bg-slate-50 hover:bg-red-500 text-slate-400 hover:text-white dark:bg-slate-800 dark:hover:bg-red-600 rounded-xl transition-colors font-black text-[10px] uppercase tracking-widest shadow-sm"><i class="fas fa-trash text-xs mr-1"></i> Remove Record</button>
                         </div>
                         `}
                     </div>
                 `;
             });
-
-            if(loansData.length === 0) {
-                grid.innerHTML = `<div class="col-span-full p-10 flex flex-col items-center justify-center opacity-50"><i class="fas fa-handshake text-5xl mb-4 text-slate-400"></i><p class="text-xs font-black uppercase tracking-widest text-[var(--text-secondary)]">No active loans or debts.</p></div>`;
-            }
-
-            const trEl = document.getElementById('totalToReceive');
-            const tpEl = document.getElementById('totalToPay');
-            if(trEl) trEl.innerText = formatCurrency(toReceive);
-            if(tpEl) tpEl.innerText = formatCurrency(toPay);
+            if(loansData.length === 0) grid.innerHTML = `<div class="col-span-full p-10 flex flex-col items-center justify-center opacity-50"><i class="fas fa-handshake text-5xl mb-4 text-slate-400"></i><p class="text-xs font-black uppercase tracking-widest text-[var(--text-secondary)]">No active loans or debts.</p></div>`;
+            const trEl = document.getElementById('totalToReceive'); const tpEl = document.getElementById('totalToPay');
+            if(trEl) trEl.innerText = formatCurrency(toReceive); if(tpEl) tpEl.innerText = formatCurrency(toPay);
         };
 
         const settleLoan = (id) => {
             const idx = loansData.findIndex(x=>x.id===id);
-            if(idx>-1) {
-                loansData[idx].status = 'SETTLED';
-                localStorage.setItem(LOANS_DB_KEY, JSON.stringify(loansData));
-                renderLoans();
-                showToast("Record Marked as Settled!", "success");
-            }
+            if(idx>-1) { loansData[idx].status = 'SETTLED'; localStorage.setItem(LOANS_DB_KEY, JSON.stringify(loansData)); renderLoans(); showToast("Record Marked as Settled!", "success"); }
         };
-
         const deleteLoan = (id) => {
-            if(confirm("Are you sure you want to delete this record?")) {
-                loansData = loansData.filter(x=>x.id!==id);
-                localStorage.setItem(LOANS_DB_KEY, JSON.stringify(loansData));
-                renderLoans();
-                showToast("Record Deleted", "error");
-            }
+            if(confirm("Are you sure you want to delete this record?")) { loansData = loansData.filter(x=>x.id!==id); localStorage.setItem(LOANS_DB_KEY, JSON.stringify(loansData)); renderLoans(); showToast("Record Deleted", "error"); }
         };
 
         // --- SAVINGS LOGIC ---
         const renderSavings = () => {
-            let totalSaved = 0;
-            let totalTarget = 0;
-
+            let totalSaved = 0; let totalTarget = 0;
             const grid = document.getElementById('savingsGoalsGrid');
             if(!grid) return;
             grid.innerHTML = '';
-
             savingsGoals.forEach((g) => {
-                totalSaved += (g.current || 0);
-                totalTarget += (g.target || 0);
-                
+                totalSaved += (g.current || 0); totalTarget += (g.target || 0);
                 const perc = g.target > 0 ? Math.min(((g.current || 0) / g.target) * 100, 100) : 0;
-                let barColor = 'bg-sarathy-blue';
-                if(perc >= 100) barColor = 'bg-emerald-500';
-
+                let barColor = 'bg-sarathy-blue'; if(perc >= 100) barColor = 'bg-emerald-500';
                 grid.innerHTML += `
                     <div class="modern-card p-5 relative group transition-all hover:shadow-lg border-t-4 border-t-emerald-500">
                         <button onclick="deleteGoal(${g.id})" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-red-50 dark:bg-red-900/20 text-red-500 flex items-center justify-center opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity"><i class="fas fa-trash text-xs"></i></button>
                         <div class="flex items-center gap-4 mb-4">
-                            <div class="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-900/30 flex items-center justify-center text-2xl shadow-inner">${g.icon}</div>
+                            <div class="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-900/30 flex items-center justify-center text-2xl shadow-inner border border-emerald-100 dark:border-emerald-800/50">${g.icon}</div>
                             <div>
                                 <h3 class="font-black text-[var(--text-primary)] uppercase tracking-wide truncate max-w-[150px] sm:max-w-[200px]" title="${g.name}">${g.name}</h3>
                                 <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">${perc.toFixed(1)}% Completed</p>
@@ -1543,193 +1312,100 @@
                         <div class="w-full h-3 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden mb-3">
                             <div class="h-full ${barColor} transition-all duration-1000" style="width:${perc}%"></div>
                         </div>
-                        <div class="flex justify-between items-end">
+                        <div class="flex justify-between items-end mt-4">
                             <div>
                                 <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest block mb-0.5">Saved / Target</span>
                                 <span class="font-black text-sm amount-text text-[var(--text-primary)]">${formatCurrency(g.current || 0)} <span class="text-xs text-slate-400 font-bold">/ ${formatCurrency(g.target)}</span></span>
                             </div>
-                            <button onclick="openAddFundsModal(${g.id})" class="px-3 py-2 bg-emerald-50 dark:bg-emerald-900/30 hover:bg-emerald-500 text-emerald-600 hover:text-white rounded-lg font-black text-[10px] uppercase tracking-widest transition-colors"><i class="fas fa-plus"></i> Add</button>
+                            <button onclick="openAddFundsModal(${g.id})" class="px-4 py-2.5 bg-emerald-50 dark:bg-emerald-900/30 hover:bg-emerald-500 text-emerald-600 hover:text-white rounded-xl font-black text-[10px] uppercase tracking-widest transition-colors shadow-sm border border-emerald-100 dark:border-emerald-800/50"><i class="fas fa-plus"></i> Add</button>
                         </div>
                     </div>
                 `;
             });
-
-            if(savingsGoals.length === 0) {
-                grid.innerHTML = `<div class="col-span-full p-10 flex flex-col items-center justify-center opacity-50"><i class="fas fa-piggy-bank text-5xl mb-4 text-slate-400"></i><p class="text-xs font-black uppercase tracking-widest text-[var(--text-secondary)]">No savings goals added yet.</p></div>`;
-            }
-
-            const tsEl = document.getElementById('totalSavedAmount');
-            const ttEl = document.getElementById('totalTargetAmount');
-            if(tsEl) tsEl.innerText = formatCurrency(totalSaved);
-            if(ttEl) ttEl.innerText = formatCurrency(totalTarget);
+            if(savingsGoals.length === 0) grid.innerHTML = `<div class="col-span-full p-10 flex flex-col items-center justify-center opacity-50"><i class="fas fa-piggy-bank text-5xl mb-4 text-slate-400"></i><p class="text-xs font-black uppercase tracking-widest text-[var(--text-secondary)]">No savings goals added yet.</p></div>`;
+            const tsEl = document.getElementById('totalSavedAmount'); const ttEl = document.getElementById('totalTargetAmount');
+            if(tsEl) tsEl.innerText = formatCurrency(totalSaved); if(ttEl) ttEl.innerText = formatCurrency(totalTarget);
         };
-
-        const openGoalModal = () => {
-            document.getElementById('goalForm')?.reset();
-            document.getElementById('goalModal')?.classList.remove('hidden');
-        };
-
-        const closeGoalModal = () => {
-            document.getElementById('goalModal')?.classList.add('hidden');
-        };
-
+        const openGoalModal = () => { document.getElementById('goalForm')?.reset(); document.getElementById('goalModal')?.classList.remove('hidden'); };
+        const closeGoalModal = () => { document.getElementById('goalModal')?.classList.add('hidden'); };
         document.getElementById('goalForm')?.addEventListener('submit', (e) => {
             e.preventDefault();
-            const newGoal = {
-                id: Date.now(),
-                name: document.getElementById('goalName').value.trim(),
-                target: parseFloat(document.getElementById('goalTarget').value) || 0,
-                current: 0,
-                icon: document.getElementById('goalIcon').value
-            };
-            savingsGoals.push(newGoal);
-            localStorage.setItem(SAVINGS_DB_KEY, JSON.stringify(savingsGoals));
-            closeGoalModal();
-            renderSavings();
-            showToast("Savings Goal Added!", "success");
+            const newGoal = { id: Date.now(), name: document.getElementById('goalName').value.trim(), target: parseFloat(document.getElementById('goalTarget').value) || 0, current: 0, icon: document.getElementById('goalIcon').value };
+            savingsGoals.push(newGoal); localStorage.setItem(SAVINGS_DB_KEY, JSON.stringify(savingsGoals));
+            closeGoalModal(); renderSavings(); showToast("Savings Goal Added!", "success");
         });
-
         const deleteGoal = (id) => {
-            if(confirm("Are you sure you want to delete this savings goal?")) {
-                savingsGoals = savingsGoals.filter(g => g.id !== id);
-                localStorage.setItem(SAVINGS_DB_KEY, JSON.stringify(savingsGoals));
-                renderSavings();
-                showToast("Goal Deleted!", "error");
-            }
+            if(confirm("Are you sure you want to delete this savings goal?")) { savingsGoals = savingsGoals.filter(g => g.id !== id); localStorage.setItem(SAVINGS_DB_KEY, JSON.stringify(savingsGoals)); renderSavings(); showToast("Goal Deleted!", "error"); }
         };
-
         const openAddFundsModal = (id) => {
             const goal = savingsGoals.find(g => g.id === id);
             if(!goal) return;
-            
             document.getElementById('addFundsForm')?.reset();
-            const gIdInput = document.getElementById('fundGoalId');
-            const gName = document.getElementById('fundGoalName');
-            
-            if(gIdInput) gIdInput.value = id;
-            if(gName) gName.innerText = goal.name;
-            
+            const gIdInput = document.getElementById('fundGoalId'); const gName = document.getElementById('fundGoalName');
+            if(gIdInput) gIdInput.value = id; if(gName) gName.innerText = goal.name;
             document.getElementById('addFundsModal')?.classList.remove('hidden');
             setTimeout(() => document.getElementById('fundAmount')?.focus(), 100);
         };
-
-        const closeAddFundsModal = () => {
-            document.getElementById('addFundsModal')?.classList.add('hidden');
-        };
-
+        const closeAddFundsModal = () => { document.getElementById('addFundsModal')?.classList.add('hidden'); };
         document.getElementById('addFundsForm')?.addEventListener('submit', (e) => {
             e.preventDefault();
-            const id = parseInt(document.getElementById('fundGoalId').value);
-            const amount = parseFloat(document.getElementById('fundAmount').value) || 0;
-            
+            const id = parseInt(document.getElementById('fundGoalId').value); const amount = parseFloat(document.getElementById('fundAmount').value) || 0;
             const idx = savingsGoals.findIndex(g => g.id === id);
             if(idx > -1 && amount > 0) {
-                savingsGoals[idx].current = (savingsGoals[idx].current || 0) + amount;
-                localStorage.setItem(SAVINGS_DB_KEY, JSON.stringify(savingsGoals));
-                closeAddFundsModal();
-                renderSavings();
-                showToast("Funds Deposited!", "success");
-                confetti({particleCount: 80, spread: 60, origin: { y: 0.6 }});
+                savingsGoals[idx].current = (savingsGoals[idx].current || 0) + amount; localStorage.setItem(SAVINGS_DB_KEY, JSON.stringify(savingsGoals));
+                closeAddFundsModal(); renderSavings(); showToast("Funds Deposited!", "success"); confetti({particleCount: 80, spread: 60, origin: { y: 0.6 }});
             }
         });
-
 
         // --- 90 DAYS CHALLENGE LOGIC ---
         const getChallengeDaysElapsed = () => {
             if (!challengeData.startDate) return 0;
-            const start = new Date(challengeData.startDate);
-            start.setHours(0,0,0,0);
-            const today = new Date();
-            today.setHours(0,0,0,0);
-            const diffTime = Math.abs(today - start);
-            return Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1; // Day 1 is the start day
+            const start = new Date(challengeData.startDate); start.setHours(0,0,0,0); const today = new Date(); today.setHours(0,0,0,0);
+            const diffTime = Math.abs(today - start); return Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1; 
         };
-
         const renderChallenge = () => {
             const daysElapsed = getChallengeDaysElapsed();
-            
-            const mobStatus = document.getElementById('mobChallengeStatus');
-            const mobDays = document.getElementById('mobChallengeDays');
-            
+            const mobStatus = document.getElementById('mobChallengeStatus'); const mobDays = document.getElementById('mobChallengeDays');
             if (!challengeData.startDate) {
-                if(mobStatus) mobStatus.innerText = "Start Your Journey Today";
-                if(mobDays) mobDays.innerText = "0";
+                if(mobStatus) mobStatus.innerText = "Start Your Journey Today"; if(mobDays) mobDays.innerText = "0";
             } else {
                 if(mobStatus) mobStatus.innerText = daysElapsed >= 90 ? "Challenge Completed! 🎉" : "Stay Strong. Build Discipline.";
                 if(mobDays) mobDays.innerText = Math.min(daysElapsed, 90);
             }
-
-            const curEl = document.getElementById('chCurrentDays');
-            const bestEl = document.getElementById('chBestDays');
-            const relEl = document.getElementById('chRelapses');
-            
-            if(curEl) curEl.innerText = Math.min(daysElapsed, 90);
-            if(bestEl) bestEl.innerText = Math.max(challengeData.bestStreak, daysElapsed);
-            if(relEl) relEl.innerText = challengeData.relapses;
-            
+            const curEl = document.getElementById('chCurrentDays'); const bestEl = document.getElementById('chBestDays'); const relEl = document.getElementById('chRelapses');
+            if(curEl) curEl.innerText = Math.min(daysElapsed, 90); if(bestEl) bestEl.innerText = Math.max(challengeData.bestStreak, daysElapsed); if(relEl) relEl.innerText = challengeData.relapses;
             if (challengeData.startDate) {
-                const dateDisp = document.getElementById('chStartDateDisplay');
-                if(dateDisp) dateDisp.innerText = `Started: ${formatDateString(challengeData.startDate)}`;
-                document.getElementById('challengeStartPrompt')?.classList.add('hidden');
-                document.getElementById('challengeGridContainer')?.classList.remove('hidden');
-                
+                const dateDisp = document.getElementById('chStartDateDisplay'); if(dateDisp) dateDisp.innerText = `Started: ${formatDateString(challengeData.startDate)}`;
+                document.getElementById('challengeStartPrompt')?.classList.add('hidden'); document.getElementById('challengeGridContainer')?.classList.remove('hidden');
                 const grid = document.getElementById('challengeGrid');
                 if(grid) {
                     grid.innerHTML = '';
-                    
                     for (let i = 1; i <= 90; i++) {
-                        let classes = 'day-locked';
-                        let content = `<i class="fas fa-lock text-xs opacity-30"></i>`;
-                        
-                        if (i < daysElapsed) {
-                            classes = 'day-completed';
-                            content = `<i class="fas fa-check text-sm shadow-sm"></i>`;
-                        } else if (i === daysElapsed) {
-                            classes = 'day-current';
-                            content = `<i class="fas fa-fire text-lg"></i>`;
-                        }
-                        
+                        let classes = 'day-locked'; let content = `<i class="fas fa-lock text-xs opacity-30"></i>`;
+                        if (i < daysElapsed) { classes = 'day-completed'; content = `<i class="fas fa-check text-sm shadow-sm"></i>`; } 
+                        else if (i === daysElapsed) { classes = 'day-current'; content = `<i class="fas fa-fire text-lg"></i>`; }
                         grid.innerHTML += `<div class="day-cell ${classes}" title="Day ${i}">${content}</div>`;
                     }
                 }
             } else {
-                const dateDisp = document.getElementById('chStartDateDisplay');
-                if(dateDisp) dateDisp.innerText = `Started: --`;
-                document.getElementById('challengeStartPrompt')?.classList.remove('hidden');
-                document.getElementById('challengeGridContainer')?.classList.add('hidden');
+                const dateDisp = document.getElementById('chStartDateDisplay'); if(dateDisp) dateDisp.innerText = `Started: --`;
+                document.getElementById('challengeStartPrompt')?.classList.remove('hidden'); document.getElementById('challengeGridContainer')?.classList.add('hidden');
             }
         };
-
-        const startChallenge = () => {
-            challengeData.startDate = new Date().toISOString().slice(0, 10);
-            localStorage.setItem(CHALLENGE_DB_KEY, JSON.stringify(challengeData));
-            renderChallenge();
-            showToast("Challenge Started! You got this.", "success");
-            confetti({particleCount: 100, spread: 70, origin: { y: 0.6 }});
-        };
-
+        const startChallenge = () => { challengeData.startDate = new Date().toISOString().slice(0, 10); localStorage.setItem(CHALLENGE_DB_KEY, JSON.stringify(challengeData)); renderChallenge(); showToast("Challenge Started! You got this.", "success"); confetti({particleCount: 100, spread: 70, origin: { y: 0.6 }}); };
         const resetChallenge = () => {
             if (!challengeData.startDate) return;
             if (confirm("Are you sure you want to reset your streak? Be honest with yourself.")) {
                 const daysElapsed = getChallengeDaysElapsed();
-                if (daysElapsed > challengeData.bestStreak) {
-                    challengeData.bestStreak = daysElapsed;
-                }
-                challengeData.relapses += 1;
-                challengeData.startDate = new Date().toISOString().slice(0, 10); // Restart today
-                localStorage.setItem(CHALLENGE_DB_KEY, JSON.stringify(challengeData));
-                renderChallenge();
-                showToast("Streak Reset. Don't give up, start again!", "error");
+                if (daysElapsed > challengeData.bestStreak) { challengeData.bestStreak = daysElapsed; }
+                challengeData.relapses += 1; challengeData.startDate = new Date().toISOString().slice(0, 10); 
+                localStorage.setItem(CHALLENGE_DB_KEY, JSON.stringify(challengeData)); renderChallenge(); showToast("Streak Reset. Don't give up, start again!", "error");
             }
         };
 
-        // --- DASHBOARD LOGIC ---
         const setDashboardView = (view) => {
             dashboardFilter = view;
-            const btnMonth = document.getElementById('btnViewMonth');
-            const btnAll = document.getElementById('btnViewAll');
-            const dRange = document.getElementById('dashboardDateRange');
-            
+            const btnMonth = document.getElementById('btnViewMonth'); const btnAll = document.getElementById('btnViewAll'); const dRange = document.getElementById('dashboardDateRange');
             if(view === 'THIS_MONTH') {
                 if(btnMonth) btnMonth.className = 'px-3 md:px-5 py-2 md:py-2.5 rounded-lg md:rounded-xl text-[10px] md:text-xs font-black uppercase tracking-widest bg-sarathy-blue text-white shadow-md transition-all active:scale-95';
                 if(btnAll) btnAll.className = 'px-3 md:px-5 py-2 md:py-2.5 rounded-lg md:rounded-xl text-[10px] md:text-xs font-bold uppercase tracking-widest text-[var(--text-secondary)] hover:bg-slate-100 dark:hover:bg-slate-800 transition-all active:scale-95';
@@ -1744,75 +1420,47 @@
 
         const renderDashboard = () => {
             let displayTxns = transactions;
-            if (dashboardFilter === 'THIS_MONTH') {
-                displayTxns = transactions.filter(t => isCurrentMonth(t.date));
-            }
+            if (dashboardFilter === 'THIS_MONTH') { displayTxns = transactions.filter(t => isCurrentMonth(t.date)); }
 
-            let totalIncome = 0;
-            let totalExpense = 0;
-            let categoryTotals = {};
-
+            let totalIncome = 0; let totalExpense = 0; let categoryTotals = {};
             displayTxns.forEach(t => {
                 const amount = parseFloat(t.amount);
-                if (t.type === 'INCOME') {
-                    totalIncome += amount;
-                } else if (t.type === 'EXPENSE') {
-                    totalExpense += amount;
-                    categoryTotals[t.category] = (categoryTotals[t.category] || 0) + amount;
-                }
+                if (t.type === 'INCOME') { totalIncome += amount; } else if (t.type === 'EXPENSE') { totalExpense += amount; categoryTotals[t.category] = (categoryTotals[t.category] || 0) + amount; }
             });
 
             const balance = totalIncome - totalExpense;
-
-            const statBal = document.getElementById('statBalance');
-            if(statBal) statBal.innerText = formatCurrency(balance);
-            const statInc = document.getElementById('statIncome');
-            if(statInc) statInc.innerText = formatCurrency(totalIncome);
-            const statExp = document.getElementById('statExpense');
-            if(statExp) statExp.innerText = formatCurrency(totalExpense);
+            const statBal = document.getElementById('statBalance'); if(statBal) statBal.innerText = formatCurrency(balance);
+            const statInc = document.getElementById('statIncome'); if(statInc) statInc.innerText = formatCurrency(totalIncome);
+            const statExp = document.getElementById('statExpense'); if(statExp) statExp.innerText = formatCurrency(totalExpense);
             
             const health = calculateHealthScore(totalIncome, totalExpense, reqList, transactions.filter(t=>isCurrentMonth(t.date)));
             
             const deskScoreNum = document.getElementById('healthScoreNum');
             if(deskScoreNum) {
-                deskScoreNum.innerText = health.score;
-                deskScoreNum.className = `text-3xl md:text-5xl font-black ${health.color} leading-none`;
-                document.getElementById('healthScoreIcon').className = `w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl flex items-center justify-center text-xl md:text-2xl ${health.bg} ${health.color}`;
-                document.getElementById('healthScoreIcon').innerHTML = `<i class="fas ${health.icon}"></i>`;
+                deskScoreNum.innerText = health.score; deskScoreNum.className = `text-3xl md:text-5xl font-black ${health.color} leading-none font-outfit`;
+                const healthIcon = document.getElementById('healthScoreIcon');
+                if(healthIcon) { healthIcon.className = `w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl flex items-center justify-center text-xl md:text-2xl ${health.bg} ${health.color}`; healthIcon.innerHTML = `<i class="fas ${health.icon}"></i>`; }
             }
             
             const mobScoreNum = document.getElementById('healthScoreNumMobile');
             if(mobScoreNum) {
-                mobScoreNum.innerText = health.score;
-                mobScoreNum.className = `text-2xl font-black ${health.color} leading-none`;
-                document.getElementById('healthScoreIconMobile').className = `w-10 h-10 rounded-full flex items-center justify-center text-lg ${health.bg} ${health.color}`;
-                document.getElementById('healthScoreIconMobile').innerHTML = `<i class="fas ${health.icon}"></i>`;
+                mobScoreNum.innerText = health.score; mobScoreNum.className = `text-2xl font-black ${health.color} leading-none font-outfit`;
+                const mobHealthIcon = document.getElementById('healthScoreIconMobile');
+                if(mobHealthIcon) { mobHealthIcon.className = `w-10 h-10 rounded-full flex items-center justify-center text-lg ${health.bg} ${health.color}`; mobHealthIcon.innerHTML = `<i class="fas ${health.icon}"></i>`; }
             }
 
-            const dailyAvgEl = document.getElementById('statDailyAvg');
-            const safeSpendEl = document.getElementById('statSafeSpend');
+            const dailyAvgEl = document.getElementById('statDailyAvg'); const safeSpendEl = document.getElementById('statSafeSpend');
             
             if(dashboardFilter === 'THIS_MONTH') {
-                const today = new Date();
-                const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
-                const currentDay = today.getDate();
-                const remainingDays = daysInMonth - currentDay + 1;
-                
-                const dailyAvg = currentDay > 0 ? (totalExpense / currentDay) : 0;
-                const safeSpend = remainingDays > 0 ? (Math.max(balance, 0) / remainingDays) : 0;
-                
-                if(dailyAvgEl) dailyAvgEl.innerText = formatCurrency(dailyAvg);
-                if(safeSpendEl) safeSpendEl.innerText = formatCurrency(safeSpend);
+                const today = new Date(); const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate(); const currentDay = today.getDate(); const remainingDays = daysInMonth - currentDay + 1;
+                const dailyAvg = currentDay > 0 ? (totalExpense / currentDay) : 0; const safeSpend = remainingDays > 0 ? (Math.max(balance, 0) / remainingDays) : 0;
+                if(dailyAvgEl) dailyAvgEl.innerText = formatCurrency(dailyAvg); if(safeSpendEl) safeSpendEl.innerText = formatCurrency(safeSpend);
             } else {
-                if(dailyAvgEl) dailyAvgEl.innerText = 'N/A';
-                if(safeSpendEl) safeSpendEl.innerText = 'N/A';
+                if(dailyAvgEl) dailyAvgEl.innerText = 'N/A'; if(safeSpendEl) safeSpendEl.innerText = 'N/A';
             }
             
-            let topCategory = 'N/A';
-            let maxAmt = 0;
-            for (const [cat, amt] of Object.entries(categoryTotals)) {
-                if(amt > maxAmt) { maxAmt = amt; topCategory = cat; }
-            }
+            let topCategory = 'N/A'; let maxAmt = 0;
+            for (const [cat, amt] of Object.entries(categoryTotals)) { if(amt > maxAmt) { maxAmt = amt; topCategory = cat; } }
             const topCatEl = document.getElementById('statTopCategory');
             if(topCatEl) topCatEl.innerHTML = `<span class="mr-1 opacity-70">${getCatEmoji(topCategory)}</span> ${topCategory}`;
 
@@ -1822,14 +1470,9 @@
                 budgetContainer.innerHTML = '';
                 reqList.forEach(budget => {
                     const spent = currentMonthExpenses.filter(t => t.category === budget.dept).reduce((sum, t) => sum + parseFloat(t.amount), 0);
-                    const target = parseFloat(budget.target) || 0;
-                    const perc = target > 0 ? Math.min((spent/target)*100, 100) : 0;
-                    const remaining = Math.max(target - spent, 0);
-                    
-                    let barColor = 'bg-emerald-500';
-                    let textColor = 'text-emerald-600 dark:text-emerald-400';
-                    if (perc > 80) { barColor = 'bg-red-500'; textColor = 'text-red-600 dark:text-red-400'; }
-                    else if (perc > 60) { barColor = 'bg-amber-500'; textColor = 'text-amber-600 dark:text-amber-400'; }
+                    const target = parseFloat(budget.target) || 0; const perc = target > 0 ? Math.min((spent/target)*100, 100) : 0; const remaining = Math.max(target - spent, 0);
+                    let barColor = 'bg-emerald-500'; let textColor = 'text-emerald-600 dark:text-emerald-400';
+                    if (perc > 80) { barColor = 'bg-red-500'; textColor = 'text-red-600 dark:text-red-400'; } else if (perc > 60) { barColor = 'bg-amber-500'; textColor = 'text-amber-600 dark:text-amber-400'; }
 
                     budgetContainer.innerHTML += `
                         <div class="bg-[var(--bg-secondary)] p-4 md:p-5 rounded-xl md:rounded-2xl border md:border-2 border-[var(--border-color)] shadow-sm hover:shadow-md transition-all">
@@ -1847,9 +1490,7 @@
                         </div>
                     `;
                 });
-                if(reqList.length === 0) {
-                    budgetContainer.innerHTML = `<div class="col-span-1 sm:col-span-2 p-4 md:p-6 border md:border-2 border-dashed border-[var(--border-color)] rounded-xl md:rounded-2xl text-center text-slate-400 font-bold uppercase tracking-widest text-[10px] md:text-xs">No budgets configured</div>`;
-                }
+                if(reqList.length === 0) budgetContainer.innerHTML = `<div class="col-span-1 sm:col-span-2 p-4 md:p-6 border md:border-2 border-dashed border-[var(--border-color)] rounded-xl md:rounded-2xl text-center text-slate-400 font-bold uppercase tracking-widest text-[10px] md:text-xs">No budgets configured</div>`;
             }
 
             const recentList = document.getElementById('recentTransactionsList');
@@ -1859,43 +1500,29 @@
                     recentList.innerHTML = recent.map(r => {
                         const isIncome = r.type === 'INCOME';
                         return `
-                        <div class="flex items-center gap-3 md:gap-4 py-3 md:py-3.5 cursor-pointer hover:bg-blue-50/50 dark:hover:bg-blue-900/20 px-2 md:px-3 rounded-lg md:rounded-xl transition-all" onclick="editTransaction(${r.id})">
-                            <div class="w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl flex items-center justify-center font-black text-[10px] md:text-sm shrink-0 shadow-sm ${isIncome ? 'bg-emerald-100 text-emerald-600 border border-emerald-200' : 'bg-red-100 text-red-600 border border-red-200'}">
+                        <div class="flex items-center gap-3 md:gap-4 py-3 md:py-4 cursor-pointer hover:bg-blue-50/50 dark:hover:bg-blue-900/20 px-2 md:px-4 rounded-xl md:rounded-2xl transition-all" onclick="editTransaction(${r.id})">
+                            <div class="w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl flex items-center justify-center font-black text-sm md:text-lg shrink-0 shadow-sm ${isIncome ? 'bg-emerald-100 text-emerald-600 border border-emerald-200' : 'bg-red-100 text-red-600 border border-red-200'}">
                                 <i class="fas ${isIncome ? 'fa-arrow-down' : 'fa-bag-shopping'}"></i>
                             </div>
                             <div class="flex-1 min-w-0">
-                                <h4 class="font-black text-[10px] md:text-xs uppercase tracking-wide truncate text-[var(--text-primary)]">${r.desc}</h4>
-                                <p class="text-[8px] md:text-[9px] text-[var(--text-secondary)] font-bold uppercase tracking-widest truncate mt-0.5 md:mt-1"><i class="far fa-clock"></i> ${formatDateString(r.date)} • <i class="far fa-credit-card mx-0.5"></i> ${r.method}</p>
+                                <h4 class="font-black text-xs md:text-sm uppercase tracking-wide truncate text-[var(--text-primary)]">${r.desc}</h4>
+                                <p class="text-[9px] md:text-[10px] text-[var(--text-secondary)] font-bold uppercase tracking-widest truncate mt-0.5 md:mt-1"><i class="far fa-clock"></i> ${formatDateString(r.date)} • <i class="far fa-credit-card mx-0.5"></i> ${r.method}</p>
                             </div>
                             <div class="text-right">
-                                <span class="text-xs md:text-base font-black tracking-wider amount-text ${isIncome ? 'text-emerald-500' : 'text-[var(--text-primary)]'}">${isIncome ? '+' : '-'}${formatCurrency(r.amount)}</span>
-                                <p class="text-[7px] md:text-[8px] text-[var(--text-secondary)] font-black uppercase tracking-widest mt-1 bg-[var(--bg-primary)] px-1.5 md:px-2 py-0.5 rounded inline-block border border-[var(--border-color)]"><span class="mr-0.5 opacity-70">${getCatEmoji(r.category)}</span> ${r.category}</p>
+                                <span class="text-sm md:text-lg font-black tracking-wider amount-text font-outfit ${isIncome ? 'text-emerald-500' : 'text-[var(--text-primary)]'}">${isIncome ? '+' : '-'}${formatCurrency(r.amount)}</span>
+                                <p class="text-[8px] md:text-[9px] text-[var(--text-secondary)] font-black uppercase tracking-widest mt-1 bg-[var(--bg-primary)] px-2 md:px-3 py-1 rounded-lg inline-block border border-[var(--border-color)]"><span class="mr-0.5 opacity-70">${getCatEmoji(r.category)}</span> ${r.category}</p>
                             </div>
                         </div>
                     `}).join('');
                 } else {
-                    recentList.innerHTML = `
-                    <div class="h-full flex flex-col items-center justify-center text-slate-400 opacity-50 py-8 md:py-10">
-                        <i class="fas fa-receipt text-3xl md:text-5xl mb-3 md:mb-4"></i>
-                        <p class="text-[10px] md:text-xs font-black uppercase tracking-widest">No Transactions Yet</p>
-                    </div>`;
+                    recentList.innerHTML = `<div class="h-full flex flex-col items-center justify-center text-slate-400 opacity-50 py-8 md:py-10"><i class="fas fa-receipt text-3xl md:text-5xl mb-3 md:mb-4"></i><p class="text-[10px] md:text-xs font-black uppercase tracking-widest">No Transactions Yet</p></div>`;
                 }
-            }
-            
-            if(dashboardFilter === 'THIS_MONTH') {
-                const rng = document.getElementById('dashboardDateRange');
-                if(rng) rng.innerText = new Date().toLocaleString('default', { month: 'long', year: 'numeric' });
             }
         };
 
-        // --- TRANSACTIONS VIEW ---
         const toggleSort = (col) => {
-            if(currentSort.column === col) {
-                currentSort.order = currentSort.order === 'asc' ? 'desc' : 'asc';
-            } else {
-                currentSort.column = col;
-                currentSort.order = 'desc';
-            }
+            if(currentSort.column === col) currentSort.order = currentSort.order === 'asc' ? 'desc' : 'asc';
+            else { currentSort.column = col; currentSort.order = 'desc'; }
             renderTable();
         };
 
@@ -1912,59 +1539,48 @@
             });
 
             filtered.sort((a,b) => {
-                let valA = a[currentSort.column];
-                let valB = b[currentSort.column];
-                
-                if (currentSort.column === 'amount') {
-                    valA = parseFloat(valA); valB = parseFloat(valB);
-                } else if (currentSort.column === 'date') {
-                    valA = new Date(valA); valB = new Date(valB);
-                }
-
-                if (valA < valB) return currentSort.order === 'asc' ? -1 : 1;
-                if (valA > valB) return currentSort.order === 'asc' ? 1 : -1;
-                return 0;
+                let valA = a[currentSort.column]; let valB = b[currentSort.column];
+                if (currentSort.column === 'amount') { valA = parseFloat(valA); valB = parseFloat(valB); } else if (currentSort.column === 'date') { valA = new Date(valA); valB = new Date(valB); }
+                if (valA < valB) return currentSort.order === 'asc' ? -1 : 1; if (valA > valB) return currentSort.order === 'asc' ? 1 : -1; return 0;
             });
 
             let fInc = 0, fExp = 0;
             filtered.forEach(t => { t.type === 'INCOME' ? fInc += parseFloat(t.amount) : fExp += parseFloat(t.amount); });
-            const filteredIncomeEl = document.getElementById('filteredIncome');
-            if(filteredIncomeEl) filteredIncomeEl.innerText = formatCurrency(fInc);
-            const filteredExpenseEl = document.getElementById('filteredExpense');
-            if(filteredExpenseEl) filteredExpenseEl.innerText = formatCurrency(fExp);
+            const filteredIncomeEl = document.getElementById('filteredIncome'); if(filteredIncomeEl) filteredIncomeEl.innerText = formatCurrency(fInc);
+            const filteredExpenseEl = document.getElementById('filteredExpense'); if(filteredExpenseEl) filteredExpenseEl.innerText = formatCurrency(fExp);
 
             const tableBody = document.getElementById('transactionsTableBody');
             if (tableBody) {
                 tableBody.innerHTML = filtered.length ? filtered.map((x, index) => {
                     const isIncome = x.type === 'INCOME';
                     return `
-                        <tr class="hover:bg-blue-50/50 dark:hover:bg-blue-900/20 transition-colors">
+                        <tr class="hover:bg-blue-50/50 dark:hover:bg-blue-900/20 transition-colors cursor-pointer group" onclick="editTransaction(${x.id})">
                             <td class="text-center font-black text-[var(--text-secondary)] text-[10px] md:text-sm">${index + 1}</td>
-                            <td class="font-black text-[9px] md:text-[11px] uppercase tracking-widest text-[var(--text-primary)]">${formatDateString(x.date)}</td>
+                            <td class="font-black text-[10px] md:text-xs uppercase tracking-widest text-[var(--text-primary)]">${formatDateString(x.date)}</td>
                             <td>
-                                <div class="flex items-center gap-2 md:gap-4">
-                                    <div class="w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl border flex items-center justify-center font-black text-xs md:text-sm shrink-0 shadow-sm ${isIncome ? 'bg-emerald-50 text-emerald-600 border-emerald-200' : 'bg-red-50 text-red-600 border-red-200'}">
+                                <div class="flex items-center gap-3 md:gap-4">
+                                    <div class="w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl border border-[var(--border-color)] flex items-center justify-center font-black text-sm md:text-lg shrink-0 shadow-sm ${isIncome ? 'bg-emerald-50 text-emerald-600 dark:bg-emerald-900/20' : 'bg-red-50 text-red-600 dark:bg-red-900/20'}">
                                         <i class="fas ${isIncome ? 'fa-arrow-down' : 'fa-arrow-up'}"></i>
                                     </div>
                                     <div>
-                                        <p class="font-black text-[var(--text-primary)] leading-tight text-[10px] md:text-sm uppercase tracking-wide truncate max-w-[100px] sm:max-w-none">${x.desc}</p>
-                                        <span class="inline-block mt-1 md:mt-1.5 px-1.5 md:px-2 py-0.5 rounded text-[7px] md:text-[8px] font-black uppercase tracking-widest shadow-sm ${isIncome ? 'bg-emerald-100 text-emerald-800 border border-emerald-200' : 'bg-red-100 text-red-800 border border-red-200'}">${x.type}</span>
+                                        <p class="font-black text-[var(--text-primary)] leading-tight text-xs md:text-sm uppercase tracking-wide truncate max-w-[120px] sm:max-w-[200px] md:max-w-none group-hover:text-sarathy-blue transition-colors">${x.desc}</p>
+                                        <span class="inline-block mt-1 md:mt-2 px-2 py-0.5 rounded text-[8px] md:text-[9px] font-black uppercase tracking-widest shadow-sm ${isIncome ? 'bg-emerald-100 text-emerald-800 border border-emerald-200 dark:bg-emerald-800/30 dark:text-emerald-300 dark:border-emerald-700/50' : 'bg-red-100 text-red-800 border border-red-200 dark:bg-red-800/30 dark:text-red-300 dark:border-red-700/50'}">${x.type}</span>
                                     </div>
                                 </div>
                             </td>
                             <td>
-                                <span class="inline-block bg-white dark:bg-slate-700 border border-[var(--border-color)] px-2 md:px-3 py-1 md:py-1.5 rounded-md md:rounded-lg text-[8px] md:text-[10px] font-black uppercase tracking-widest shadow-sm">
-                                    <span class="mr-1 opacity-70 text-xs md:text-base align-middle">${getCatEmoji(x.category)}</span> ${x.category}
+                                <span class="inline-block bg-[var(--bg-primary)] border border-[var(--border-color)] px-3 py-2 rounded-xl text-[9px] md:text-[11px] font-black uppercase tracking-widest shadow-sm">
+                                    <span class="mr-1.5 opacity-80 text-sm md:text-lg align-middle">${getCatEmoji(x.category)}</span> ${x.category}
                                 </span>
                             </td>
-                            <td class="hidden sm:table-cell"><p class="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-[var(--text-secondary)] bg-[var(--bg-primary)] inline-block px-2 md:px-3 py-1 md:py-1.5 rounded-md md:rounded-lg border border-[var(--border-color)]"><i class="far fa-credit-card mr-1 opacity-70"></i> ${x.method}</p></td>
-                            <td class="text-right font-black tracking-wider ${isIncome ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'} text-xs md:text-base amount-text">
+                            <td class="hidden sm:table-cell"><p class="text-[9px] md:text-[11px] font-black uppercase tracking-widest text-[var(--text-secondary)] bg-[var(--bg-primary)] inline-block px-3 py-2 rounded-xl border border-[var(--border-color)] shadow-sm"><i class="far fa-credit-card mr-1.5 opacity-70"></i> ${x.method}</p></td>
+                            <td class="text-right font-black tracking-wider font-outfit ${isIncome ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'} text-sm md:text-lg amount-text">
                                 ${isIncome ? '+' : '-'}${formatCurrency(x.amount)}
                             </td>
                             <td class="no-print">
-                                <div class="flex justify-center gap-1 md:gap-2">
-                                    <button onclick="editTransaction(${x.id})" title="Edit" class="w-7 h-7 md:w-9 md:h-9 rounded-md md:rounded-xl bg-[var(--bg-primary)] border border-[var(--border-color)] text-sarathy-blue flex items-center justify-center hover:bg-blue-50 transition-all hover:-translate-y-0.5 active:scale-95 shadow-sm"><i class="fas fa-edit text-[10px] md:text-xs"></i></button>
-                                    <button onclick="deleteTransaction(${x.id})" title="Delete" class="w-7 h-7 md:w-9 md:h-9 rounded-md md:rounded-xl bg-[var(--bg-primary)] border border-[var(--border-color)] text-red-500 flex items-center justify-center hover:bg-red-50 transition-all hover:-translate-y-0.5 active:scale-95 shadow-sm"><i class="fas fa-trash-alt text-[10px] md:text-xs"></i></button>
+                                <div class="flex justify-center gap-1.5 md:gap-2 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <button onclick="event.stopPropagation(); editTransaction(${x.id})" title="Edit" class="w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all shadow-sm"><i class="fas fa-edit text-xs md:text-sm"></i></button>
+                                    <button onclick="event.stopPropagation(); deleteTransaction(${x.id})" title="Delete" class="w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-red-50 border border-red-200 text-red-600 flex items-center justify-center hover:bg-red-500 hover:text-white transition-all shadow-sm"><i class="fas fa-trash-alt text-xs md:text-sm"></i></button>
                                 </div>
                             </td>
                         </tr>
@@ -1985,9 +1601,7 @@
         };
 
         // --- NOTIFICATIONS ---
-        const toggleNotifications = () => {
-            document.getElementById('notificationModal')?.classList.toggle('hidden');
-        };
+        const toggleNotifications = () => { document.getElementById('notificationModal')?.classList.toggle('hidden'); };
 
         const checkNotifications = () => {
             const today = new Date().toISOString().slice(0,10);
@@ -2015,9 +1629,7 @@
                         </div>
                     </div>
                 `}).join('');
-            } else {
-                html = '<div class="flex flex-col items-center justify-center py-10 opacity-50"><i class="fas fa-bell-slash text-4xl mb-4 text-slate-400"></i><p class="text-[10px] text-center text-slate-500 font-black uppercase tracking-widest">No transactions added today</p></div>';
-            }
+            } else { html = '<div class="flex flex-col items-center justify-center py-10 opacity-50"><i class="fas fa-bell-slash text-4xl mb-4 text-slate-400"></i><p class="text-[10px] text-center text-slate-500 font-black uppercase tracking-widest">No transactions added today</p></div>'; }
             const dynNotif = document.getElementById('dynamicNotifications');
             if(dynNotif) dynNotif.innerHTML = html;
         };
@@ -2037,12 +1649,9 @@
 
         const openModal = (type = 'EXPENSE') => {
             document.getElementById('transactionForm')?.reset();
-            const editId = document.getElementById('editId');
-            if(editId) editId.value = '';
-            const txnType = document.getElementById('txnType');
-            if(txnType) txnType.value = type;
-            const txnDate = document.getElementById('txnDate');
-            if(txnDate) txnDate.value = new Date().toISOString().slice(0,10);
+            const editId = document.getElementById('editId'); if(editId) editId.value = '';
+            const txnType = document.getElementById('txnType'); if(txnType) txnType.value = type;
+            const txnDate = document.getElementById('txnDate'); if(txnDate) txnDate.value = new Date().toISOString().slice(0,10);
             updateCategoryOptions(); 
             
             const modalTitle = document.getElementById('modalTitle');
@@ -2086,11 +1695,7 @@
             if(idx>-1) transactions[idx] = data; else transactions.push(data);
             
             localStorage.setItem(CURRENT_DB_VERSION, JSON.stringify(transactions));
-            closeModal(); 
-            renderTable(); 
-            renderDashboard(); 
-            renderCalendar();
-            checkNotifications();
+            closeModal(); renderTable(); renderDashboard(); renderCalendar(); checkNotifications();
             if(currentTab === 'analytics') initCharts();
             
             showToast("Transaction Saved!");
@@ -2169,8 +1774,7 @@
                 const isToday = dStr === todayStr;
                 
                 const dayTxns = transactions.filter(x => x.date === dStr);
-                let dayIncome = 0;
-                let dayExpense = 0;
+                let dayIncome = 0; let dayExpense = 0;
                 dayTxns.forEach(t => {
                     if(t.type === 'INCOME') dayIncome += parseFloat(t.amount);
                     if(t.type === 'EXPENSE') dayExpense += parseFloat(t.amount);
@@ -2214,325 +1818,54 @@
             }
 
             let totalInc = 0, totalExp = 0;
-            let categories = {};
-            let methods = {};
-            let dailyTrend = {};
+            let categories = {}; let methods = {}; let dailyTrend = {};
 
             transactions.forEach(t => {
                 if (monthFilter && !t.date.startsWith(monthFilter)) return;
-
-                if(t.type === 'INCOME') {
-                    totalInc += parseFloat(t.amount);
-                }
+                if(t.type === 'INCOME') { totalInc += parseFloat(t.amount); }
                 if(t.type === 'EXPENSE') {
                     totalExp += parseFloat(t.amount);
                     categories[t.category] = (categories[t.category] || 0) + parseFloat(t.amount);
                     methods[t.method] = (methods[t.method] || 0) + parseFloat(t.amount);
-                    
                     const day = t.date.split('-')[2];
                     dailyTrend[day] = (dailyTrend[day] || 0) + parseFloat(t.amount);
                 }
             });
 
-            Chart.defaults.font.family = "'Outfit', sans-serif";
+            Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
 
             if(chartStatus) chartStatus.destroy();
             chartStatus = new Chart(ctx1, {
                 type: 'doughnut',
-                data: {
-                    labels: ['Income', 'Expense'],
-                    datasets: [{ data: [totalInc, totalExp], backgroundColor: ['#10b981', '#ef4444'], borderWidth: 0, hoverOffset: 4 }]
-                },
-                options: { 
-                    responsive: true, maintainAspectRatio: false, 
-                    plugins: { 
-                        legend: { position: 'bottom', labels: { color: textColor, font: { size: 12, weight: '900'}, padding: window.innerWidth < 768 ? 10 : 20 } },
-                        tooltip: { backgroundColor: isDark?'#1e293b':'#ffffff', titleColor: textColor, bodyColor: textColor, borderColor: gridColor, borderWidth: 1, padding: 12, cornerRadius: 8, callbacks: { label: function(context) { return '  ' + formatCurrency(context.raw); } } }
-                    }, 
-                    cutout: '75%',
-                    animation: { animateScale: true }
-                }
+                data: { labels: ['Income', 'Expense'], datasets: [{ data: [totalInc, totalExp], backgroundColor: ['#10b981', '#ef4444'], borderWidth: 0, hoverOffset: 4 }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { color: textColor, font: { size: 12, weight: '900'}, padding: window.innerWidth < 768 ? 10 : 20 } }, tooltip: { backgroundColor: isDark?'#1e293b':'#ffffff', titleColor: textColor, bodyColor: textColor, borderColor: gridColor, borderWidth: 1, padding: 12, cornerRadius: 8, callbacks: { label: function(context) { return '  ' + formatCurrency(context.raw); } } } }, cutout: '75%', animation: { animateScale: true } }
             });
 
             const sortedCats = Object.entries(categories).sort((a,b) => b[1] - a[1]);
             if(chartCategory) chartCategory.destroy();
             chartCategory = new Chart(ctx2, {
                 type: 'bar',
-                data: {
-                    labels: sortedCats.map(c => c[0]),
-                    datasets: [{ label: 'Expenses', data: sortedCats.map(c => c[1]), backgroundColor: '#0054A6', borderRadius: 8, barPercentage: 0.6 }]
-                },
-                options: { 
-                    responsive: true, maintainAspectRatio: false, 
-                    plugins: { 
-                        legend: { display: false },
-                        tooltip: { backgroundColor: isDark?'#1e293b':'#ffffff', titleColor: textColor, bodyColor: textColor, borderColor: gridColor, borderWidth: 1, padding: 12, cornerRadius: 8, callbacks: { label: function(context) { return '  ' + formatCurrency(context.raw); } } }
-                    }, 
-                    scales: { 
-                        y: { border: {display: false}, ticks:{color: textColor, font:{size: 9, weight:'bold'}}, grid:{color: gridColor} }, 
-                        x: { border: {display: false}, ticks:{color: textColor, font:{size: 9, weight:'bold'}}, grid:{display:false} } 
-                    },
-                    animation: { duration: 1500, easing: 'easeOutQuart' }
-                }
+                data: { labels: sortedCats.map(c => c[0]), datasets: [{ label: 'Expenses', data: sortedCats.map(c => c[1]), backgroundColor: '#0054A6', borderRadius: 8, barPercentage: 0.6 }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { backgroundColor: isDark?'#1e293b':'#ffffff', titleColor: textColor, bodyColor: textColor, borderColor: gridColor, borderWidth: 1, padding: 12, cornerRadius: 8, callbacks: { label: function(context) { return '  ' + formatCurrency(context.raw); } } } }, scales: { y: { border: {display: false}, ticks:{color: textColor, font:{size: 9, weight:'bold'}}, grid:{color: gridColor} }, x: { border: {display: false}, ticks:{color: textColor, font:{size: 9, weight:'bold'}}, grid:{display:false} } }, animation: { duration: 1500, easing: 'easeOutQuart' } }
             });
 
             const sortedMethods = Object.entries(methods).sort((a,b) => b[1] - a[1]);
             if(chartMethod) chartMethod.destroy();
             chartMethod = new Chart(ctx3, {
                 type: 'doughnut',
-                data: {
-                    labels: sortedMethods.map(m => m[0]),
-                    datasets: [{ 
-                        data: sortedMethods.map(m => m[1]), 
-                        backgroundColor: ['#8b5cf6', '#0ea5e9', '#10b981', '#f59e0b', '#f43f5e', '#64748b'], 
-                        borderWidth: 0, hoverOffset: 4 
-                    }]
-                },
-                options: { 
-                    responsive: true, maintainAspectRatio: false, 
-                    plugins: { 
-                        legend: { position: 'right', labels: { color: textColor, font: { size: 10, weight: 'bold'}, padding: window.innerWidth < 768 ? 10 : 15 } },
-                        tooltip: { backgroundColor: isDark?'#1e293b':'#ffffff', titleColor: textColor, bodyColor: textColor, borderColor: gridColor, borderWidth: 1, padding: 12, cornerRadius: 8, callbacks: { label: function(context) { return '  ' + formatCurrency(context.raw); } } }
-                    }, 
-                    cutout: '65%',
-                    animation: { animateScale: true }
-                }
+                data: { labels: sortedMethods.map(m => m[0]), datasets: [{ data: sortedMethods.map(m => m[1]), backgroundColor: ['#8b5cf6', '#0ea5e9', '#10b981', '#f59e0b', '#f43f5e', '#64748b'], borderWidth: 0, hoverOffset: 4 }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { color: textColor, font: { size: 10, weight: 'bold'}, padding: window.innerWidth < 768 ? 10 : 15 } }, tooltip: { backgroundColor: isDark?'#1e293b':'#ffffff', titleColor: textColor, bodyColor: textColor, borderColor: gridColor, borderWidth: 1, padding: 12, cornerRadius: 8, callbacks: { label: function(context) { return '  ' + formatCurrency(context.raw); } } } }, cutout: '65%', animation: { animateScale: true } }
             });
 
             if(ctx4) {
                 const days = Object.keys(dailyTrend).sort((a,b) => parseInt(a) - parseInt(b));
                 const trendData = days.map(d => dailyTrend[d]);
-                
                 if(chartTrend) chartTrend.destroy();
                 chartTrend = new Chart(ctx4, {
                     type: 'line',
-                    data: {
-                        labels: days.map(d => `${d}th`),
-                        datasets: [{ 
-                            label: 'Daily Expenses', 
-                            data: trendData, 
-                            borderColor: '#f43f5e', 
-                            backgroundColor: 'rgba(244, 63, 94, 0.1)',
-                            borderWidth: 3, 
-                            tension: 0.4,
-                            fill: true,
-                            pointBackgroundColor: '#f43f5e',
-                            pointBorderColor: '#fff',
-                            pointBorderWidth: 2,
-                            pointRadius: 3
-                        }]
-                    },
-                    options: { 
-                        responsive: true, maintainAspectRatio: false, 
-                        plugins: { 
-                            legend: { display: false },
-                            tooltip: { backgroundColor: isDark?'#1e293b':'#ffffff', titleColor: textColor, bodyColor: textColor, borderColor: gridColor, borderWidth: 1, padding: 12, cornerRadius: 8, callbacks: { label: function(context) { return '  ' + formatCurrency(context.raw); } } }
-                        }, 
-                        scales: { 
-                            y: { border: {display: false}, ticks:{color: textColor, font:{size: 9, weight:'bold'}}, grid:{color: gridColor} }, 
-                            x: { border: {display: false}, ticks:{color: textColor, font:{size: 9, weight:'bold'}}, grid:{display:false} } 
-                        },
-                        animation: { duration: 1500, easing: 'easeOutQuart' }
-                    }
+                    data: { labels: days.map(d => `${d}th`), datasets: [{ label: 'Daily Expenses', data: trendData, borderColor: '#f43f5e', backgroundColor: 'rgba(244, 63, 94, 0.1)', borderWidth: 3, tension: 0.4, fill: true, pointBackgroundColor: '#f43f5e', pointBorderColor: '#fff', pointBorderWidth: 2, pointRadius: 3 }] },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { backgroundColor: isDark?'#1e293b':'#ffffff', titleColor: textColor, bodyColor: textColor, borderColor: gridColor, borderWidth: 1, padding: 12, cornerRadius: 8, callbacks: { label: function(context) { return '  ' + formatCurrency(context.raw); } } } }, scales: { y: { border: {display: false}, ticks:{color: textColor, font:{size: 9, weight:'bold'}}, grid:{color: gridColor} }, x: { border: {display: false}, ticks:{color: textColor, font:{size: 9, weight:'bold'}}, grid:{display:false} } }, animation: { duration: 1500, easing: 'easeOutQuart' } }
                 });
-            }
-        };
-
-        // --- BUDGETS MODAL ---
-        const openBudgetModal = () => {
-            if(!isAdmin()) return showToast("Admin Access Required", "error");
-            renderReqEntries();
-            const reqModal = document.getElementById('reqModal');
-            if(reqModal) reqModal.classList.remove('hidden');
-        };
-        const closeReqModal = () => {
-            const reqModal = document.getElementById('reqModal');
-            if(reqModal) reqModal.classList.add('hidden');
-        };
-
-        const renderReqEntries = () => {
-            const container = document.getElementById('reqEntriesContainer');
-            if(!container) return;
-            container.innerHTML = reqList.map((req, idx) => `
-                <div class="p-3 md:p-5 bg-[var(--bg-secondary)] rounded-xl md:rounded-2xl border md:border-2 border-[var(--border-color)] relative group transition-all hover:shadow-md hover:border-sarathy-blue">
-                    <button onclick="removeReqRow(${idx})" class="absolute top-2 right-2 md:top-4 md:right-4 w-6 h-6 md:w-8 md:h-8 flex items-center justify-center rounded-lg md:rounded-xl text-slate-400 active:scale-90 hover:bg-red-50 hover:text-red-600 transition-colors"><i class="fas fa-trash-alt text-[10px] md:text-sm"></i></button>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-5 pr-6 md:pr-10">
-                        <div class="relative">
-                            <label class="text-[8px] md:text-[10px] font-bold text-[var(--text-secondary)] uppercase tracking-widest">Expense Category</label>
-                            <select onchange="reqList[${idx}].dept=this.value" class="w-full p-2.5 md:p-3.5 mt-1 md:mt-1.5 bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-lg md:rounded-xl font-bold text-[10px] md:text-xs uppercase outline-none focus:border-sarathy-blue dark:text-white transition-colors cursor-pointer appearance-none">
-                                ${EXPENSE_CATEGORIES.map(cat => `<option value="${cat}" ${req.dept===cat?'selected':''}>${getCatEmoji(cat)} ${cat}</option>`).join('')}
-                            </select>
-                            <i class="fas fa-chevron-down absolute right-3 md:right-4 bottom-3 md:bottom-4 text-slate-400 pointer-events-none text-[8px] md:text-xs"></i>
-                        </div>
-                        <div>
-                            <label class="text-[8px] md:text-[10px] font-bold text-[var(--text-secondary)] uppercase tracking-widest">Monthly Limit (₹)</label>
-                            <div class="relative mt-1 md:mt-1.5">
-                                <span class="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 font-black text-slate-400 text-xs md:text-base">₹</span>
-                                <input type="number" value="${req.target}" onchange="reqList[${idx}].target=parseFloat(this.value)||0" min="0" class="w-full pl-7 md:pl-8 pr-3 md:pr-4 p-2.5 md:p-3.5 bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-lg md:rounded-xl font-black text-[10px] md:text-xs outline-none focus:border-sarathy-blue dark:text-white transition-colors">
-                            </div>
-                        </div>
-                    </div>
-                </div>`).join('') || '<div class="flex flex-col items-center justify-center h-40 opacity-50"><i class="fas fa-box-open text-3xl md:text-4xl text-slate-400 mb-2 md:mb-3"></i><p class="text-[9px] md:text-xs text-center text-[var(--text-secondary)] font-black uppercase tracking-widest">No budgets defined</p></div>';
-        };
-
-        const addReqRow = () => { reqList.push({ dept: EXPENSE_CATEGORIES[0], target: 1000 }); renderReqEntries(); };
-        const removeReqRow = (idx) => { reqList.splice(idx, 1); renderReqEntries(); };
-        const saveRequirements = () => {
-            localStorage.setItem(CURRENT_BUDGET_VERSION, JSON.stringify(reqList));
-            showToast("Budgets Updated Successfully!");
-            closeReqModal();
-            renderDashboard();
-        };
-
-        // --- SETTINGS & DATA MANAGEMENT ---
-        const changeAdminPin = () => {
-            const currentPin = document.getElementById('currentPin')?.value;
-            const newPin = document.getElementById('newPin')?.value;
-
-            if (currentPin !== USERS[0].pass) {
-                return showToast("Current PIN is incorrect!", "error");
-            }
-            if (newPin.length < 4) {
-                return showToast("New PIN must be at least 4 characters long", "error");
-            }
-
-            USERS[0].pass = newPin;
-            localStorage.setItem('expense_users_v1', JSON.stringify(USERS));
-            const cpEl = document.getElementById('currentPin');
-            if(cpEl) cpEl.value = '';
-            const npEl = document.getElementById('newPin');
-            if(npEl) npEl.value = '';
-            showToast("Admin PIN Updated Successfully!");
-        };
-
-        const factoryReset = () => {
-            const confirm1 = confirm("⚠️ WARNING: This will permanently delete all transaction data, budgets, and settings. Are you completely sure?");
-            if (confirm1) {
-                const confirmText = prompt("Type 'DELETE' to confirm data wipe:");
-                if (confirmText === "DELETE") {
-                    localStorage.removeItem(CURRENT_DB_VERSION);
-                    localStorage.removeItem(CURRENT_BUDGET_VERSION);
-                    localStorage.removeItem(CHALLENGE_DB_KEY);
-                    localStorage.removeItem(SAVINGS_DB_KEY);
-                    localStorage.removeItem(LOANS_DB_KEY);
-                    showToast("System Reset Successful. Reloading...", "error");
-                    setTimeout(() => location.reload(), 1500);
-                } else {
-                    showToast("Reset Cancelled.", "success");
-                }
-            }
-        };
-
-        const exportJSONBackup = () => {
-            if (transactions.length === 0) {
-                return showToast("No database records to export", "error");
-            }
-            const dataStr = JSON.stringify({ transactions: transactions, budgets: reqList, challenge: challengeData, savings: savingsGoals, loans: loansData });
-            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-            const exportFileDefaultName = `Expense_Backup_${new Date().toISOString().slice(0,10)}.json`;
-
-            const linkElement = document.createElement('a');
-            linkElement.setAttribute('href', dataUri);
-            linkElement.setAttribute('download', exportFileDefaultName);
-            linkElement.click();
-            showToast("JSON Database Exported!");
-        };
-
-        const importBackup = (event) => {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                try {
-                    const data = JSON.parse(e.target.result);
-                    if (data.transactions && Array.isArray(data.transactions)) {
-                        transactions = data.transactions;
-                        localStorage.setItem(CURRENT_DB_VERSION, JSON.stringify(transactions));
-                    }
-                    if (data.budgets && Array.isArray(data.budgets)) {
-                        reqList = data.budgets;
-                        localStorage.setItem(CURRENT_BUDGET_VERSION, JSON.stringify(reqList));
-                    }
-                    if (data.challenge) {
-                        challengeData = data.challenge;
-                        localStorage.setItem(CHALLENGE_DB_KEY, JSON.stringify(challengeData));
-                    }
-                    if (data.savings) {
-                        savingsGoals = data.savings;
-                        localStorage.setItem(SAVINGS_DB_KEY, JSON.stringify(savingsGoals));
-                    }
-                    if (data.loans) {
-                        loansData = data.loans;
-                        localStorage.setItem(LOANS_DB_KEY, JSON.stringify(loansData));
-                    }
-                    
-                    showToast("Database Backup Restored Successfully!");
-                    renderTable();
-                    renderDashboard();
-                    renderCalendar();
-                    renderChallenge();
-                    renderSavings();
-                    renderLoans();
-                    if(currentTab === 'analytics') initCharts();
-                    const iFile = document.getElementById('importFile');
-                    if(iFile) iFile.value = ''; 
-                } catch (error) {
-                    showToast("Invalid Backup File Format", "error");
-                }
-            };
-            reader.readAsText(file);
-        };
-
-        // Export to Excel
-        const exportToExcel = () => {
-            if (transactions.length === 0) {
-                showToast("No data found to export", "error");
-                return;
-            }
-
-            try {
-                const exportData = transactions.map((t, index) => ({
-                    "SL NO": index + 1,
-                    "Date": formatDateString(t.date),
-                    "Type": t.type,
-                    "Amount": t.amount,
-                    "Category": t.category,
-                    "Payment Method": t.method,
-                    "Description / Notes": t.desc
-                }));
-
-                const worksheet = XLSX.utils.json_to_sheet(exportData);
-                const wscols = [
-                    {wch: 10}, 
-                    {wch: 15}, 
-                    {wch: 15}, 
-                    {wch: 15}, 
-                    {wch: 25}, 
-                    {wch: 20}, 
-                    {wch: 40}  
-                ];
-                worksheet['!cols'] = wscols;
-
-                const workbook = XLSX.utils.book_new();
-                XLSX.utils.book_append_sheet(workbook, worksheet, "Transactions");
-
-                const wbout = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-                const blob = new Blob([wbout], { type: 'application/octet-stream' });
-                const url = URL.createObjectURL(blob);
-                
-                const a = document.createElement("a");
-                a.href = url;
-                a.download = `Expense_Tracker_Export_${new Date().toISOString().slice(0, 10)}.xlsx`;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-                
-                showToast("Excel Downloaded Successfully!");
-            } catch (error) {
-                console.error("Excel Export Error: ", error);
-                showToast("Failed to download Excel. Please try again.", "error");
             }
         };
 
