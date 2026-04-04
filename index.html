@@ -82,6 +82,25 @@
             border-color: rgba(0, 84, 166, 0.3);
         }
 
+        /* Premium Wallet Card */
+        .wallet-card {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            box-shadow: 0 15px 30px -10px rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        .wallet-card::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 60%);
+            transform: rotate(30deg); pointer-events: none;
+        }
+        .chip {
+            width: 40px; height: 28px; background: linear-gradient(135deg, #d4af37 0%, #aa8000 100%);
+            border-radius: 6px; position: relative; overflow: hidden;
+        }
+        .chip::after { content: ''; position: absolute; inset: 2px; border: 1px solid rgba(0,0,0,0.2); border-radius: 4px; }
+
         /* Custom Scrollbar */
         .custom-scroll::-webkit-scrollbar { width: 4px; height: 4px; }
         .custom-scroll::-webkit-scrollbar-track { background: transparent; }
@@ -90,19 +109,13 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
 
         /* Animations */
-        @keyframes slideUp { 
-            from { opacity: 0; transform: translateY(20px) scale(0.98); } 
-            to { opacity: 1; transform: translateY(0) scale(1); } 
-        }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
         .animate-up { animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         
-        @keyframes modalPop {
-            0% { opacity: 0; transform: scale(0.95); }
-            100% { opacity: 1; transform: scale(1); }
-        }
+        @keyframes modalPop { 0% { opacity: 0; transform: scale(0.95); } 100% { opacity: 1; transform: scale(1); } }
         .modal-animate { animation: modalPop 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
-        /* Sidebar Nav (Desktop Only) */
+        /* Sidebar Nav */
         .nav-link {
             display: flex; align-items: center; gap: 14px; padding: 14px 18px; border-radius: 14px;
             color: var(--text-secondary); font-weight: 700; font-size: 0.95rem; transition: all 0.3s ease;
@@ -113,45 +126,27 @@
         .dark .nav-link:hover { background: rgba(56, 189, 248, 0.1); color: #38bdf8; }
         .dark .nav-link.active { background: #0ea5e9; color: white; box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4); }
 
-        /* Mobile Bottom Nav adjustments */
+        /* Mobile Adjustments */
         .tab-content { display: none; opacity: 0; transition: opacity 0.4s ease; height: 100%; overflow-y: auto; padding-bottom: 100px; }
         @media (min-width: 768px) { .tab-content { padding-bottom: 40px; } }
         .tab-content.active { display: block; opacity: 1; }
 
-        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; md:gap: 6px; }
-        .calendar-day { min-height: 70px; md:min-height: 85px; aspect-ratio: unset; border-radius: 8px; md:border-radius: 10px; border: 1px solid var(--border-color); padding: 4px; md:padding: 6px; display: flex; flex-direction: column; background: var(--bg-secondary); transition: all 0.2s ease-in-out; }
-        .calendar-day:hover { border-color: #059669; box-shadow: 0 4px 12px rgba(0,0,0,0.15); transform: scale(1.02); z-index: 10; }
-        .calendar-day.today { background: rgba(5, 150, 105, 0.08); border: 2px solid #059669; }
-        .calendar-event { font-size: 0.6rem; md:font-size: 0.65rem; padding: 4px; border-radius: 4px; margin-top: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 800; cursor: pointer; transition: transform 0.2s; }
-        .calendar-event:hover { transform: translateX(2px); }
-
         .gradient-text { background: linear-gradient(135deg, #0054A6, #38bdf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .dark .gradient-text { background: linear-gradient(135deg, #38bdf8, #7dd3fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* Professional Data Table for Transactions - Mobile Optimized */
+        /* Professional Data Table */
         .data-table-container { background: var(--bg-secondary); border-radius: 1rem; border: 1px solid var(--border-color); overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.03); max-height: calc(100vh - 240px); overflow-y: auto; overflow-x: auto; -webkit-overflow-scrolling: touch; }
         .data-table { width: 100%; border-collapse: collapse; min-width: 600px; }
-        
-        /* EXACT BLUE COLOR FROM IMAGE FOR TABLE HEADER */
-        .data-table th { background: #0B192C; color: #ffffff; font-size: 0.7rem; font-weight: 900; text-transform: uppercase; text-align: left; padding: 14px 12px; letter-spacing: 0.05em; border: 1px solid rgba(255, 255, 255, 0.1); position: sticky; top: 0; z-index: 10; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
+        .data-table th { background: #0B192C; color: #ffffff; font-size: 0.7rem; font-weight: 900; text-transform: uppercase; text-align: left; padding: 14px 12px; letter-spacing: 0.05em; position: sticky; top: 0; z-index: 10; cursor: pointer; transition: background 0.2s; white-space: nowrap; border-bottom: 2px solid rgba(255,255,255,0.1); }
         .data-table th:hover { background: #132746; }
-        .dark .data-table th { background: #0B192C; color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.05); }
+        .dark .data-table th { background: #0B192C; }
         .dark .data-table th:hover { background: #132746; }
-        
-        .data-table td { padding: 10px 12px; font-size: 0.75rem; border: 1px solid var(--border-color); vertical-align: middle; transition: background-color 0.2s; white-space: nowrap; }
-        .data-table tr:last-child td { border-bottom: none; }
+        .data-table td { padding: 10px 12px; font-size: 0.75rem; border-bottom: 1px solid var(--border-color); vertical-align: middle; transition: background-color 0.2s; white-space: nowrap; }
         .data-table tr:hover td { background: rgba(0, 84, 166, 0.03); }
         .dark .data-table tr:hover td { background: rgba(56, 189, 248, 0.03); }
-        @media (min-width: 768px) {
-            .data-table td { padding: 16px; font-size: 0.85rem; }
-            .data-table th { padding: 18px 16px; font-size: 0.75rem; }
-        }
+        @media (min-width: 768px) { .data-table td { padding: 16px; font-size: 0.85rem; } .data-table th { padding: 18px 16px; font-size: 0.75rem; } }
 
-        .status-badge-md { padding: 4px 8px; border-radius: 6px; font-size: 0.65rem; font-weight: 900; display: inline-block; text-transform: uppercase; letter-spacing: 0.05em; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        .badge-income { background: #ecfdf5; color: #047857; border: 1px solid #10b98140; }
-        .badge-expense { background: #fef2f2; color: #b91c1c; border: 1px solid #ef444440; }
-        
-        /* Settings Switches */
+        /* Toggle Switches */
         .toggle-switch { position: relative; display: inline-block; width: 48px; height: 26px; }
         .toggle-switch input { opacity: 0; width: 0; height: 0; }
         .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #cbd5e1; transition: .4s cubic-bezier(0.4, 0, 0.2, 1); border-radius: 26px; }
@@ -161,37 +156,37 @@
         .dark .slider { background-color: #475569; }
         .dark input:checked + .slider { background-color: #38bdf8; }
 
-        /* PRIVACY MODE BLUR EFFECT */
-        .privacy-mode .amount-text {
-            filter: blur(6px);
-            opacity: 0.6;
-            user-select: none;
-            transition: all 0.3s ease;
-        }
+        /* Privacy Blur */
+        .privacy-mode .amount-text { filter: blur(6px); opacity: 0.6; user-select: none; transition: all 0.3s ease; }
 
-        /* Challenge Grid Styles */
+        /* Calendar Grid */
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; md:gap: 6px; }
+        .calendar-day { min-height: 70px; md:min-height: 85px; aspect-ratio: unset; border-radius: 8px; md:border-radius: 10px; border: 1px solid var(--border-color); padding: 4px; md:padding: 6px; display: flex; flex-direction: column; background: var(--bg-secondary); transition: all 0.2s ease-in-out; }
+        
+        /* Challenge Grid */
         .challenge-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
         @media (min-width: 768px) { .challenge-grid { grid-template-columns: repeat(10, 1fr); gap: 12px; } }
         .day-cell { aspect-ratio: 1; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1rem; transition: all 0.3s ease; border: 2px solid transparent; position: relative; overflow: hidden; }
-        
         .day-locked { background: var(--bg-primary); color: var(--text-secondary); opacity: 0.5; border-color: var(--border-color); }
         .day-completed { background: #10b981; color: white; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3); transform: scale(1.05); }
         .day-current { background: #4f46e5; color: white; box-shadow: 0 0 15px rgba(79, 70, 229, 0.5); border-color: #818cf8; animation: pulse-ring 2s infinite; }
-        
-        @keyframes pulse-ring {
-            0% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(79, 70, 229, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
-        }
+        @keyframes pulse-ring { 0% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(79, 70, 229, 0); } 100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); } }
+
+        /* Multi-FAB Menu for Mobile */
+        .fab-menu { position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%) translateY(20px); opacity: 0; visibility: hidden; display: flex; flex-direction: column; gap: 12px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); pointer-events: none; z-index: 40; }
+        .fab-menu.active { transform: translateX(-50%) translateY(-15px); opacity: 1; visibility: visible; pointer-events: auto; }
+        .fab-item { width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.2); transform: scale(0.8); transition: transform 0.2s; position: relative; }
+        .fab-menu.active .fab-item { transform: scale(1); }
+        .fab-label { position: absolute; right: 55px; background: var(--bg-secondary); color: var(--text-primary); padding: 4px 10px; border-radius: 6px; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; box-shadow: 0 2px 8px rgba(0,0,0,0.1); white-space: nowrap; pointer-events: none; border: 1px solid var(--border-color); }
 
         /* Print Styles */
         @media print {
             body { background: white !important; color: black !important; overflow: auto !important; }
-            #sidebar, #bottomNav, header, .no-print, .fab { display: none !important; }
+            #sidebar, #bottomNav, header, .no-print, .fab, .fab-menu-container { display: none !important; }
             #appLayout, main { display: block !important; height: auto !important; overflow: visible !important; }
             .modern-card, .glass-panel { box-shadow: none !important; border: 1px solid #ccc !important; break-inside: avoid; }
             .tab-content { display: block !important; opacity: 1 !important; padding: 0 !important; }
-            #tab-transactions, #tab-calendar, #tab-settings, #tab-challenge, #tab-savings { display: none !important; }
+            #tab-transactions, #tab-calendar, #tab-settings, #tab-challenge, #tab-savings, #tab-loans { display: none !important; }
             canvas { max-width: 100% !important; height: auto !important; }
             .privacy-mode .amount-text { filter: none !important; opacity: 1 !important; } 
         }
@@ -205,21 +200,17 @@
             <div class="absolute -top-[20%] -right-[10%] w-[60%] h-[60%] rounded-full bg-blue-300/30 dark:bg-blue-900/20 blur-3xl"></div>
             <div class="absolute -bottom-[20%] -left-[10%] w-[60%] h-[60%] rounded-full bg-sky-200/30 dark:bg-sky-900/20 blur-3xl"></div>
         </div>
-        
         <div class="w-full max-w-[400px] animate-up relative z-10">
             <div class="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-2xl shadow-blue-900/10 dark:shadow-black/50 border border-slate-100 dark:border-slate-700">
                 <div class="mb-8 text-center">
                     <img src="WhatsApp%20Image%202026-03-30%20at%207.10.19%20AM.jpeg" alt="SR Logo" class="h-20 md:h-24 w-auto object-contain mx-auto mb-4 drop-shadow-sm dark:invert transition-all duration-300 rounded-2xl mix-blend-multiply dark:mix-blend-normal bg-transparent dark:bg-white/90 p-1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                     <div class="hidden w-16 h-16 bg-gradient-to-tr from-sarathy-blue to-blue-400 rounded-2xl mx-auto flex items-center justify-center text-white text-2xl font-black mb-4 shadow-lg shadow-blue-500/30">SR</div>
-                    
                     <h2 class="text-xl font-black text-slate-800 dark:text-white tracking-tight mt-2">Expense Tracker</h2>
                     <p class="text-[10px] md:text-xs font-bold text-slate-500 dark:text-slate-400 mt-2 uppercase tracking-widest">Financial Management Pro</p>
                 </div>
-                
                 <div id="loginError" class="hidden bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 p-3 rounded-xl text-xs font-black mb-6 border border-red-100 dark:border-red-900/30 flex items-center animate-up">
                     <i class="fas fa-exclamation-circle mr-2 text-base"></i> Authentication Failed.
                 </div>
-
                 <form id="loginForm" class="space-y-4">
                     <div class="group">
                         <label class="text-[9px] md:text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1.5 block transition-colors group-focus-within:text-sarathy-blue">User ID</label>
@@ -235,12 +226,10 @@
                             <input type="password" id="password" required value="SARATHY@26" class="w-full pl-10 pr-4 py-3 md:py-3.5 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl font-bold text-slate-800 dark:text-white focus:border-sarathy-blue focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900/30 outline-none transition-all text-sm">
                         </div>
                     </div>
-                    
                     <button type="submit" class="w-full bg-[#0054A6] hover:bg-[#004080] text-white font-black py-3.5 md:py-4 rounded-xl shadow-xl shadow-blue-600/20 active:scale-[0.98] transition-all duration-300 text-[11px] tracking-widest mt-2 uppercase flex justify-center items-center gap-2">
-                        <span>Access Dashboard</span> <i class="fas fa-arrow-right ml-1 transition-transform group-hover:translate-x-1"></i>
+                        <span>Secure Login</span> <i class="fas fa-arrow-right ml-1 transition-transform group-hover:translate-x-1"></i>
                     </button>
                 </form>
-
                 <div class="mt-5 pt-5 border-t border-slate-100 dark:border-slate-700">
                     <button type="button" onclick="handleBiometricLogin()" id="biometricBtn" class="w-full flex items-center justify-center p-3 md:p-4 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-emerald-50 hover:border-emerald-200 dark:hover:bg-emerald-900/20 dark:hover:border-emerald-800 transition-all duration-300 text-[10px] md:text-xs font-black uppercase tracking-widest group shadow-sm active:scale-[0.98]">
                         <i id="bioIcon" class="fas fa-fingerprint text-xl md:text-2xl text-slate-400 group-hover:text-emerald-500 mr-2 md:mr-3 transition-colors"></i> 
@@ -256,38 +245,33 @@
         
         <!-- SIDEBAR (DESKTOP ONLY) -->
         <aside id="sidebar" class="hidden md:flex inset-y-0 left-0 w-[var(--sidebar-width)] h-screen glass-panel flex-col shrink-0 z-[100] border-r border-[var(--border-color)] transition-all duration-300 ease-in-out bg-[var(--bg-secondary)] md:bg-transparent overflow-x-hidden shadow-none relative">
-            <!-- Header / Logo area -->
             <div class="h-20 px-4 flex items-center gap-3 border-b border-[var(--border-color)] shrink-0 overflow-hidden">
                 <img src="WhatsApp%20Image%202026-03-30%20at%207.10.19%20AM.jpeg" alt="SR Logo" class="h-12 w-auto object-contain shrink-0 dark:invert rounded-lg mix-blend-multiply dark:mix-blend-normal bg-transparent dark:bg-white/90 p-1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                 <div class="hidden w-12 h-12 bg-gradient-to-tr from-sarathy-blue to-sky-400 rounded-xl flex items-center justify-center text-white text-lg font-black shrink-0 shadow-md">SR</div>
-                
                 <div class="transition-opacity duration-300 whitespace-nowrap overflow-hidden flex-1 ml-1">
                     <h1 class="font-black text-sm tracking-tight gradient-text uppercase">EXPENSE PRO</h1>
                 </div>
             </div>
-            <!-- Nav Links -->
             <div class="flex flex-col px-3 py-6 flex-1 custom-scroll overflow-y-auto overflow-x-hidden">
                 <div class="text-[10px] font-black text-sarathy-blue dark:text-sky-400 uppercase tracking-widest mb-3 px-2 whitespace-nowrap overflow-hidden flex items-center gap-2">
                     <div class="w-1.5 h-1.5 bg-sarathy-red rounded-full"></div> MENU
                 </div>
-                <a onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-link active"><i class="fas fa-chart-pie w-6 text-center shrink-0 text-lg"></i> <span class="whitespace-nowrap font-bold tracking-wide">Dashboard</span></a>
+                <a onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-link active"><i class="fas fa-wallet w-6 text-center shrink-0 text-lg"></i> <span class="whitespace-nowrap font-bold tracking-wide">Dashboard</span></a>
                 <a onclick="switchTab('transactions')" id="nav-transactions" class="nav-link"><i class="fas fa-list-alt w-6 text-center shrink-0 text-lg"></i> <span class="whitespace-nowrap font-bold tracking-wide">Transactions</span></a>
-                
-                <!-- NEW: Savings Tab -->
-                <a onclick="switchTab('savings')" id="nav-savings" class="nav-link text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/20"><i class="fas fa-piggy-bank w-6 text-center shrink-0 text-lg"></i> <span class="whitespace-nowrap font-bold tracking-wide">Savings Goals</span></a>
-                
+                <a onclick="switchTab('savings')" id="nav-savings" class="nav-link"><i class="fas fa-piggy-bank w-6 text-center shrink-0 text-lg text-emerald-500"></i> <span class="whitespace-nowrap font-bold tracking-wide">Savings Goals</span></a>
+                <a onclick="switchTab('loans')" id="nav-loans" class="nav-link"><i class="fas fa-hand-holding-usd w-6 text-center shrink-0 text-lg text-purple-500"></i> <span class="whitespace-nowrap font-bold tracking-wide">Loans & Debts</span></a>
                 <a onclick="switchTab('calendar')" id="nav-calendar" class="nav-link"><i class="fas fa-calendar-alt w-6 text-center shrink-0 text-lg"></i> <span class="whitespace-nowrap font-bold tracking-wide">Calendar</span></a>
                 <a onclick="switchTab('analytics')" id="nav-analytics" class="nav-link"><i class="fas fa-chart-bar w-6 text-center shrink-0 text-lg"></i> <span class="whitespace-nowrap font-bold tracking-wide">Reports</span></a>
                 
                 <div class="text-[10px] font-black text-indigo-500 dark:text-indigo-400 uppercase tracking-widest mb-3 mt-6 px-2 whitespace-nowrap overflow-hidden flex items-center gap-2">
                     <div class="w-1.5 h-1.5 bg-indigo-500 rounded-full shadow-sm"></div> DISCIPLINE
                 </div>
-                <a onclick="switchTab('challenge')" id="nav-challenge" class="nav-link"><i class="fas fa-shield-alt w-6 text-center shrink-0 text-lg"></i> <span class="whitespace-nowrap font-bold tracking-wide">90 Days Challenge</span></a>
+                <a onclick="switchTab('challenge')" id="nav-challenge" class="nav-link"><i class="fas fa-shield-alt w-6 text-center shrink-0 text-lg text-indigo-500"></i> <span class="whitespace-nowrap font-bold tracking-wide">90 Days Challenge</span></a>
                 
                 <div class="text-[10px] font-black text-sarathy-blue dark:text-sky-400 uppercase tracking-widest mb-3 mt-6 px-2 whitespace-nowrap overflow-hidden flex items-center gap-2">
                     <div class="w-1.5 h-1.5 bg-sarathy-red rounded-full shadow-sm"></div> MANAGEMENT
                 </div>
-                <a onclick="openBudgetModal()" class="nav-link"><i class="fas fa-bullseye w-6 text-center shrink-0 text-lg"></i> <span class="whitespace-nowrap font-bold tracking-wide">Budgets</span></a>
+                <a onclick="openBudgetModal()" class="nav-link"><i class="fas fa-bullseye w-6 text-center shrink-0 text-lg"></i> <span class="whitespace-nowrap font-bold tracking-wide">Set Budgets</span></a>
                 <a onclick="exportToExcel()" class="nav-link text-emerald-600 dark:text-emerald-400 hover:text-emerald-700"><i class="fas fa-file-excel w-6 text-center shrink-0 text-lg"></i> <span class="whitespace-nowrap font-bold tracking-wide">Export Excel</span></a>
                 <a onclick="switchTab('settings')" id="nav-settings" class="nav-link text-slate-600 dark:text-slate-400 hover:text-sarathy-blue mt-2"><i class="fas fa-cog w-6 text-center shrink-0 text-lg"></i> <span class="whitespace-nowrap font-bold tracking-wide">Settings</span></a>
                 <input type="file" id="importFile" accept=".json" class="hidden" onchange="importBackup(event)">
@@ -300,11 +284,16 @@
             <!-- Top Header Area (Mobile & Desktop) -->
             <header class="h-16 md:h-20 glass-panel flex justify-between items-center px-4 md:px-8 shrink-0 z-30 sticky top-0 no-print">
                 <div class="flex items-center gap-3">
-                    <!-- Only show App Title/Logo on Mobile Top left -->
-                    <div class="md:hidden flex items-center gap-2">
+                    <!-- Mobile Hamburger -->
+                    <button onclick="toggleSidebarMobile()" class="md:hidden w-10 h-10 rounded-xl bg-[var(--bg-secondary)] text-[var(--text-secondary)] flex items-center justify-center shadow-sm border border-[var(--border-color)] hover:text-sarathy-blue transition-colors">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <!-- Mobile Logo -->
+                    <div class="md:hidden flex items-center gap-2 ml-1">
                         <img src="WhatsApp%20Image%202026-03-30%20at%207.10.19%20AM.jpeg" alt="SR Logo" class="h-8 w-auto object-contain shrink-0 dark:invert rounded-lg shadow-sm mix-blend-multiply dark:mix-blend-normal bg-transparent dark:bg-white/90 p-0.5" onerror="this.style.display='none';">
                         <h1 class="font-black text-sm tracking-tight gradient-text uppercase">Expense Pro</h1>
                     </div>
+                    <!-- Desktop Title -->
                     <div class="hidden md:block">
                         <h2 id="pageTitle" class="text-xl font-black uppercase tracking-widest text-[var(--text-primary)] truncate">Financial Dashboard</h2>
                         <p class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest" id="dashboardDateRangeHeader">Welcome back, manage your finances</p>
@@ -312,20 +301,14 @@
                 </div>
                 <div class="flex items-center gap-2 md:gap-4 shrink-0">
                     <!-- PRIVACY MODE TOGGLE -->
-                    <button onclick="togglePrivacy()" title="Hide/Show Balances" class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[var(--bg-secondary)] text-[var(--text-secondary)] flex items-center justify-center shadow-sm border border-[var(--border-color)] hover:text-indigo-500 transition-all hover:scale-105 active:scale-95">
+                    <button onclick="togglePrivacy()" title="Hide/Show Balances" class="w-9 h-9 md:w-10 md:h-10 rounded-full bg-[var(--bg-secondary)] text-[var(--text-secondary)] flex items-center justify-center shadow-sm border border-[var(--border-color)] hover:text-indigo-500 transition-all hover:scale-105 active:scale-95">
                         <i id="privacyIcon" class="fas fa-eye text-sm md:text-base"></i>
                     </button>
-
-                    <button onclick="toggleDarkMode()" title="Toggle Dark Mode" class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[var(--bg-secondary)] text-[var(--text-secondary)] flex items-center justify-center shadow-sm border border-[var(--border-color)] hover:text-sarathy-blue transition-all hover:scale-105 active:scale-95">
+                    <button onclick="toggleDarkMode()" title="Toggle Dark Mode" class="w-9 h-9 md:w-10 md:h-10 rounded-full bg-[var(--bg-secondary)] text-[var(--text-secondary)] flex items-center justify-center shadow-sm border border-[var(--border-color)] hover:text-sarathy-blue transition-all hover:scale-105 active:scale-95">
                         <i id="darkModeIcon" class="fas fa-moon text-sm md:text-base"></i>
                     </button>
                     
                     <div class="h-6 md:h-8 w-px bg-[var(--border-color)] mx-0.5 md:mx-1 hidden sm:block"></div>
-                    
-                    <!-- Profile Button -->
-                    <button onclick="switchTab('settings')" class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-tr from-sarathy-blue to-sky-400 text-white flex items-center justify-center shadow-md active:scale-95 transition-transform md:hidden">
-                        <i class="fas fa-user text-xs"></i>
-                    </button>
                     
                     <div class="hidden md:flex items-center gap-3 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 p-1.5 pr-4 rounded-full transition-all border border-transparent hover:border-[var(--border-color)]" onclick="switchTab('settings')">
                         <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-sarathy-blue to-sky-400 text-white flex items-center justify-center font-bold shrink-0 shadow-md">
@@ -342,7 +325,6 @@
             <!-- CONTENT TABS -->
             <div class="flex-1 relative overflow-y-auto overflow-x-hidden custom-scroll scroll-smooth">
                 
-                <!-- Print Header (Only visible when printing) -->
                 <div class="hidden print:block text-center pt-8 pb-4 border-b-2 border-black mb-8 w-full">
                     <h1 class="text-4xl font-black uppercase tracking-widest text-black">SARATHY GROUP</h1>
                     <p class="text-lg font-bold uppercase tracking-widest mt-2 text-black">Financial Summary Report</p>
@@ -363,130 +345,65 @@
                         </div>
                     </div>
                     
-                    <!-- NEW: MOBILE WIDGET FOR 90 DAYS CHALLENGE -->
-                    <div class="md:hidden modern-card p-4 rounded-xl bg-gradient-to-r from-indigo-900 to-slate-800 text-white relative overflow-hidden cursor-pointer shadow-lg animate-up border-none" onclick="switchTab('challenge')">
-                        <i class="fas fa-shield-alt absolute -right-2 -bottom-2 text-[5rem] opacity-20 transform -rotate-12"></i>
-                        <div class="relative z-10 flex justify-between items-center">
-                            <div>
-                                <h3 class="font-black text-[11px] text-indigo-300 tracking-widest uppercase mb-0.5"><i class="fas fa-fire mr-1"></i> 90 Days Challenge</h3>
-                                <p class="text-xs font-bold text-white" id="mobChallengeStatus">Stay Strong. Build Discipline.</p>
-                            </div>
-                            <div class="text-right">
-                                <span class="text-2xl font-black text-white" id="mobChallengeDays">0</span>
-                                <span class="text-[8px] font-bold text-indigo-300 uppercase block -mt-1">/90 Days</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Welcome & Smart Insights -->
+                    <!-- Top Section: Virtual Card & Quick Insights -->
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 md:gap-6 animate-up">
-                        <div class="lg:col-span-2 modern-card p-5 md:p-8 bg-gradient-to-br from-sarathy-blue to-blue-700 text-white relative overflow-hidden border-none shadow-xl">
-                            <i class="fas fa-chart-line absolute -right-4 -bottom-4 md:-right-10 md:-bottom-10 text-[8rem] md:text-[12rem] opacity-10 transform -rotate-12 pointer-events-none"></i>
-                            <div class="relative z-10 flex flex-col justify-between h-full gap-4">
+                        <!-- Premium Wallet Card -->
+                        <div class="lg:col-span-2 wallet-card p-6 md:p-8 rounded-2xl md:rounded-3xl text-white flex flex-col justify-between min-h-[200px] md:min-h-[240px]">
+                            <div class="flex justify-between items-start z-10 relative">
                                 <div>
-                                    <h2 id="welcomeGreeting" class="text-xl md:text-3xl font-black mb-1 md:mb-2 flex items-center gap-2 md:gap-3 tracking-tight"><i class="fas fa-sun text-amber-300"></i> Good Morning</h2>
-                                    <p class="text-blue-100 text-[10px] md:text-sm font-medium uppercase tracking-widest opacity-80">Financial Health Overview</p>
+                                    <h2 id="welcomeGreeting" class="text-xl md:text-2xl font-black mb-1 flex items-center gap-2 tracking-tight"><i class="fas fa-sun text-amber-300"></i> Good Morning</h2>
+                                    <p class="text-slate-400 text-[10px] md:text-xs font-bold uppercase tracking-widest">Total Available Balance</p>
                                 </div>
-                                <div class="grid grid-cols-2 gap-3 md:gap-4 mt-auto">
-                                    <div class="bg-white/10 backdrop-blur-md p-3 md:p-4 rounded-xl md:rounded-2xl border border-white/20">
-                                        <span class="text-[9px] md:text-[10px] uppercase tracking-widest font-bold text-blue-200 block mb-1">Daily Average</span>
-                                        <h4 class="text-lg md:text-2xl font-black text-white amount-text truncate" id="statDailyAvg">₹0</h4>
+                                <div class="chip shadow-sm"></div>
+                            </div>
+                            <div class="z-10 relative mt-6 md:mt-auto">
+                                <h1 class="text-4xl md:text-6xl font-black tracking-tight amount-text" id="statBalance">₹0</h1>
+                                <div class="flex items-center gap-4 mt-4 pt-4 border-t border-white/10">
+                                    <div>
+                                        <p class="text-[8px] md:text-[10px] text-slate-400 font-bold uppercase tracking-widest">Total Income</p>
+                                        <p class="text-sm md:text-lg font-black text-emerald-400 amount-text" id="statIncome">₹0</p>
                                     </div>
-                                    <div class="bg-white/10 backdrop-blur-md p-3 md:p-4 rounded-xl md:rounded-2xl border border-white/20">
-                                        <span class="text-[9px] md:text-[10px] uppercase tracking-widest font-bold text-emerald-200 block mb-1">Safe to Spend</span>
-                                        <h4 class="text-lg md:text-2xl font-black text-emerald-300 amount-text truncate" id="statSafeSpend">₹0</h4>
+                                    <div class="h-6 w-px bg-white/20"></div>
+                                    <div>
+                                        <p class="text-[8px] md:text-[10px] text-slate-400 font-bold uppercase tracking-widest">Total Expense</p>
+                                        <p class="text-sm md:text-lg font-black text-red-400 amount-text" id="statExpense">₹0</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Financial Score & Actions -->
-                        <div class="lg:col-span-1 flex flex-col gap-4 no-print hidden md:flex">
-                            <!-- Score Card -->
-                            <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-[var(--border-color)] shadow-md flex items-center justify-between">
+                        <!-- Right Column: Health Score & Smart Info -->
+                        <div class="lg:col-span-1 flex flex-col gap-4 md:gap-5">
+                            <!-- Health Score -->
+                            <div class="bg-white dark:bg-slate-800 p-5 md:p-6 rounded-2xl md:rounded-3xl border border-[var(--border-color)] shadow-sm flex items-center justify-between">
                                 <div>
-                                    <span class="text-[10px] uppercase tracking-widest font-black text-slate-400 block mb-1">Health Score</span>
+                                    <span class="text-[10px] md:text-[11px] uppercase tracking-widest font-black text-slate-400 block mb-1">Health Score</span>
                                     <div class="flex items-baseline gap-1">
-                                        <span class="text-3xl font-black text-[var(--text-primary)] leading-none" id="healthScoreNum">--</span>
-                                        <span class="text-sm font-bold text-slate-400">/100</span>
+                                        <span class="text-3xl md:text-4xl font-black text-[var(--text-primary)] leading-none" id="healthScoreNum">--</span>
+                                        <span class="text-xs md:text-sm font-bold text-slate-400">/100</span>
                                     </div>
                                 </div>
-                                <div id="healthScoreIcon" class="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-xl">
+                                <div id="healthScoreIcon" class="w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-xl md:text-2xl">
                                     <i class="fas fa-trophy text-slate-400"></i>
                                 </div>
                             </div>
                             
-                            <!-- Desktop specific action buttons -->
-                            <button onclick="openModal('EXPENSE')" class="flex-1 bg-gradient-to-r from-red-600 to-rose-500 hover:from-red-700 hover:to-rose-600 text-white p-4 rounded-2xl shadow-lg shadow-red-500/20 transition-all duration-300 hover:-translate-y-1 active:scale-[0.98] flex items-center gap-4 group">
-                                <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center group-hover:scale-110 transition-transform"><i class="fas fa-minus text-lg"></i></div>
-                                <div class="text-left">
-                                    <p class="font-black text-base leading-none uppercase tracking-widest mb-1">Add Expense</p>
-                                    <p class="text-[9px] font-bold text-red-100 uppercase tracking-widest opacity-80">Record money spent</p>
+                            <!-- Smart Daily Insights -->
+                            <div class="grid grid-cols-2 gap-4 md:gap-5 h-full">
+                                <div class="bg-blue-50 dark:bg-blue-900/20 p-4 md:p-5 rounded-2xl md:rounded-3xl border border-blue-100 dark:border-blue-800/50 flex flex-col justify-center">
+                                    <span class="text-[9px] md:text-[10px] uppercase tracking-widest font-black text-sarathy-blue dark:text-sky-400 block mb-1.5"><i class="fas fa-chart-pie mr-1"></i> Daily Avg</span>
+                                    <h4 class="text-lg md:text-2xl font-black text-[var(--text-primary)] amount-text truncate" id="statDailyAvg">₹0</h4>
                                 </div>
-                            </button>
-                        </div>
-                        
-                        <!-- Mobile Health Score Card (Shown only on small screens) -->
-                        <div class="md:hidden bg-white dark:bg-slate-800 p-4 rounded-xl border border-[var(--border-color)] shadow-sm flex items-center justify-between animate-up" style="animation-delay: 0.15s;">
-                            <div>
-                                <span class="text-[9px] uppercase tracking-widest font-black text-slate-400 block mb-1">Health Score</span>
-                                <div class="flex items-baseline gap-1">
-                                    <span class="text-2xl font-black text-[var(--text-primary)] leading-none" id="healthScoreNumMobile">--</span>
-                                    <span class="text-xs font-bold text-slate-400">/100</span>
+                                <div class="bg-emerald-50 dark:bg-emerald-900/20 p-4 md:p-5 rounded-2xl md:rounded-3xl border border-emerald-100 dark:border-emerald-800/50 flex flex-col justify-center">
+                                    <span class="text-[9px] md:text-[10px] uppercase tracking-widest font-black text-emerald-600 dark:text-emerald-400 block mb-1.5"><i class="fas fa-shield-check mr-1"></i> Safe Spend</span>
+                                    <h4 class="text-lg md:text-2xl font-black text-[var(--text-primary)] amount-text truncate" id="statSafeSpend">₹0</h4>
                                 </div>
-                            </div>
-                            <div id="healthScoreIconMobile" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-lg">
-                                <i class="fas fa-trophy text-slate-400"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Stats Grid -->
-                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 animate-up" style="animation-delay: 0.1s;">
-                        <div class="modern-card p-4 md:p-6 flex flex-col relative overflow-hidden group/stat border-b-4 border-b-sarathy-blue rounded-xl md:rounded-2xl">
-                            <div class="absolute -top-4 -right-4 w-20 h-20 md:w-24 md:h-24 bg-blue-50 dark:bg-blue-900/20 rounded-full flex items-center justify-center transition-transform duration-500 group-hover/stat:scale-150 pointer-events-none">
-                                <i class="fas fa-wallet text-sarathy-blue text-2xl md:text-3xl opacity-50"></i>
-                            </div>
-                            <div class="relative z-10">
-                                <span class="text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-widest mb-1 block truncate">Net Balance</span>
-                                <h3 class="text-xl md:text-4xl font-black text-sarathy-blue dark:text-sky-400 tracking-tight amount-text truncate" id="statBalance">₹0</h3>
-                            </div>
-                        </div>
-                        
-                        <div class="modern-card p-4 md:p-6 flex flex-col relative overflow-hidden group/stat border-b-4 border-b-emerald-500 stagger-1 rounded-xl md:rounded-2xl">
-                            <div class="absolute -top-4 -right-4 w-20 h-20 md:w-24 md:h-24 bg-emerald-50 dark:bg-emerald-900/20 rounded-full flex items-center justify-center transition-transform duration-500 group-hover/stat:scale-150 pointer-events-none">
-                                <i class="fas fa-arrow-down text-emerald-500 text-2xl md:text-3xl opacity-50"></i>
-                            </div>
-                            <div class="relative z-10">
-                                <span class="text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-widest mb-1 block truncate">Total Income</span>
-                                <h3 class="text-xl md:text-4xl font-black text-emerald-500 tracking-tight amount-text truncate" id="statIncome">₹0</h3>
-                            </div>
-                        </div>
-                        
-                        <div class="modern-card p-4 md:p-6 flex flex-col relative overflow-hidden group/stat border-b-4 border-b-red-500 stagger-2 rounded-xl md:rounded-2xl">
-                            <div class="absolute -top-4 -right-4 w-20 h-20 md:w-24 md:h-24 bg-red-50 dark:bg-red-900/20 rounded-full flex items-center justify-center transition-transform duration-500 group-hover/stat:scale-150 pointer-events-none">
-                                <i class="fas fa-arrow-up text-red-500 text-2xl md:text-3xl opacity-50"></i>
-                            </div>
-                            <div class="relative z-10">
-                                <span class="text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-widest mb-1 block truncate">Total Expenses</span>
-                                <h3 class="text-xl md:text-4xl font-black text-red-500 tracking-tight amount-text truncate" id="statExpense">₹0</h3>
-                            </div>
-                        </div>
-                        
-                        <div class="modern-card p-4 md:p-6 flex flex-col relative overflow-hidden group/stat border-b-4 border-b-amber-500 stagger-3 rounded-xl md:rounded-2xl">
-                            <div class="absolute -top-4 -right-4 w-20 h-20 md:w-24 md:h-24 bg-amber-50 dark:bg-amber-900/20 rounded-full flex items-center justify-center transition-transform duration-500 group-hover/stat:scale-150 pointer-events-none">
-                                <i class="fas fa-fire text-amber-500 text-2xl md:text-3xl opacity-50"></i>
-                            </div>
-                            <div class="relative z-10">
-                                <span class="text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-widest mb-1 block truncate">Top Category</span>
-                                <h3 class="text-sm md:text-xl font-black text-[var(--text-primary)] mt-1 md:mt-2 uppercase tracking-wide truncate" id="statTopCategory">N/A</h3>
                             </div>
                         </div>
                     </div>
 
                     <!-- Layout for Progress & Recent Updates -->
-                    <div class="grid grid-cols-1 xl:grid-cols-3 gap-5 md:gap-6 animate-up" style="animation-delay: 0.3s;">
-                        
+                    <div class="grid grid-cols-1 xl:grid-cols-3 gap-5 md:gap-6 animate-up" style="animation-delay: 0.2s;">
                         <!-- Budget Progress -->
                         <div class="xl:col-span-2">
                             <div class="flex justify-between items-center mb-4 md:mb-5">
@@ -508,7 +425,7 @@
                                 </h3>
                                 <button onclick="switchTab('transactions')" class="no-print text-[9px] md:text-[10px] font-black uppercase text-[var(--text-secondary)] hover:text-sarathy-blue tracking-widest px-2 py-1 transition-colors">View All</button>
                             </div>
-                            <div class="modern-card p-0 overflow-hidden h-auto md:h-[calc(100%-3rem)] md:min-h-[350px] shadow-sm md:shadow-lg rounded-xl md:rounded-2xl">
+                            <div class="modern-card p-0 overflow-hidden h-auto md:h-[calc(100%-3rem)] md:min-h-[350px] shadow-sm md:shadow-lg rounded-xl md:rounded-2xl border border-[var(--border-color)]">
                                 <div id="recentTransactionsList" class="flex flex-col h-full max-h-[300px] md:max-h-none overflow-y-auto custom-scroll divide-y divide-[var(--border-color)]">
                                     <!-- Populated dynamically -->
                                 </div>
@@ -577,7 +494,67 @@
                     </div>
                 </div>
 
-                <!-- TAB 3: CALENDAR -->
+                <!-- NEW: TAB 3: LOANS & DEBTS -->
+                <div id="tab-loans" class="tab-content custom-scroll p-4 md:p-8 max-w-7xl mx-auto">
+                    <div class="mb-4 md:mb-6 animate-up flex flex-col sm:flex-row sm:items-end justify-between gap-4 no-print">
+                        <div>
+                            <h2 class="text-2xl md:text-3xl font-black uppercase text-[var(--text-primary)] tracking-tight text-purple-600 dark:text-purple-400"><i class="fas fa-hand-holding-usd mr-2"></i> Loans & Debts</h2>
+                            <p class="text-[var(--text-secondary)] text-[10px] md:text-sm font-bold mt-1 md:mt-2 uppercase tracking-widest">Track who owes you and whom you owe.</p>
+                        </div>
+                        <button onclick="openLoanModal()" class="px-5 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-black text-[10px] md:text-xs uppercase tracking-widest shadow-md transition-all active:scale-95 flex items-center justify-center gap-2 shrink-0">
+                            <i class="fas fa-plus"></i> Add New Record
+                        </button>
+                    </div>
+
+                    <!-- Overall Loans Stats -->
+                    <div class="grid grid-cols-2 gap-3 md:gap-5 mb-5 md:mb-8 animate-up" style="animation-delay: 0.1s;">
+                        <div class="modern-card p-4 md:p-6 flex flex-col items-center justify-center border-t-4 border-t-emerald-500 shadow-sm rounded-xl md:rounded-2xl">
+                            <span class="text-[9px] md:text-[10px] uppercase tracking-widest font-black text-slate-400 mb-1.5 md:mb-2">Total To Receive</span>
+                            <h3 class="text-2xl md:text-4xl font-black text-emerald-500 amount-text" id="totalToReceive">₹0</h3>
+                        </div>
+                        <div class="modern-card p-4 md:p-6 flex flex-col items-center justify-center border-t-4 border-t-red-500 shadow-sm rounded-xl md:rounded-2xl">
+                            <span class="text-[9px] md:text-[10px] uppercase tracking-widest font-black text-slate-400 mb-1.5 md:mb-2">Total To Pay</span>
+                            <h3 class="text-2xl md:text-4xl font-black text-red-500 amount-text" id="totalToPay">₹0</h3>
+                        </div>
+                    </div>
+
+                    <!-- Loans Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 animate-up" style="animation-delay: 0.2s;" id="loansGrid">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- TAB 4: SAVINGS -->
+                <div id="tab-savings" class="tab-content custom-scroll p-4 md:p-8 max-w-7xl mx-auto">
+                    <div class="mb-4 md:mb-6 animate-up flex flex-col sm:flex-row sm:items-end justify-between gap-4 no-print">
+                        <div>
+                            <h2 class="text-2xl md:text-3xl font-black uppercase text-[var(--text-primary)] tracking-tight text-emerald-600 dark:text-emerald-400"><i class="fas fa-piggy-bank mr-2"></i> Savings Goals</h2>
+                            <p class="text-[var(--text-secondary)] text-[10px] md:text-sm font-bold mt-1 md:mt-2 uppercase tracking-widest">Track and achieve your financial dreams.</p>
+                        </div>
+                        <button onclick="openGoalModal()" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-black text-[10px] md:text-xs uppercase tracking-widest shadow-md transition-all active:scale-95 flex items-center justify-center gap-2 shrink-0">
+                            <i class="fas fa-plus"></i> Add New Goal
+                        </button>
+                    </div>
+
+                    <!-- Overall Savings Stats -->
+                    <div class="grid grid-cols-2 gap-3 md:gap-5 mb-5 md:mb-8 animate-up" style="animation-delay: 0.1s;">
+                        <div class="modern-card p-4 md:p-6 flex flex-col items-center justify-center border-t-4 border-t-emerald-500 shadow-sm rounded-xl md:rounded-2xl">
+                            <span class="text-[9px] md:text-[10px] uppercase tracking-widest font-black text-slate-400 mb-1.5 md:mb-2">Total Saved</span>
+                            <h3 class="text-2xl md:text-4xl font-black text-emerald-500 amount-text" id="totalSavedAmount">₹0</h3>
+                        </div>
+                        <div class="modern-card p-4 md:p-6 flex flex-col items-center justify-center border-t-4 border-t-sarathy-blue shadow-sm rounded-xl md:rounded-2xl">
+                            <span class="text-[9px] md:text-[10px] uppercase tracking-widest font-black text-slate-400 mb-1.5 md:mb-2">Total Target</span>
+                            <h3 class="text-2xl md:text-4xl font-black text-sarathy-blue amount-text" id="totalTargetAmount">₹0</h3>
+                        </div>
+                    </div>
+
+                    <!-- Goals Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 animate-up" style="animation-delay: 0.2s;" id="savingsGoalsGrid">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- TAB 5: CALENDAR -->
                 <div id="tab-calendar" class="tab-content custom-scroll p-4 md:p-8 max-w-7xl mx-auto">
                     <div class="modern-card p-3 md:p-8 h-full flex flex-col min-h-[500px] md:min-h-[600px] shadow-sm md:shadow-lg rounded-xl md:rounded-2xl">
                         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 md:mb-8 pb-3 md:pb-4 border-b border-[var(--border-color)] gap-3">
@@ -603,7 +580,7 @@
                     </div>
                 </div>
 
-                <!-- TAB 4: ANALYTICS -->
+                <!-- TAB 6: ANALYTICS -->
                 <div id="tab-analytics" class="tab-content custom-scroll p-4 md:p-8 max-w-7xl mx-auto">
                     
                     <div class="mb-6 md:mb-8 flex flex-col md:flex-row justify-between items-start md:items-center bg-[var(--bg-secondary)] p-4 md:p-6 rounded-2xl md:rounded-3xl border border-[var(--border-color)] shadow-sm md:shadow-md gap-4 animate-up no-print">
@@ -645,36 +622,6 @@
                             <h3 class="font-black text-[11px] md:text-base uppercase tracking-widest text-[var(--text-primary)] mb-4 md:mb-6 w-full border-b border-[var(--border-color)] pb-3 md:pb-4 flex items-center gap-2"><i class="fas fa-credit-card text-purple-500"></i> Payment Methods Breakdown</h3>
                             <div class="w-full h-[200px] md:h-[320px] relative"><canvas id="methodChart"></canvas></div>
                         </div>
-                    </div>
-                </div>
-
-                <!-- NEW: TAB 6: SAVINGS -->
-                <div id="tab-savings" class="tab-content custom-scroll p-4 md:p-8 max-w-7xl mx-auto">
-                    <div class="mb-4 md:mb-6 animate-up flex flex-col sm:flex-row sm:items-end justify-between gap-4 no-print">
-                        <div>
-                            <h2 class="text-2xl md:text-3xl font-black uppercase text-[var(--text-primary)] tracking-tight text-emerald-600 dark:text-emerald-400"><i class="fas fa-piggy-bank mr-2"></i> Savings Goals</h2>
-                            <p class="text-[var(--text-secondary)] text-[10px] md:text-sm font-bold mt-1 md:mt-2 uppercase tracking-widest">Track and achieve your financial dreams.</p>
-                        </div>
-                        <button onclick="openGoalModal()" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-black text-[10px] md:text-xs uppercase tracking-widest shadow-md transition-all active:scale-95 flex items-center justify-center gap-2 shrink-0">
-                            <i class="fas fa-plus"></i> Add New Goal
-                        </button>
-                    </div>
-
-                    <!-- Overall Savings Stats -->
-                    <div class="grid grid-cols-2 gap-3 md:gap-5 mb-5 md:mb-8 animate-up" style="animation-delay: 0.1s;">
-                        <div class="modern-card p-4 md:p-6 flex flex-col items-center justify-center border-t-4 border-t-emerald-500 shadow-sm rounded-xl md:rounded-2xl">
-                            <span class="text-[9px] md:text-[10px] uppercase tracking-widest font-black text-slate-400 mb-1.5 md:mb-2">Total Saved</span>
-                            <h3 class="text-2xl md:text-4xl font-black text-emerald-500 amount-text" id="totalSavedAmount">₹0</h3>
-                        </div>
-                        <div class="modern-card p-4 md:p-6 flex flex-col items-center justify-center border-t-4 border-t-sarathy-blue shadow-sm rounded-xl md:rounded-2xl">
-                            <span class="text-[9px] md:text-[10px] uppercase tracking-widest font-black text-slate-400 mb-1.5 md:mb-2">Total Target</span>
-                            <h3 class="text-2xl md:text-4xl font-black text-sarathy-blue amount-text" id="totalTargetAmount">₹0</h3>
-                        </div>
-                    </div>
-
-                    <!-- Goals Grid -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 animate-up" style="animation-delay: 0.2s;" id="savingsGoalsGrid">
-                        <!-- Populated by JS -->
                     </div>
                 </div>
 
@@ -816,35 +763,46 @@
                 </div>
             </div>
             
-            <!-- BOTTOM NAVIGATION (MOBILE) -->
+            <!-- BOTTOM NAVIGATION (MOBILE) WITH MULTI-FAB -->
             <nav class="md:hidden fixed bottom-0 left-0 w-full bg-[var(--bg-secondary)] border-t border-[var(--border-color)] z-[90] flex justify-between items-center pb-safe pt-2 px-1 sm:px-2 shadow-[0_-5px_15px_rgba(0,0,0,0.05)] transition-colors duration-300 no-print">
                 <a onclick="switchTab('dashboard')" id="bottom-nav-dashboard" class="flex flex-col items-center p-1.5 text-sarathy-blue dark:text-sky-400 transition-colors flex-1 bottom-nav-link active">
-                    <i class="fas fa-home text-[16px] mb-1"></i>
+                    <i class="fas fa-wallet text-[16px] mb-1"></i>
                     <span class="text-[8px] font-bold tracking-widest">Home</span>
                 </a>
                 <a onclick="switchTab('transactions')" id="bottom-nav-transactions" class="flex flex-col items-center p-1.5 text-[var(--text-secondary)] hover:text-sarathy-blue transition-colors flex-1 bottom-nav-link">
                     <i class="fas fa-list-alt text-[16px] mb-1"></i>
                     <span class="text-[8px] font-bold tracking-widest">List</span>
                 </a>
+                
+                <!-- Center Add Button with expanding menu -->
+                <div class="relative -top-5 flex-shrink-0 px-1 z-50">
+                    <div id="fabMenu" class="fab-menu">
+                        <div class="relative flex items-center justify-end">
+                            <span class="fab-label">Income</span>
+                            <button onclick="openModal('INCOME'); toggleFabMenu()" class="fab-item bg-emerald-500 hover:bg-emerald-600"><i class="fas fa-arrow-down"></i></button>
+                        </div>
+                        <div class="relative flex items-center justify-end">
+                            <span class="fab-label">Expense</span>
+                            <button onclick="openModal('EXPENSE'); toggleFabMenu()" class="fab-item bg-red-500 hover:bg-red-600"><i class="fas fa-arrow-up"></i></button>
+                        </div>
+                        <div class="relative flex items-center justify-end">
+                            <span class="fab-label">Loan/Debt</span>
+                            <button onclick="openLoanModal(); toggleFabMenu()" class="fab-item bg-purple-500 hover:bg-purple-600"><i class="fas fa-hand-holding-usd"></i></button>
+                        </div>
+                    </div>
+                    <button onclick="toggleFabMenu()" id="mainFabBtn" class="w-14 h-14 bg-gradient-to-tr from-sarathy-blue to-sky-400 rounded-full text-white shadow-lg shadow-blue-500/40 flex items-center justify-center text-xl hover:scale-105 active:scale-95 transition-all">
+                        <i id="mainFabIcon" class="fas fa-plus transition-transform duration-300"></i>
+                    </button>
+                </div>
+
                 <a onclick="switchTab('savings')" id="bottom-nav-savings" class="flex flex-col items-center p-1.5 text-[var(--text-secondary)] hover:text-sarathy-blue transition-colors flex-1 bottom-nav-link">
                     <i class="fas fa-piggy-bank text-[16px] mb-1"></i>
                     <span class="text-[8px] font-bold tracking-widest">Save</span>
                 </a>
-                
-                <!-- Center Add Button -->
-                <div class="relative -top-5 flex-shrink-0 px-1">
-                    <button onclick="openModal('EXPENSE')" class="w-12 h-12 bg-gradient-to-tr from-sarathy-blue to-sky-400 rounded-full text-white shadow-lg shadow-blue-500/40 flex items-center justify-center text-xl hover:scale-105 active:scale-95 transition-all">
-                        <i class="fas fa-plus"></i>
-                    </button>
-                </div>
-
-                <a onclick="switchTab('challenge')" id="bottom-nav-challenge" class="flex flex-col items-center p-1.5 text-[var(--text-secondary)] hover:text-sarathy-blue transition-colors flex-1 bottom-nav-link">
-                    <i class="fas fa-shield-alt text-[16px] mb-1"></i>
-                    <span class="text-[8px] font-bold tracking-widest">90 Days</span>
-                </a>
-                <a onclick="switchTab('analytics')" id="bottom-nav-analytics" class="flex flex-col items-center p-1.5 text-[var(--text-secondary)] hover:text-sarathy-blue transition-colors flex-1 bottom-nav-link">
-                    <i class="fas fa-chart-pie text-[16px] mb-1"></i>
-                    <span class="text-[8px] font-bold tracking-widest">Stats</span>
+                <!-- More Menu triggering sidebar for remaining tabs -->
+                <a onclick="toggleSidebarMobile()" class="flex flex-col items-center p-1.5 text-[var(--text-secondary)] hover:text-sarathy-blue transition-colors flex-1 bottom-nav-link">
+                    <i class="fas fa-ellipsis-h text-[16px] mb-1"></i>
+                    <span class="text-[8px] font-bold tracking-widest">More</span>
                 </a>
             </nav>
 
@@ -852,6 +810,45 @@
             <button id="addBtn" onclick="openModal('EXPENSE')" class="fab hidden md:flex no-print" title="Add Transaction"><i class="fas fa-plus text-lg md:text-xl"></i></button>
             
         </main>
+    </div>
+
+    <!-- LOANS MODAL (NEW) -->
+    <div id="loanModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[110] hidden flex justify-center items-end md:items-center p-0 md:p-4 transition-opacity duration-300 no-print">
+        <div class="bg-[var(--bg-secondary)] w-full max-w-md rounded-t-3xl md:rounded-3xl shadow-2xl flex flex-col modal-animate border border-[var(--border-color)] pb-6 md:pb-0">
+            <div class="p-4 md:p-6 border-b border-[var(--border-color)] flex justify-between items-center bg-[var(--bg-secondary)] z-10 rounded-t-3xl shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-xl bg-purple-50 dark:bg-purple-900/30 text-purple-500 flex items-center justify-center"><i class="fas fa-hand-holding-usd"></i></div>
+                    <h2 class="text-base md:text-lg font-black uppercase text-[var(--text-primary)] tracking-tight" id="loanModalTitle">Add Loan / Debt</h2>
+                </div>
+                <button onclick="closeLoanModal()" class="w-8 h-8 rounded-full bg-[var(--bg-primary)] flex items-center justify-center hover:bg-red-50 hover:text-red-500 transition-colors shrink-0"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="loanForm" class="p-4 md:p-6 space-y-4">
+                <input type="hidden" id="loanEditId">
+                <div class="flex gap-2 p-1 bg-slate-100 dark:bg-slate-800 rounded-xl">
+                    <button type="button" id="btnLoanGiven" onclick="setLoanType('GIVEN')" class="flex-1 py-2 rounded-lg text-xs font-black uppercase tracking-widest bg-white dark:bg-slate-600 shadow-sm text-emerald-600 transition-all">I Gave (To Receive)</button>
+                    <button type="button" id="btnLoanTaken" onclick="setLoanType('TAKEN')" class="flex-1 py-2 rounded-lg text-xs font-black uppercase tracking-widest text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-all">I Took (To Pay)</button>
+                </div>
+                <input type="hidden" id="loanType" value="GIVEN">
+                
+                <div>
+                    <label class="text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-widest mb-1.5 ml-1">Person Name</label>
+                    <input type="text" id="loanPerson" required class="w-full p-3.5 bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-xl font-bold text-xs uppercase outline-none focus:border-purple-500 dark:text-white transition-colors" placeholder="Who?">
+                </div>
+                <div>
+                    <label class="text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-widest mb-1.5 ml-1">Amount (₹)</label>
+                    <div class="relative">
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 font-black text-slate-400">₹</span>
+                        <input type="number" id="loanAmount" required min="1" class="w-full pl-8 pr-4 py-3.5 bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-xl font-black text-xs outline-none focus:border-purple-500 dark:text-white transition-colors" placeholder="0">
+                    </div>
+                </div>
+                <div>
+                    <label class="text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-widest mb-1.5 ml-1">Date</label>
+                    <input type="date" id="loanDate" required class="w-full p-3.5 bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-xl font-bold text-xs outline-none focus:border-purple-500 dark:text-white transition-colors dark:[color-scheme:dark]">
+                </div>
+                
+                <button type="submit" class="w-full mt-4 py-3.5 bg-purple-600 text-white rounded-xl font-black text-[10px] md:text-xs uppercase tracking-widest hover:bg-purple-700 transition-all shadow-lg shadow-purple-500/30 active:scale-95">Save Record</button>
+            </form>
+        </div>
     </div>
 
     <!-- TRANSACTION MODAL -->
@@ -1055,7 +1052,8 @@
         const CURRENT_DB_VERSION = 'expense_db_v4'; // STRICTLY PRESERVING YOUR DATA KEY
         const CURRENT_BUDGET_VERSION = 'expense_budget_v4';
         const CHALLENGE_DB_KEY = 'sarathy_nofap_v1'; 
-        const SAVINGS_DB_KEY = 'expense_savings_v1'; // NEW key for savings
+        const SAVINGS_DB_KEY = 'expense_savings_v1';
+        const LOANS_DB_KEY = 'expense_loans_v1'; // NEW key for Loans
 
         let localUsers = JSON.parse(localStorage.getItem('expense_users_v1'));
         if (!localUsers) {
@@ -1077,15 +1075,9 @@
             {dept: 'EMI', target: 1738}
         ];
 
-        // Challenge Data
-        let challengeData = JSON.parse(localStorage.getItem(CHALLENGE_DB_KEY)) || {
-            startDate: null,
-            bestStreak: 0,
-            relapses: 0
-        };
-
-        // Savings Data
+        let challengeData = JSON.parse(localStorage.getItem(CHALLENGE_DB_KEY)) || { startDate: null, bestStreak: 0, relapses: 0 };
         let savingsGoals = JSON.parse(localStorage.getItem(SAVINGS_DB_KEY)) || [];
+        let loansData = JSON.parse(localStorage.getItem(LOANS_DB_KEY)) || [];
         
         let currentTab = 'dashboard';
         let tabHistory = []; 
@@ -1123,7 +1115,7 @@
                 t.classList.remove('opacity-0', 'translate-y-40');
                 
                 try {
-                    if (type === 'success' && (msg.includes('Saved') || msg.includes('Started') || msg.includes('Deposited'))) {
+                    if (type === 'success' && (msg.includes('Saved') || msg.includes('Started') || msg.includes('Deposited') || msg.includes('Settled'))) {
                         successSound.currentTime = 0;
                         successSound.play().catch(e => console.log('Audio error:', e));
                     } else {
@@ -1179,6 +1171,21 @@
                     pIcon.classList.replace('fa-eye-slash', 'fa-eye');
                     pIcon.classList.remove('text-indigo-500');
                 }
+            }
+        };
+
+        // MULTI-FAB MENU TOGGLE
+        let isFabOpen = false;
+        const toggleFabMenu = () => {
+            isFabOpen = !isFabOpen;
+            const menu = document.getElementById('fabMenu');
+            const icon = document.getElementById('mainFabIcon');
+            if(isFabOpen) {
+                if(menu) menu.classList.add('active');
+                if(icon) icon.style.transform = 'rotate(45deg)';
+            } else {
+                if(menu) menu.classList.remove('active');
+                if(icon) icon.style.transform = 'rotate(0deg)';
             }
         };
 
@@ -1245,6 +1252,41 @@
                 }, 500);
             }, 1500); 
         };
+
+        // Added missing calculateHealthScore function here
+        const calculateHealthScore = (income, expense, budgets, currentMonthTxns) => {
+            if(income === 0 && expense === 0) return { score: 100, color: 'text-blue-500', icon: 'fa-trophy', bg: 'bg-blue-50 dark:bg-blue-900/30' };
+            
+            let score = 50; 
+            
+            const savings = income - expense;
+            if(income > 0) {
+                const savingsRate = (savings / income) * 100;
+                if(savingsRate > 20) score += 30;
+                else if(savingsRate > 10) score += 15;
+                else if(savingsRate > 0) score += 5;
+                else score -= 20; 
+            }
+
+            let budgetViolations = 0;
+            budgets.forEach(b => {
+                const spent = currentMonthTxns.filter(t => t.type==='EXPENSE' && t.category === b.dept).reduce((s, t) => s + parseFloat(t.amount), 0);
+                if(spent > b.target) budgetViolations++;
+            });
+            
+            if(budgets.length > 0) {
+                if(budgetViolations === 0) score += 20;
+                else score -= (budgetViolations * 10);
+            } else {
+                score += 10; 
+            }
+
+            score = Math.max(0, Math.min(100, Math.round(score))); 
+            
+            if(score >= 80) return { score, color: 'text-emerald-500', icon: 'fa-shield-check', bg: 'bg-emerald-50 dark:bg-emerald-900/30' };
+            if(score >= 50) return { score, color: 'text-amber-500', icon: 'fa-exclamation-circle', bg: 'bg-amber-50 dark:bg-amber-900/30' };
+            return { score, color: 'text-red-500', icon: 'fa-skull-crossbones', bg: 'bg-red-50 dark:bg-red-900/30' };
+        };
         
         const showApp = () => {
             document.getElementById('loginPage')?.classList.add('hidden');
@@ -1273,13 +1315,14 @@
             renderCalendar();
             renderChallenge();
             renderSavings();
+            renderLoans();
             checkNotifications();
         };
         
         const logout = () => location.reload();
 
         // --- NAVIGATION ---
-        const toggleSidebar = () => {
+        const toggleSidebarMobile = () => {
             document.getElementById('sidebar')?.classList.toggle('-translate-x-full');
             document.getElementById('mobileOverlay')?.classList.toggle('hidden');
         };
@@ -1297,7 +1340,7 @@
                 if(el.id === `nav-${tab}`) el.classList.add('active');
             });
             
-            // Mobile Bottom Nav
+            // Mobile Bottom Nav Highlights
             document.querySelectorAll('.bottom-nav-link').forEach(el => {
                 el.classList.remove('text-sarathy-blue', 'dark:text-sky-400', 'active');
                 el.classList.add('text-[var(--text-secondary)]');
@@ -1314,6 +1357,7 @@
                 dashboard: 'Financial Dashboard', 
                 transactions: 'All Transactions', 
                 savings: 'Savings Goals',
+                loans: 'Loans & Debts Tracker',
                 calendar: 'Expense Calendar', 
                 analytics: 'Financial Reports',
                 challenge: '90 Days Challenge',
@@ -1328,15 +1372,6 @@
                 drHeader.style.display = tab === 'dashboard' ? 'block' : 'none';
             }
 
-            const backBtn = document.getElementById('backBtn');
-            if (backBtn) {
-                if (tabHistory.length > 0) {
-                    backBtn.classList.remove('hidden');
-                } else {
-                    backBtn.classList.add('hidden');
-                }
-            }
-
             if (window.innerWidth < 768) {
                 document.getElementById('sidebar')?.classList.add('-translate-x-full');
                 document.getElementById('mobileOverlay')?.classList.add('hidden');
@@ -1344,12 +1379,137 @@
 
             if(tab === 'analytics') initCharts();
             if(tab === 'savings') renderSavings();
+            if(tab === 'loans') renderLoans();
         };
 
         const goBack = () => {
             if (tabHistory.length > 0) {
                 const prevTab = tabHistory.pop();
                 switchTab(prevTab, true);
+            }
+        };
+
+        // --- LOANS & DEBTS LOGIC ---
+        const setLoanType = (type) => {
+            document.getElementById('loanType').value = type;
+            if(type === 'GIVEN') {
+                document.getElementById('btnLoanGiven').className = 'flex-1 py-2 rounded-lg text-xs font-black uppercase tracking-widest bg-white dark:bg-slate-600 shadow-sm text-emerald-600 transition-all';
+                document.getElementById('btnLoanTaken').className = 'flex-1 py-2 rounded-lg text-xs font-black uppercase tracking-widest text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-all';
+            } else {
+                document.getElementById('btnLoanTaken').className = 'flex-1 py-2 rounded-lg text-xs font-black uppercase tracking-widest bg-white dark:bg-slate-600 shadow-sm text-red-600 transition-all';
+                document.getElementById('btnLoanGiven').className = 'flex-1 py-2 rounded-lg text-xs font-black uppercase tracking-widest text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-all';
+            }
+        };
+
+        const openLoanModal = () => {
+            document.getElementById('loanForm')?.reset();
+            document.getElementById('loanEditId').value = '';
+            setLoanType('GIVEN');
+            document.getElementById('loanDate').value = new Date().toISOString().slice(0,10);
+            document.getElementById('loanModalTitle').innerText = "Add Loan / Debt";
+            document.getElementById('loanModal')?.classList.remove('hidden');
+        };
+
+        const closeLoanModal = () => {
+            document.getElementById('loanModal')?.classList.add('hidden');
+        };
+
+        document.getElementById('loanForm')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const data = {
+                id: document.getElementById('loanEditId').value ? parseInt(document.getElementById('loanEditId').value) : Date.now(),
+                type: document.getElementById('loanType').value,
+                person: document.getElementById('loanPerson').value.trim().toUpperCase(),
+                amount: parseFloat(document.getElementById('loanAmount').value) || 0,
+                date: document.getElementById('loanDate').value,
+                status: 'PENDING'
+            };
+            
+            const idx = loansData.findIndex(x=>x.id===data.id);
+            if(idx>-1) loansData[idx] = data; else loansData.push(data);
+            
+            localStorage.setItem(LOANS_DB_KEY, JSON.stringify(loansData));
+            closeLoanModal(); 
+            renderLoans();
+            showToast("Record Saved!", "success");
+        });
+
+        const renderLoans = () => {
+            let toReceive = 0;
+            let toPay = 0;
+            const grid = document.getElementById('loansGrid');
+            if(!grid) return;
+            grid.innerHTML = '';
+
+            loansData.sort((a,b) => new Date(b.date) - new Date(a.date)).forEach(l => {
+                if(l.status === 'PENDING') {
+                    if(l.type === 'GIVEN') toReceive += l.amount;
+                    else toPay += l.amount;
+                }
+
+                const isGiven = l.type === 'GIVEN';
+                const color = isGiven ? 'emerald' : 'red';
+                const icon = isGiven ? 'fa-arrow-right' : 'fa-arrow-left';
+                const labelText = isGiven ? 'Owes You' : 'You Owe';
+                const isSettled = l.status === 'SETTLED';
+
+                grid.innerHTML += `
+                    <div class="modern-card p-5 relative border-l-4 border-l-${isSettled ? 'slate-400' : color+'-500'} ${isSettled ? 'opacity-60' : ''}">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-${isSettled ? 'slate-100' : color+'-50'} flex items-center justify-center text-${isSettled ? 'slate-400' : color+'-500'} text-lg">
+                                    <i class="fas ${isSettled ? 'fa-check-circle' : icon}"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-black text-[var(--text-primary)] uppercase tracking-wide truncate max-w-[120px]">${l.person}</h3>
+                                    <p class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">${formatDateString(l.date)}</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <span class="block text-xl font-black amount-text ${isSettled ? 'text-slate-500 line-through' : 'text-'+color+'-500'}">${formatCurrency(l.amount)}</span>
+                                <span class="text-[8px] font-black uppercase tracking-widest text-slate-400">${isSettled ? 'SETTLED' : labelText}</span>
+                            </div>
+                        </div>
+                        ${!isSettled ? `
+                        <div class="flex gap-2 mt-4 pt-4 border-t border-[var(--border-color)]">
+                            <button onclick="settleLoan(${l.id})" class="flex-1 py-2 bg-${color}-50 hover:bg-${color}-500 text-${color}-600 hover:text-white rounded-lg font-black text-[10px] uppercase tracking-widest transition-colors"><i class="fas fa-check-circle mr-1"></i> Mark Settled</button>
+                            <button onclick="deleteLoan(${l.id})" class="w-10 bg-slate-50 hover:bg-red-500 text-slate-400 hover:text-white rounded-lg transition-colors"><i class="fas fa-trash text-xs"></i></button>
+                        </div>
+                        ` : `
+                        <div class="flex gap-2 mt-4 pt-4 border-t border-[var(--border-color)]">
+                            <button onclick="deleteLoan(${l.id})" class="w-full py-2 bg-slate-50 hover:bg-red-500 text-slate-400 hover:text-white rounded-lg transition-colors font-black text-[10px] uppercase tracking-widest"><i class="fas fa-trash text-xs mr-1"></i> Remove Record</button>
+                        </div>
+                        `}
+                    </div>
+                `;
+            });
+
+            if(loansData.length === 0) {
+                grid.innerHTML = `<div class="col-span-full p-10 flex flex-col items-center justify-center opacity-50"><i class="fas fa-handshake text-5xl mb-4 text-slate-400"></i><p class="text-xs font-black uppercase tracking-widest text-[var(--text-secondary)]">No active loans or debts.</p></div>`;
+            }
+
+            const trEl = document.getElementById('totalToReceive');
+            const tpEl = document.getElementById('totalToPay');
+            if(trEl) trEl.innerText = formatCurrency(toReceive);
+            if(tpEl) tpEl.innerText = formatCurrency(toPay);
+        };
+
+        const settleLoan = (id) => {
+            const idx = loansData.findIndex(x=>x.id===id);
+            if(idx>-1) {
+                loansData[idx].status = 'SETTLED';
+                localStorage.setItem(LOANS_DB_KEY, JSON.stringify(loansData));
+                renderLoans();
+                showToast("Record Marked as Settled!", "success");
+            }
+        };
+
+        const deleteLoan = (id) => {
+            if(confirm("Are you sure you want to delete this record?")) {
+                loansData = loansData.filter(x=>x.id!==id);
+                localStorage.setItem(LOANS_DB_KEY, JSON.stringify(loansData));
+                renderLoans();
+                showToast("Record Deleted", "error");
             }
         };
 
@@ -1488,7 +1648,6 @@
         const renderChallenge = () => {
             const daysElapsed = getChallengeDaysElapsed();
             
-            // Update Dashboard Widget
             const mobStatus = document.getElementById('mobChallengeStatus');
             const mobDays = document.getElementById('mobChallengeDays');
             
@@ -1500,7 +1659,6 @@
                 if(mobDays) mobDays.innerText = Math.min(daysElapsed, 90);
             }
 
-            // Update Tab Content
             const curEl = document.getElementById('chCurrentDays');
             const bestEl = document.getElementById('chBestDays');
             const relEl = document.getElementById('chRelapses');
@@ -1582,40 +1740,6 @@
                 if(dRange) dRange.innerText = "ALL TIME";
             }
             renderDashboard();
-        };
-
-        const calculateHealthScore = (income, expense, budgets, currentMonthTxns) => {
-            if(income === 0 && expense === 0) return { score: 100, color: 'text-blue-500', icon: 'fa-trophy', bg: 'bg-blue-50 dark:bg-blue-900/30' };
-            
-            let score = 50; // Base score
-            
-            const savings = income - expense;
-            if(income > 0) {
-                const savingsRate = (savings / income) * 100;
-                if(savingsRate > 20) score += 30;
-                else if(savingsRate > 10) score += 15;
-                else if(savingsRate > 0) score += 5;
-                else score -= 20; 
-            }
-
-            let budgetViolations = 0;
-            budgets.forEach(b => {
-                const spent = currentMonthTxns.filter(t => t.type==='EXPENSE' && t.category === b.dept).reduce((s, t) => s + parseFloat(t.amount), 0);
-                if(spent > b.target) budgetViolations++;
-            });
-            
-            if(budgets.length > 0) {
-                if(budgetViolations === 0) score += 20;
-                else score -= (budgetViolations * 10);
-            } else {
-                score += 10; 
-            }
-
-            score = Math.max(0, Math.min(100, Math.round(score))); 
-            
-            if(score >= 80) return { score, color: 'text-emerald-500', icon: 'fa-shield-check', bg: 'bg-emerald-50 dark:bg-emerald-900/30' };
-            if(score >= 50) return { score, color: 'text-amber-500', icon: 'fa-exclamation-circle', bg: 'bg-amber-50 dark:bg-amber-900/30' };
-            return { score, color: 'text-red-500', icon: 'fa-skull-crossbones', bg: 'bg-red-50 dark:bg-red-900/30' };
         };
 
         const renderDashboard = () => {
@@ -2067,11 +2191,11 @@
 
         // --- ANALYTICS / CHARTS ---
         const initCharts = () => {
-            if(!document.getElementById('statusChart')) return;
-            const ctx1 = document.getElementById('statusChart').getContext('2d');
-            const ctx2 = document.getElementById('categoryChart').getContext('2d');
-            const ctx3 = document.getElementById('methodChart').getContext('2d');
+            const ctx1 = document.getElementById('statusChart')?.getContext('2d');
+            const ctx2 = document.getElementById('categoryChart')?.getContext('2d');
+            const ctx3 = document.getElementById('methodChart')?.getContext('2d');
             const ctx4 = document.getElementById('trendChart')?.getContext('2d');
+            if(!ctx1) return;
             
             const isDark = document.documentElement.classList.contains('dark');
             const textColor = isDark ? '#f8fafc' : '#0f172a';
@@ -2218,9 +2342,13 @@
         const openBudgetModal = () => {
             if(!isAdmin()) return showToast("Admin Access Required", "error");
             renderReqEntries();
-            document.getElementById('reqModal')?.classList.remove('hidden');
+            const reqModal = document.getElementById('reqModal');
+            if(reqModal) reqModal.classList.remove('hidden');
         };
-        const closeReqModal = () => document.getElementById('reqModal')?.classList.add('hidden');
+        const closeReqModal = () => {
+            const reqModal = document.getElementById('reqModal');
+            if(reqModal) reqModal.classList.add('hidden');
+        };
 
         const renderReqEntries = () => {
             const container = document.getElementById('reqEntriesContainer');
@@ -2258,8 +2386,8 @@
 
         // --- SETTINGS & DATA MANAGEMENT ---
         const changeAdminPin = () => {
-            const currentPin = document.getElementById('currentPin').value;
-            const newPin = document.getElementById('newPin').value;
+            const currentPin = document.getElementById('currentPin')?.value;
+            const newPin = document.getElementById('newPin')?.value;
 
             if (currentPin !== USERS[0].pass) {
                 return showToast("Current PIN is incorrect!", "error");
@@ -2270,8 +2398,10 @@
 
             USERS[0].pass = newPin;
             localStorage.setItem('expense_users_v1', JSON.stringify(USERS));
-            document.getElementById('currentPin').value = '';
-            document.getElementById('newPin').value = '';
+            const cpEl = document.getElementById('currentPin');
+            if(cpEl) cpEl.value = '';
+            const npEl = document.getElementById('newPin');
+            if(npEl) npEl.value = '';
             showToast("Admin PIN Updated Successfully!");
         };
 
@@ -2283,6 +2413,8 @@
                     localStorage.removeItem(CURRENT_DB_VERSION);
                     localStorage.removeItem(CURRENT_BUDGET_VERSION);
                     localStorage.removeItem(CHALLENGE_DB_KEY);
+                    localStorage.removeItem(SAVINGS_DB_KEY);
+                    localStorage.removeItem(LOANS_DB_KEY);
                     showToast("System Reset Successful. Reloading...", "error");
                     setTimeout(() => location.reload(), 1500);
                 } else {
@@ -2295,7 +2427,7 @@
             if (transactions.length === 0) {
                 return showToast("No database records to export", "error");
             }
-            const dataStr = JSON.stringify({ transactions: transactions, budgets: reqList, challenge: challengeData });
+            const dataStr = JSON.stringify({ transactions: transactions, budgets: reqList, challenge: challengeData, savings: savingsGoals, loans: loansData });
             const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
             const exportFileDefaultName = `Expense_Backup_${new Date().toISOString().slice(0,10)}.json`;
 
@@ -2326,14 +2458,25 @@
                         challengeData = data.challenge;
                         localStorage.setItem(CHALLENGE_DB_KEY, JSON.stringify(challengeData));
                     }
+                    if (data.savings) {
+                        savingsGoals = data.savings;
+                        localStorage.setItem(SAVINGS_DB_KEY, JSON.stringify(savingsGoals));
+                    }
+                    if (data.loans) {
+                        loansData = data.loans;
+                        localStorage.setItem(LOANS_DB_KEY, JSON.stringify(loansData));
+                    }
                     
                     showToast("Database Backup Restored Successfully!");
                     renderTable();
                     renderDashboard();
                     renderCalendar();
                     renderChallenge();
+                    renderSavings();
+                    renderLoans();
                     if(currentTab === 'analytics') initCharts();
-                    document.getElementById('importFile').value = ''; 
+                    const iFile = document.getElementById('importFile');
+                    if(iFile) iFile.value = ''; 
                 } catch (error) {
                     showToast("Invalid Backup File Format", "error");
                 }
