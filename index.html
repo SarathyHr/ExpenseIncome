@@ -153,8 +153,8 @@
         .gradient-text { background: linear-gradient(135deg, #4f46e5, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .dark .gradient-text { background: linear-gradient(135deg, #818cf8, #2dd4bf); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* Professional Data Table */
-        .data-table-container { background: var(--bg-secondary); border-radius: 1.25rem; border: 1px solid var(--border-color); overflow: hidden; box-shadow: var(--card-shadow); max-height: calc(100vh - 240px); overflow-y: auto; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        /* Professional Data Table (FULL VIEW - NO MAX HEIGHT) */
+        .data-table-container { background: var(--bg-secondary); border-radius: 1.25rem; border: 1px solid var(--border-color); overflow: hidden; box-shadow: var(--card-shadow); overflow-x: auto; -webkit-overflow-scrolling: touch; }
         .data-table { width: 100%; border-collapse: collapse; min-width: 600px; }
         .data-table th { 
             background: var(--bg-primary); 
@@ -514,7 +514,7 @@
                         </div>
                     </div>
 
-                    <!-- DATA TABLE -->
+                    <!-- DATA TABLE (UPDATED: NO MAX-HEIGHT FOR FULL VIEW) -->
                     <div class="animate-up">
                         <div class="data-table-container custom-scroll">
                             <div class="overflow-x-auto min-w-full inline-block align-middle">
